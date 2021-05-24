@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\AccountStripeCard;
+use App\StripeSubscription;
 use App\StripeWebhooks;
 use App\Account;
 use App\Coupon;
@@ -30,7 +30,7 @@ class StripeController extends TalkController
       $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
       $sk = ($keys['flag'] == false  || $keys['flag'] == 'false') ? $keys['stripe']['dev_sk'] : $keys['stripe']['live_sk'];
       $stripe = new StripeWebhooks($pk, $sk);
-      $subscription = AccountStripeCard::where('account_id', '=', $accountId)->first();
+      $subscription = StripeSubscription::where('account_id', '=', $accountId)->first();
       if($subscription){
 
 
@@ -66,7 +66,7 @@ class StripeController extends TalkController
           }
 
           $this->updateBilling($accountId);
-          AccountStripeCard::where('account_id', '=', $accountId)->update(
+          StripeSubscription::where('account_id', '=', $accountId)->update(
             array(
               'deleted_at'  => Carbon::now()
             )
@@ -182,7 +182,7 @@ class StripeController extends TalkController
       // check
 
       if($subscription->id){
-        $_stripe_subscription = new AccountStripeCard();
+        $_stripe_subscription = new StripeSubscription();
         $_stripe_subscription->account_id = $data['account_id'];
         $_stripe_subscription->credit_card_id = $data['credit_card_id'];
         $_stripe_subscription->subscription = $subscription->id;
@@ -330,7 +330,7 @@ class StripeController extends TalkController
       // update with prorate, note the prorate will take effect on next billing
       $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
       $sk = ($keys['flag'] == false  || $keys['flag'] == 'false') ? $keys['stripe']['dev_sk'] : $keys['stripe']['live_sk'];
-      $stripeCard = AccountStripeCard::where('account_id', '=', $data['account_id'])->first();
+      $stripeCard = StripeSubscription::where('account_id', '=', $data['account_id'])->first();
       $account = Account::where('id', '=', $data['account_id'])->first();
       $newPlan = $data['plan'];
       if($account && $account->paused_on != null && $newPlan == 'pause'){
@@ -362,7 +362,7 @@ class StripeController extends TalkController
         
         if($cancelResponse){
           // create new subscription
-          AccountStripeCard::where('account_id', '=', $data['account_id'])->where('credit_card_id', '=', $data['credit_card_id'])->update(array('deleted_at' => Carbon::now()));
+          StripeSubscription::where('account_id', '=', $data['account_id'])->where('credit_card_id', '=', $data['credit_card_id'])->update(array('deleted_at' => Carbon::now()));
           $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $endDate);
           $currentDate = Carbon::now();
           $trialPeriod = $currentDate->diffInDays($endDate);
@@ -376,7 +376,7 @@ class StripeController extends TalkController
           }
           
           if($subscriptionResponse->id){
-            $_account_stripe_card = new AccountStripeCard();
+            $_account_stripe_card = new StripeSubscription();
             $_account_stripe_card->account_id = $data['account_id'];
             $_account_stripe_card->credit_card_id = $data['credit_card_id'];
             $_account_stripe_card->subscription = $subscriptionResponse->id;

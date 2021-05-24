@@ -13,7 +13,7 @@
         </p>
         <p>Tap the button to confirm:</p>
         <p>
-            <a class="link" href="{{$host['app']}}/account_verification/{{$account->username}}/{{$account->code}}">
+            <a class="link" href="{{$host['app']}}account_verification/{{$account->username}}/{{$account->code}}">
                 <button class="btn">Confirm Email Address</button>
             </a>
         </p>

@@ -13,7 +13,7 @@ use App\AccountPaymentMethod;
 use App\BillingInformation;
 use App\StripeWebhooks;
 use App\Billing;
-use App\AccountStripeCard;
+use App\StripeSubscription;
 use App\CreditCard;
 use App\CouponAccount;
 use App\Coupon;
@@ -322,12 +322,12 @@ class AccountController extends TalkController
       $_credit_cards->save();
 
       if($_credit_cards->id){
-        $_account_stripe = new AccountStripeCard();
-        $_account_stripe->account_id = $accountId;
-        $_account_stripe->credit_card_id = $_credit_cards->id;
-        $_account_stripe->subscription = $subscription;
-        $_account_stripe->created_at = Carbon::now();
-        $_account_stripe->save();
+        $stripeSubscription = new StripeSubscription();
+        $stripeSubscription->account_id = $accountId;
+        $stripeSubscription->credit_card_id = $_credit_cards->id;
+        $stripeSubscription->subscription = $subscription;
+        $stripeSubscription->created_at = Carbon::now();
+        $stripeSubscription->save();
       }
       $this->insertAccountPaymentMethod($accountId, 'stripe', $_credit_cards->id);
     }

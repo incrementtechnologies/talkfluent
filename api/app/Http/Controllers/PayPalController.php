@@ -47,11 +47,11 @@ class PayPalController extends TalkController
     public function init($config) {
         // Detect if we are running in live mode or sandbox
         if($config['mode'] == 'live'){
-          $this->client_id =  'AchL9DUCxFg9mZRrhKVsmW4mgTZZ9Z-qm-AX3tRwSHWBYpaD3NCEERgDmKyygdXu6GRZ0t0pGY2PxsBf';
-          $this->secret = 'EMtZl7N6AgScLbWYr_9HAlnrC0Vfbt06LWAFUj8cbBNihF0_UrFTcDK9bSiKBzI2GJacrdKDuh59xS3J';
+          $this->client_id = env('PAYPAL_LIVE_CLIENT_ID');
+          $this->secret = env('PAYPAL_LIVE_SECRET');
         } else {
-          $this->client_id = 'Ad3i7TApZLrGnTTF_BWrXZYFlz1sDUMRjWGeGn6ED8POGj1gp6Z43n4ph31ASUqlPtZguFqR7KMp2ZqH';
-          $this->secret = 'ECz6_H29KVlp3LavOKFEyLYg_H37M9CLWz3nz9mAUbzOd7Fl-ifYzizpkp2byByABU-5QCywBqmaGTRn';
+          $this->client_id = env('PAYPAL_SANDBOX_CLIENT_ID');
+          $this->secret = env('PAYPAL_SANDBOX_SECRET');
         }
 
         // Set the Paypal API Context/Credentials
@@ -1017,20 +1017,20 @@ class PayPalController extends TalkController
       $planResult = null;
 
       $planId = (sizeof($accountPaypal) > 0) ? $accountPaypal[0]['paypal_plan'] : null;
-
+      
       $planResult = PayPalPlan::where('plan', '=', $planId)->get();
-
-      if($planId != null && sizeof($planResult) > 0){
+      
+      $dataRequest = $request->all();
+      if($planId != null && sizeof($planResult) > 0 && isset($dataRequest['token'])){
         $agreement = new \PayPal\Api\Agreement();
         $plan = new Plan();
         $plan->setId($planId);
         $agreement->setPlan($plan);
 
         try{
-          
-            $result = $agreement->execute($token, $this->apiContext);
+            $result = $agreement->execute($dataRequest['token'], $this->apiContext);
             if(isset($result->id)){
-              $_agreementResult = PayPalAgreement::where('agreement', '=', $result->id)->first();
+              $_agreementResult = PayPalAgreement::where('agreement', '=', $result->id)->get();
               if(sizeof($_agreementResult) <= 0){
 
                 $_paypal_account = null;

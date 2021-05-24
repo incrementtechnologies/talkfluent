@@ -143,8 +143,8 @@ class LessonController extends TalkController
         $accountId = $request->all();
         $accountId = $accountId['account_id'];
         $topLesson = TopLesson::select('*')->whereNull('deleted_at')->get();
-        $account = Account::where('id', '=', $accountId)->first();
-        if(sizeof($topLesson) > 0 && $account->payment_status != 'failed'){
+        $account = Account::where('id', '=', $accountId)->get();
+        if(sizeof($topLesson) > 0 && (sizeof($account) > 0 && $account[0]['payment_status'] != 'failed')){
             $i = 0;
             foreach ($topLesson as $key) {
 
@@ -156,7 +156,7 @@ class LessonController extends TalkController
                     
                     foreach ($categoryLesson as $innerKey) {
                         $lesson = null;   
-                        if($account->plan == 'pause'){
+                        if($account[0]['plan'] == 'pause'){
                             $enabledLessonsArray = $this->getEnabledLessons($accountId);
                              $lesson = Lesson::where('category_lesson_id', '=', $innerKey->id)->whereIn('id', $enabledLessonsArray)->whereNull('deleted_at')->get();
                         }else{
@@ -165,9 +165,9 @@ class LessonController extends TalkController
                         if(sizeof($lesson) > 0){
                           $k = 0;
                           foreach ($lesson as $key) {
-                            if($lesson[$k]['status'] == 'APPROVED' || ($lesson[$k]["status"] == 'PENDING' && $account->account_type == 'ADMIN')){
+                            if($lesson[$k]['status'] == 'APPROVED' || ($lesson[$k]["status"] == 'PENDING' && $$account[0]['account_type'] == 'ADMIN')){
                                 $lesson[$k]["display_status"] = 'success';
-                            }else if($lesson[$k]['status'] == 'PENDING' && $account->account_type == 'USER'){
+                            }else if($lesson[$k]['status'] == 'PENDING' && $account[0]['account_type'] == 'USER'){
                                 $lesson[$k]['display_status'] = 'danger';
                             }
                             $testResult = Test::where('account_id', '=', $accountId)->where('lesson_id', '=', $key->id)->get();

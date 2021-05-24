@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\AccountStripeCard;
+use App\StripeSubscription;
 class AccountStripeCardController extends TalkController
 {
     function __construct(){
-      $this->model = new AccountStripeCard();
+      $this->model = new StripeSubscription();
     }
 
     public function retrieve(Request $request){
     	$data = $request->all();
-    	$this->model = new AccountStripeCard();
+    	$this->model = new StripeSubscription();
     	$this->retrieveDB($data);
     	$result = $this->response['data'];
     	if(sizeof($result) > 0){
