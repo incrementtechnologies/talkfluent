@@ -1,0 +1,214 @@
+.page-holder{
+  min-height: 500px;
+  width: 100%;
+  background: #e9e9e9;
+  float: left;
+  overflow-y: hidden;
+}
+
+.page-holder .header-title{
+  width: 100%;
+  float: left;
+  height: 200px;
+  overflow-y: hidden;
+}
+.page-holder .header-title img{
+  width: 100%;
+  height: 100%;
+  float: left;
+}
+.page-holder .header-title .title-holder{
+  width: 100%;
+  float: left;
+  margin-top: -140px;
+}
+.page-holder .header-title .title{
+  z-index: 10;
+  color: #fff;
+  font-size: 48px;
+  width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.page-content{
+  width: 1024px;
+  float: left;
+  margin: 40px auto 0px auto;
+  border-radius: 10px;
+  min-height: 500px;
+  overflow-y: hidden;
+  background: #fff;
+}
+
+.page-content-template2{
+  width: 1024px;
+  margin: 0px auto 0px auto;
+  min-height: 500px;
+  overflow-y: hidden;
+  background: #fff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.page-content .title{
+  width: 100%;
+  float: left;
+  min-height: 10px;
+  overflow-y: hidden;
+  margin: 0 0% 0 0%;
+  font-size: 20px;
+  background: linear-gradient(#4e6fb5, #7185ae);
+}
+.page-content-template2 .header .title{
+  font-size: 48px;
+  color: #fff;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-left: 25px;
+  float: left;
+  width: 100%;
+  min-height: 48px;
+  overflow-y: hidden;
+}
+.page-content-template2 .details{
+  width: 80%;
+  float: left;
+  min-height: 10px;
+  margin: 0 10% 25px 10%;
+  color: #495057;
+  overflow-y: hidden;
+  text-align: justify;
+}
+.page-content .content, .page-content-template2 .content {
+  width: 80%;
+  margin: 50px 10% 50px 10%;
+  float: left;
+  min-height: 100px;
+  overflow-y: hidden;
+  text-align: justify;
+  font-size: 15px;
+  color: #999;
+  font-family: MuseoRounded500;
+}
+
+.page-content .content, .page-content-template2 .content h3{
+  font-size: 15px;
+  color: #3c3c3c;
+}
+
+.page-content .content ol, .page-content-template2 .content ol{
+  padding-left: 0px;
+  margin-left: 15px;
+}
+
+.page-content .content ul li, .page-content-template2 .content ol li{
+  color: #3c3c3c;
+}
+
+.page-content .content ol li p, .page-content-template2 .content ol li p{
+  color: #999;
+}
+
+
+.form-control-custom{
+  width: 80% !important;
+  float: left !important;
+  height: 50px !important;
+  margin-left: 10% !important;
+  margin-right: 10% !important;
+  margin-top: 20px !important;
+}
+.text-area-custom{
+  width: 80% !important;
+  float: left !important;
+  margin-left: 10% !important;
+  margin-right: 10% !important;
+  height: 300px !important;
+  max-height: 300px !important;
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+}
+
+.action-link:hover{
+  cursor: pointer;
+  color: #00bff3 !important;
+  text-decoration: underline;
+}
+
+.hide-on-mobile{
+  display: block;
+}
+
+.show-on-mobile{
+  display: none;
+}
+
+@media screen and (max-width: 992px){
+  .page-content{
+    width: 100%;
+    margin: 0%;
+  }
+  .page-holder .header-title{
+    min-height: 200px;
+    overflow-y: hidden;
+  }
+  .page-holder .header-title img{
+    width: auto;
+    height: 100%;
+  }
+  .page-holder .header-title .title{
+    width: 100%;
+    float: left;
+    margin-top: 100px;
+  }
+  .page-holder .title-terms-conditions{
+    top: 15% !important;
+  }
+
+  .page-content-template2{
+    width: 100%;
+    margin: 0%;
+    border-radius: 0px !important;
+  }
+  .page-content-template2 .header{
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
+  .page-content-template2 .header .title{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 0px;
+  }
+
+  .page-content .content, .page-content-template2 .content{
+    width: 90%;
+    margin: 25px 5% 0 5%;
+  }
+
+  .hide-on-mobile{
+    display: none;
+  }
+  .show-on-mobile{
+    display: block;
+  }
+  .header-title-mobile{
+    width: 100%;
+    float: left;
+    height: 200px;
+  }
+
+  .header-title-mobile img{
+    width: 100%;
+    height: 100%;
+    float: left;
+  }
+  .header-title-mobile label{
+    color: #fff;
+    margin-top: -140px;
+    font-size: 42px;
+    float: left;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}

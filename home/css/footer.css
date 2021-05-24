@@ -1,0 +1,102 @@
+.footer{
+  width: 100%;
+  float: left;
+  min-height: 50px;
+  overflow-y: hidden;
+}
+
+.footer-widget-holder{
+  width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 50px;
+  overflow-y: hidden;
+}
+.widget-item{
+  width: 20%;
+  float: left;
+  margin-top: 50px;
+  list-style: none;
+  padding: 0% !important;
+  margin-bottom: 0px !important;
+}
+
+.widget-item li{
+  list-style: none;
+  float: left;
+  width: 100%;
+}
+
+.contact-us li i{
+  padding-right: 10px;
+}
+.contact-us li .fa-phone{
+  padding-right: 9px;
+}
+.contact-us li .fa-mobile-alt{
+  padding-right: 14px;
+}
+
+.widget-item li a:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.widget-item.title:hover{
+  cursor: default;
+}
+
+.community .link a i{
+  font-size: 20px;
+  float: left;
+  width: 20%;
+}
+.community .link i:hover{
+  color: #1caceb !important;;
+  cursor: pointer;
+}
+
+.widget-item .link a, .widget-item .link{
+  font-size: 13px !important;
+  color: #6f6f6f;
+  padding: 5px 0 5px 0 !important;
+  font-family: MuseoRounded500, sans-serif;
+  font-weight: 500;
+}
+.widget-item .title{
+  font-size: 16px !important;
+  font-family: MuseoRounded700, sans-serif;
+  color: #4c4c4c;
+}
+.copyright{
+  width: 100%;
+  float: left;
+  padding: 0% !important;
+  text-align: center;
+  margin-top: 45px;
+  color: #6f6f6f;
+  font-family: MuseoRounded500, sans-serif;
+  font-size: 13px;
+}
+@media screen and (max-width: 1200px){
+  .footer-widget-holder{
+    width: 80%;
+    margin: 0 10% 0 10%;
+  }
+}
+@media screen and (max-width: 992px){
+  .footer-widget-holder{
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  .widget-item{
+    margin-left: 0%;
+    width: 100%;
+    text-align: center;
+    padding: 0px;
+  } 
+  .community i{
+    width: 20%;
+  }
+
+}

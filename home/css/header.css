@@ -1,0 +1,167 @@
+.header-section{
+  min-height: 50px;
+  overflow-y: hidden;
+  width: 1024px;
+  font-size: 12px;
+  color: #fff;
+  margin: 15px auto 15px auto;
+}
+.header-section .logo{
+  width: 20%;
+  float: left;
+  height: 100%;
+}
+.header-section .menu{
+  width: 80%;
+  float: left;
+  height: 100%;
+}
+
+.menu .top-menu{
+  width: 100%;
+  float: left;
+  height: 20px;
+  text-align: right;
+  color: #fff;
+}
+
+.navbar-menu-toggler-md{
+  width: 100%;
+  text-align: right;
+  float: left;
+  display: none;
+}
+
+.menu .header-primary-menu{
+  width: 100%;
+  float: left;
+  min-height: 30px;
+  list-style: none;
+  overflow-y: hidden;
+  margin-top: 10px;
+  padding: 0px;
+  margin-bottom: 0px !important;
+}
+.btn-white{
+  background: #fff;
+  color: #00bff3 !important;
+}
+.fa-bars{
+  border: solid 1px #fff;
+  font-size: 20px !important;
+  padding: 10px 8px 10px 8px !important;
+  color: #fff !important;
+}
+
+.fa-bars:hover{
+  cursor: pointer;
+}
+
+.menu .header-primary-menu .nav-item{
+  float: right;
+  font-size: 15px;
+}
+
+.header-primary-menu .nav-item .nav-link{
+  padding: .5rem;
+}
+.header-primary-menu .nav-item a{
+  color: #fff;
+  font-family: MuseoRounded700, sans-serif;
+  font-weight: 700;
+}
+.header-primary-menu .nav-item .nav-link:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.navbar-toggler{
+  background: inherit !important;
+  border-radius: 0px !important;
+  border: solid 1px #fff;
+  font-size: 20px !important;
+  padding: 10px 8px 10px 8px !important;
+  color: #fff !important;
+}
+.navbar-toggler:hover{
+  color: #00bff3 !important;
+  background: #fff !important;
+}
+
+.navbar-collapse .show{
+  display: none !important;
+}
+
+.header-section .logo a img{
+  width: 200px;
+}
+
+@media screen and (max-width: 1200px){
+  .header-section{
+    width: 80%;
+    margin: 25px 10% 10px 10%;
+  }
+  .header-section .logo{
+    width: 15%;
+    float: left;
+    height: 100%;
+  }
+  .header-section .menu{
+    width: 85%;
+    float: left;
+    height: 100%;
+  }
+  .header-section .logo a img{
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .header-section{
+    width: 90% !important;
+    margin: 0 5% 0 5% !important;
+  }
+  .menu .top-menu, .menu .header-primary-menu{
+    display: none;
+  }
+
+  .navbar{
+    width: 90% !important;
+    margin: 0 5% 0 5% !important;
+    padding: 0 !important;
+  }
+  .navbar-collapse {
+    width: 100% !important;
+    position: absolute !important;
+    z-index: 100000 !important;
+    float: left;
+    border-bottom: solid 1px #00bff3;
+  }
+  .navbar-nav{
+    background: #fff !important;
+    margin: 0 !important;
+  }
+  .navbar-nav .nav-link{
+    width: 100% !important;
+    padding: 17px 30px 17px 30px !important;
+  }
+
+  .navbar-nav .nav-link:hover{
+    background: #00bff3;
+    color: #fff;
+  }
+
+  .navbar-nav .nav-link{
+    color: #00bff3;
+  }
+  .navbar-menu-toggler-md{
+    width: 100%;
+    text-align: right;
+    float: left;
+    display: block;
+    margin-top: 15px;
+  }
+  .navbar-collapse .show{
+    display: block !important;
+  }
+}

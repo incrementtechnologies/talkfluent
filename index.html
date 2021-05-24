@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html style="height:100%">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="header">{{title}}</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+    <script>
+      let siteFlag = 1
+      let WEBSITE_TITLE = null
+      switch(siteFlag){
+        case 0: 
+          WEBSITE_TITLE = 'DEVT PLATFORM'
+          break
+        case 1: 
+          WEBSITE_TITLE = 'TALK FLUENT SPANISH'
+          break
+        case 2: 
+          WEBSITE_TITLE = 'HABLA INGLES FLUIDO'
+          break
+      }
+      new Vue({
+          el: 'title',
+          data: {
+              title: WEBSITE_TITLE
+          }
+      })
+    </script>
+    <style>
+      body{
+        font-family: 'Museo Sans Rounded', serif;
+      }
+    </style>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.1.2/wavesurfer.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.js"></script>
+    <script type="text/javascript">
+      var carouselIndex = null
+    function insertImage(src){
+      $('#dashboardModal').modal('hide')
+      $('#imageView').modal({
+          backdrop: 'static',
+          keyboard: true,
+          show: true
+        })
+      var tag = document.getElementById('image-body')
+      tag.innerHTML = '<img src=' + src + ' class=image-viewer height=100% width=100% /><span class="close-icon" data-dismiss="modal" data-target="#imageView" onclick="showDashboardModal()"><i class="fa fa-times"></i></span>'
+    }
+
+    function showDashboardModal(){
+      $('#imageViewCarousel').modal('hide')
+      $('#dashboardModal').modal({
+          backdrop: 'static',
+          keyboard: true,
+          show: true
+        })
+      carouselIndex = null
+    }
+
+    function hideDashboardModal(){
+      $('#dashboardModal').modal('hide')
+    }
+
+    function insertImageCarousel(backendUrl, list, index){
+      if(carouselIndex === null){
+        $('#dashboardModal').modal('hide')
+        $('#imageViewCarousel').modal({
+          backdrop: 'static',
+          keyboard: true,
+          show: true
+        })
+      }
+      carouselIndex = parseInt(index)
+      imageList = (list !== '0') ? JSON.parse(list) : imageList
+      var carouselIndexNext = carouselIndex + 1
+      var carouselIndexPrev = carouselIndex - 1
+      carouselIndexNext = (carouselIndexNext < imageList.length) ? carouselIndexNext : 0
+      carouselIndexPrev = (carouselIndexPrev >= 0) ? carouselIndexNext : imageList.length - 1
+      var tag = document.getElementById('image-body-carousel')
+
+      var image = '<img src=' + backendUrl + imageList[carouselIndex].url + ' class=image-viewer height=100% width=100% />'
+      var closeIcon = '<span class="close-icon" onclick="showDashboardModal()"><i class="fa fa-times"></i></span>'
+      var onclickNext = 'onclick=insertImageCarousel(\'' + backendUrl + '\',\'' + 0 + '\',\'' + carouselIndexNext + '\')'
+      var onclickPrev = 'onclick=insertImageCarousel(\'' + backendUrl + '\',\'' + 0 + '\',\'' + carouselIndexPrev + '\')'
+      var left = '<i class="fas fa-chevron-left chevron"' + onclickPrev + '></i>'
+      var right = '<i class="fas fa-chevron-right chevron pull-right"' + onclickNext + '></i>'
+      var controller = '<span class="carousel-controller">' + left + right + '</span>'
+
+      tag.innerHTML = image + closeIcon + controller
+    }
+
+    function hide(){
+      $('#imageView').modal('hide')
+    }
+
+    function hideModal(modal){
+      $(modal).modal('hide')
+    }
+
+    function showModal(modal){
+      $(modal).modal({
+          backdrop: 'static',
+          keyboard: true,
+          show: true
+        })
+    }
+
+    function focusDiv(id){
+      var container = document.getElementById(id)
+      var divA = parseInt(document.getElementById('divA').offsetTop)
+      var divB = parseInt(document.getElementById('divB').offsetTop)
+      var div1 = parseInt(document.getElementById('div1').offsetTop)
+      var offset = 0
+      if(id === 'div1'){
+        offset = parseInt(container.offsetTop) - divB - 40
+      }else{
+        offset = parseInt(container.offsetTop) - (divA)
+      }
+      $('.accent-item-holder').animate({
+          scrollTop: offset
+      }, 500);
+    }
+    </script>
+    <script type="text/javascript">
+      // geri butonunu yakalama
+      // window.onhashchange = function(e) {
+      //   var oldURL = e.oldURL.split('/')[2];
+      //   var newUrl = e.oldURL.split('/')[0] + '//' + e.oldURL.split('/')[2]
+      //   window.location = newUrl
+      // }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $(window).scroll(function() {
+          if ($(this).scrollTop() >= 50) {
+            $('#return-to-top').fadeIn(200)
+          }else{
+            $('#return-to-top').fadeOut(200)
+          }
+        });
+        $('#return-to-top').click(function() {
+          $('body,html').animate({
+            scrollTop : 0
+          }, 500)
+        })
+      })
+    </script>
+  </head>
+  <body style="height:100%">
+    
+    <div id="app" ></div>
+    <span id="return-to-top"><i class="fa fa-chevron-up"></i></span>
+    <div class="modal fade custom-modal" id="imageView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md image-modal">
+        <div class="modal-content" id="mc-imageview">
+          <div class="modal-body image-body-modal" id="image-body">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade custom-modal" id="imageViewCarousel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md image-modal">
+        <div class="modal-content" id="mc-imageview">
+          <div class="modal-body image-body-modal" id="image-body-carousel">
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      body{
+        font-size: 13px;
+        font-weight: 400;
+      }
+
+      #app{
+        min-height: 100%
+      }
+      #imageView{
+        z-index: 10000  !important;
+        min-height: 50px !important;
+        overflow: auto !important;
+      }
+      .custom-modal{
+        background-color: #555 !important;
+      }
+      .image-modal{
+        width: 60% !important;
+      }
+      #mc-imageview{
+        background: inherit  !important;
+      }
+      #md-custom{
+        width: 700px !important;
+      }
+      .image-viewer{
+        width: 100%;
+        height: 100%;
+      }
+      .modal{
+        overflow:auto !important;
+      }
+      .modal-body{
+        padding: 0px !important;
+        position: relative;
+      }
+      .image-body-modal .close-icon{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        color: #1caceb;
+        border: solid 1px #1caceb;
+      }
+
+      .image-body-modal .carousel-controller{
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 100%;
+        color: #1caceb;
+      }
+
+      .carousel-controller .chevron{
+        font-size: 50px !important;
+      }
+
+      .image-body-modal .close-icon:hover, .carousel-controller .chevron:hover{
+        cursor: pointer;
+        color: #002a3d;
+      }
+      .image-body-modal i{
+        padding: 10px;
+        font-size: 24px;
+      }
+      .regular-volume-up{
+        color: #1caceb;
+        font-size: 25px;
+        background: inherit;
+        border: solid 2px #1caceb;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        text-align: center;
+        padding-top: 8px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+      }
+      .header-fa-volume-up{
+        color: white;
+        font-size: 24px;
+        background: inherit;
+        border: solid 2px white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        padding-top: 11px;
+        text-align: center;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+      }
+      .pronounciation-volume-icons{
+        color: white;
+        font-size: 18px;
+        background: inherit;
+        border: solid 2px white;
+        border-radius: 50%;
+        width: 40px;
+        height:40px;
+        padding-top: 9px;
+        text-align: center;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+      }
+
+      .small-volume-icons{
+        color: #1caceb;
+        font-size: 18px;
+        background: inherit;
+        border: solid 2px #1caceb;
+        border-radius: 50%;
+        width: 40px;
+        height:40px;
+        padding-top: 9px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        text-align: center;
+      }
+      .fa-volume-up:hover, .fa-sync:hover{
+        cursor: pointer;
+        background: #1caceb;
+        color: #fff;
+      }
+      .header-fa-volume-up:hover, .pronounciation-volume-icons:hover{
+        cursor: pointer;
+        background: white;
+        color: #1caceb; 
+      }
+      .breadcrumb{
+        border-radius: 0px !important;
+      }
+
+      #return-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #1caceb;
+        width: 50px;
+        height: 50px;
+        display: none;
+        color: #fff;
+        text-decoration: none;
+        -webkit-border-radius: 35px;
+        -moz-border-radius: 35px;
+        border-radius: 35px;
+        -webkit-transition: all 0.3s linear;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      #return-to-top i {
+        color: #fff;
+        margin: 0;
+        position: relative;
+        left: 16px;
+        top: 13px;
+        font-size: 19px;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+      }
+      #return-to-top:hover {
+        cursor: pointer;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+      #return-to-top:hover i {
+        top: 5px;
+        cursor: pointer;
+      }
+      .action-link{
+        font-size: 24px;
+      }
+      .action-link:hover{
+        cursor: pointer;
+        color: #1caceb;
+      }
+
+      .text-primary{
+        color: #00bff3 !important;
+      }
+
+      .btn-custom{
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 5px;
+        border: none;
+        height: 37px;
+        font-size: 15px;
+        line-height: 37px;
+      }
+      .btn-green{
+        background: #39b54a;
+        color: #fff;
+      }
+
+      .btn-white{
+        background: #fff;
+        color: #00bff3;
+      }
+
+       .btn-custom:hover{
+        cursor: pointer;
+       }
+      /*---------------------------------------
+
+                  STRIPE
+
+      ----------------------------------------*/
+      .ElementsApp .InputElement{
+        font-size: 13px;
+        font-weight: 400;
+        font-family: 'Helvetica';
+      }
+
+      .btn{
+        font-size: 12px;
+      }
+      .btn:hover{
+        cursor: pointer;
+      }
+
+
+      /*
+              BUTTONS
+      */
+      .btn-primary{
+        background: #00bff3;
+        border-color: #00bff3;
+      }
+
+      .btn-primary:hover{
+        background: #00bff3;
+        border-color: #00bff3;
+      }
+
+      .btn-danger{
+        background: #aa0000;
+      }
+
+      .btn-danger:hover{
+        background: #ff0000;
+        border-color: #ff0000;
+      }
+      .btn-facebook{
+        background: #124abf;
+        color: #fff;
+      }
+
+      .btn-facebook:hover{
+        background: #3b5998;
+      }
+
+      .btn-gmail{
+        background: #c70000;
+        color: #fff;
+      }
+      .btn-gmail:hover{
+        background: #c71610;
+      }
+      /*
+            HALLOW
+
+      */
+
+      .btn-primary-hallow{
+        border-color: #00bff3;
+        color: #00bff3;
+        background: #fff;
+      }
+      .btn-primary-hallow:hover{
+        color: #00bff3;
+        border-color: #00bff3;
+      }
+      .btn-danger-hallow{
+        border-color: #aa0000;
+        background: #fff;
+        color: #aa0000;
+      }
+      .btn-danger-hallow:hover{
+        color: #ff0000;
+        border-color: #ff0000;
+      }
+
+      .bg-primary{
+        background: #1caceb !important; 
+      }
+
+      .bg-green{
+        background: #39b54a;
+      }
+
+
+      /*------------------------------------
+
+                TABLES
+
+      --------------------------------------*/
+
+      .table{
+        font-size: 12px;
+      }
+
+      /*----------------------------------------
+
+                  Forms
+
+      ------------------------------------------*/
+      .form-control{
+        height: 35px;
+        font-size: 12px;
+      }
+
+      @media screen and (max-width: 992px) {
+        .image-modal{
+          width: 96% !important;
+          margin-left: 2% !important;
+          margin-right: 2% !important;
+        }
+        .image-body-modal i{
+          padding: 5px;
+        }
+        .custom-modal .modal-content{
+          margin-top: 20px !important;
+        }
+        .form-control{
+          font-size: 16px !important;
+        }
+
+        .StripeElement{
+          font-size: 16px !important;
+        }
+        .ElementsApp input{
+          font-size: 16px !important;
+        }
+      }
+    </style>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

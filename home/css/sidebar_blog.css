@@ -1,0 +1,75 @@
+
+
+.bordered{
+  border: solid 1px #97c038;
+  margin-top: 50px;
+  text-align: center;
+}
+.bordered input{
+  width: 90% !important;
+  margin-right: 5%;
+  margin-left: 5%;
+  font-size: 13px !important;
+  color: #999 !important;
+}
+.bordered input, button{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.bordered button{
+  margin-bottom: 25px;
+}
+
+.bordered p{
+  font-size: 13px;
+}
+.item h3{
+  font-size: 15px;
+  color: #3c3c3c;
+}
+.banner{
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background: #00bff3;
+}
+.banner h2{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  color: #fff;
+}
+
+.bottom{
+  margin-bottom: 50px;
+}
+
+.trending-item{
+  float: left;
+  width: 90%;
+  min-height: 10px;
+  overflow-y: hidden;
+  color: #999;
+}
+
+.trending-bottom{
+  margin-bottom: 50px;
+}
+.trending-item .trending-title{
+  overflow-y: hidden;
+  min-height:20px;
+  float: left; 
+  width: 100%;
+}
+.trending-item .trending-title{
+  color: #3c3c3c;
+  font-size: 14px;
+}
+.trending-item .trending-title:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.trending-item .comment{
+  width: 100%;
+  float: left;
+  font-size: 12px;
+}

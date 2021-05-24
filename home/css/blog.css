@@ -1,0 +1,235 @@
+.page-content-blog{
+  width: 60%;
+  background: #fff;
+  border-radius: 10px;
+  min-height: 600px;
+  overflow-y: hidden;
+  margin-left: 5%;
+  margin-right: 5%;
+  float: left;
+}
+.sidebar-blog{
+  width: 25%;
+  background: #fff;
+  border-radius: 10px;
+  min-height: auto;
+  overflow-y: hidden;
+  margin-right: 5%;
+  float: left;
+  color: #555;
+}
+
+.blog-content-container{
+  width: 100%;
+  float: left;
+  min-height: 50px;
+  overflow-y: hidden;
+}
+.page-content-blog .tags-header{
+  width: 100%;
+  float: left;
+  border: solid 1px #ddd;
+  margin-top: 50px;
+  min-height: 10px;
+  overflow-y: hidden;
+}
+.page-content-blog .tags-header h3{
+  font-size: 15px;
+  color: #3c3c3c;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+.page-content-blog .title{
+  width: 100%;
+  float: left;
+  margin: 50px 0% 5px 0%;
+  font-size: 20px;
+}
+.page-content-blog .date-posted{
+  width: 100%;
+  float: left;
+  color: #999;
+  margin: 0px 0% 25px 0%;
+}
+.page-content-blog .content{
+  width: 100%;
+  margin: 0 0% 50px 0%;
+  float: left;
+  min-height: 100px;
+  overflow-y: hidden;
+  text-align: justify;
+}
+
+.sidebar-blog .item{
+  float: left;
+  width: 90%;
+  min-height: 10px;
+  overflow-y: hidden;
+  color: #999;
+}
+.sidebar-blog .item .title{
+  overflow-y: hidden;
+  min-height:20px;
+  float: left; 
+  width: 100%;
+  text-align: justify;
+}
+.sidebar-blog .item .title a{
+  color: #00bff3;
+}
+.sidebar-blog .item .comment{
+  width: 100%;
+  float: left;
+  font-size: 12px;
+}
+.blog-comments{
+  width: 100%;
+  float: left;
+  min-height: 50px;
+  overflow-y: hidden;
+  margin-bottom: 25px;
+}
+.blog-comments .comment-header{
+  width: 100%;
+  float: left;
+  margin: 0 0% 0 0%;
+  border-bottom: solid 1px #eee;
+  font-weight: 600;
+}
+.comment-header .text{
+  float: left;
+}
+
+
+.comment-header .dropdown{
+  float: right;
+}
+.comment-header .dropdown .logout{
+  background: #fff !important;
+  height: 40px;
+  border-radius: 10px;
+  border: 0px;
+  margin-bottom: 5px;
+}
+.comment-header .dropdown .loggedin{
+  background: #fff !important;
+  height: 40px;
+  border-radius: 10px;
+  border: 0px;
+  margin-bottom: 5px;
+}
+.comment-header .dropdown button:hover{
+  cursor: pointer;
+}
+
+.blog-comments .comment-content{
+  width: 100%;
+  float: left;
+  margin: 0 0% 0 0%;
+  min-height: 50px;
+  overflow-y: hidden;
+}
+.blog-comments .blog-comment-replies{
+  width: 95%;
+  float: left;
+  min-height: 50px;
+  overflow-y: hidden;
+  margin: 10px 0% 10px 5%;
+  border-top: solid 1px #eee;
+}
+.comment-content .account-info, .blog-comment-replies .account-info{
+  width: 100%;
+  float: left;
+}
+.comment-content .account-info label, .blog-comment-replies .account-info label{
+  padding-left: 10px;
+}
+.comment-content .text, .blog-comment-replies .text{
+  width: 100%;
+  float: left;
+  text-align: justify;
+  min-height: 10px;
+  overflow-y: hidden;
+}
+
+.comment-content .date, .blog-comment-replies .date{
+  width: 100%;
+  float: left;
+  text-align: justify;
+  min-height: 20px;
+  overflow-y: hidden;
+  color: #aaa;
+}
+.comment-content .date label{
+  right: 0 !important;
+  float: right;
+  color: #00bff3;
+}
+
+.comment-content .date label:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.comment-input{
+  width: 100%;
+  float: left;
+  min-height: 100px;
+  overflow-y: hidden;
+  margin-top: 10px;
+}
+.reply-input{
+  width: 95%;
+  float: left;
+  min-height: 100px;
+  overflow-y: hidden;
+  margin-left: 5%;
+  display: none;
+}
+.comment-input textarea, .reply-input textarea{
+  width: 100%;
+  float: left;
+  height: 80px;
+  max-height: 200px;
+}
+.comment-input .login-button, .reply-input .login-button{
+  width: 100%;
+  float: left;
+  min-height: 50px;
+  overflow-y: hidden;
+}
+.comment-input .login-button .text, .reply-input .login-button .text{
+  width: 100%;
+  float: left;
+  font-size: 12px;
+  font-weight: 550;
+  min-height: 10px;
+  overflow-y: hidden;
+}
+.comment-input .login-button  .icons, .reply-input .login-button .icons{
+  width: 100%;
+  float: left;
+  font-size: 32px;
+  min-height: 10px;
+  overflow-y: hidden;
+}
+.login-button  .icons i:hover{
+  cursor: pointer;
+}
+.comment-input button, .reply-input button{
+  right: 0 !important;
+  float: right;
+  margin-top: 10px;
+}
+@media screen and (max-width: 992px){
+  .sidebar-blog{
+    display: none;
+  }
+  .page-content-blog{
+    width: 90%;
+    border-radius: 0px;
+    margin: 0% 5% 0% 5%;
+  }
+}

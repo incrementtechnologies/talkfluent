@@ -1,0 +1,348 @@
+.page-step-holder{
+  width: 100%;
+  float: left;
+  min-height: 10px;
+  overflow-y: hidden;
+  position: relative;
+  z-index: 10;
+}
+.page-step-content{
+  width: 25%;
+  float: left;
+  min-height: 10px;
+  overflow-y: hidden;
+}
+.page-step-content-right{
+  margin-left: 50%;
+}
+
+.page-step-content-optional-two-left{
+  margin-left: 20%;
+  margin-right: 5%;
+  width: 25%;
+  float: left;
+}
+
+.optional-step{
+  width: 100%;
+  float: left;
+}
+
+.page-step-content-optional-two-right{
+  margin-left: 5%;
+  margin-right: 20%;
+  width: 25%;
+  float: left;
+}
+
+.page-step-content-optional-one-center{
+  margin-right: 37%;
+  margin-left: 37%;
+  width: 26%;
+  float: left;
+}
+
+.page-step-content-optional-three-left{
+  margin-left: 5%;
+  width: 25%;
+  float: left;
+}
+.optional-step{
+  width: 100%;
+  float: left;
+}
+
+.page-step-content-optional-three-right{
+  margin-right: 5%;
+  width: 25%;
+  float: left;
+}
+
+.page-step-content-optional-three-center{
+  margin-right: 7%;
+  margin-left: 8%;
+  width: 25%;
+  float: left;
+}
+
+.page-step-video{
+  width: 50%;
+  float: left;
+  min-height: 10px;
+  overflow-y: hidden;
+  position: absolute;
+  z-index: 20;
+}
+.page-step-video:hover{
+  cursor: pointer;
+}
+.mobile-video{
+  display: none;
+  width: 100%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding-left: 0px;
+}
+.mobile-video img{
+  width: 100%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding-left: 0px;
+}
+
+.page-step-video img{
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  float: left;
+  margin-top: 75px;
+}
+
+.page-step-video .step1{
+  margin-top: 105px;
+}
+
+
+.page-step-video .step2{
+  margin-top: 105px;
+}
+
+.page-step-video .step3{
+  margin-top: 105px;
+}
+.step-lines{
+  width: 100%;
+  float: left;
+}
+
+.step1-top-line-left{
+  width: 250px;
+  left: 25%;
+  margin-top: 30px;
+  position: absolute;
+}
+
+.step1-top-line-right{
+  width: 250px;
+  left: 50%;
+  margin-top: 30px;
+  position: absolute;
+}
+
+.step1-middle-line-left{
+  width: 250px;
+  left: 25%;
+  margin-top: 180px;
+  position: absolute;
+}
+
+.step1-middle-line-right{
+  width: 250px;
+  left: 50%;
+  margin-top: 180px;
+  position: absolute;
+}
+
+.step1-bottom-line-left{
+  width: 250px;
+  left: 25%;
+  margin-top: 278px;
+  position: absolute;
+}
+
+.step1-bottom-line-center{
+  width: 50px;
+  left: 48%;
+  margin-top: 278px;
+  position: absolute;
+}
+
+.step1-bottom-line-right{
+  width: 250px;
+  left: 50%;
+  margin-top: 278px;
+  position: absolute;
+}
+
+.step2-top-line-left{
+  width: 250px;
+  left: 25%;
+  margin-top: 30px;
+  position: absolute;
+}
+
+.step2-top-line-right{
+  width: 250px;
+  left: 50%;
+  margin-top: 30px;
+  position: absolute;
+}
+
+.step2-middle-line-left{
+  width: 250px;
+  left: 25%;
+  margin-top: 205px;
+  position: absolute;
+}
+
+.step2-middle-line-right{
+  width: 250px;
+  left: 50%;
+  margin-top: 205px;
+  position: absolute;
+}
+
+.step3-top-line-left{
+  width: 250px;
+  left: 25%;
+  margin-top: 30px;
+  position: absolute;
+}
+
+.step3-top-line-right{
+  width: 250px;
+  left: 50%;
+  margin-top: 30px;
+  position: absolute;
+}
+
+.step3-middle-line-left{
+  width: 250px;
+  left: 25%;
+  margin-top: 205px;
+  position: absolute;
+}
+
+.step3-middle-line-right{
+  width: 250px;
+  left: 50%;
+  margin-top: 205px;
+  position: absolute;
+}
+
+.step3-bottom-line-center{
+  width: 50px;
+  left: 48%;
+  margin-top: 278px;
+  position: absolute;
+}
+
+.step-lines svg{
+  width: 50%;
+  float: left;
+}
+
+.step-lines .bottom-left{
+  width: 48%;
+}
+
+.step-lines .bottom-center{
+  width: 4%;
+}
+
+.step-lines .bottom-right{
+  width: 48%;
+}
+
+svg{
+  z-index: 15;
+}
+
+svg line{
+  stroke: #999;
+  stroke-width: 2px;
+}
+
+.step-lines .top-line-left{
+
+}
+
+.step-lines .top-line, .page-step-video .step-lines .bottom-line{
+  margin-top: 0px;
+}
+
+.step-lines .middle-line{
+  height: 10px;
+}
+
+.page-step-content .step-item{
+  width: 100%;
+  float: left;
+  margin-bottom: 20px;
+}
+.step-item .step-title{
+  width: 100%;
+  float: left;
+  font-size: 18px;
+  color: #3c3c3c;
+  text-align: left;
+  font-family: MuseoRounded300, sans-serif;
+  font-weight: 600;
+}
+
+.step-title .icon{
+  width: 15%;
+  float: left;
+}
+
+.step-title .icon-title{
+  float: left;
+  width: 85%;
+  min-height: 10px;
+  overflow-y: hidden;
+}
+
+.step-item .step-details{
+  margin-top: 20px;
+  width: 85%;
+  margin-left: 15%;
+  float: left;
+  color: #555;
+  font-size: 13px;
+  font-family: MuseoRounded300, sans-serif;
+}
+
+.custom-margin-steps{
+  margin-top: -185px;
+}
+
+.display-on-1024{
+  display: none;
+}
+
+@media screen and (max-width: 992px){
+  .page-step-video{
+    display: none;
+  }
+  .mobile-video{
+    display: block;
+  }
+  .page-step-content, .page-step-content-optional-two-right, .page-step-content-optional-two-left, .page-step-content-optional-one-center,
+  .page-step-content-optional-three-right, .page-step-content-optional-three-left, .page-step-content-optional-three-center{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 0px;   
+  }
+
+  .custom-margin-steps{
+    margin-top: 0px;
+  }
+
+  .step-title .icon{
+    width: 10%;
+    float: left;
+  }
+
+  .step-title .icon-title{
+    float: left;
+    width: 90%;
+    min-height: 10px;
+    overflow-y: hidden;
+  }
+
+  .step-item .step-details{
+    width: 90%;
+    margin-left: 10%;
+  }
+}

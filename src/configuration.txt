@@ -1,0 +1,57 @@
+
+let TALKFLUENTSPANISH = 'https://api.talkfluentspanish.com/api/public' // talkfluentspanish
+let HABLAINGLESFLUIDO = 'https://api.hablainglesfluido.com/api/public' // habla
+let DEV_BACKEND_URL = 'http://localhost/talkfluent/api/public'
+let siteFlag = 1
+let BACKEND_URL = null
+let WEBSITE_TITLE = null
+let HEADER_TITLE1 = null
+let HEADER_TITLE2 = null
+let WEBSITE = null
+let WEBHOST = null
+let HOST_EMAIL = null
+let WEB_APP = null
+switch(siteFlag){
+  case 0: BACKEND_URL = DEV_BACKEND_URL
+    WEBSITE_TITLE = 'DEVT PLATFORM'
+    HEADER_TITLE1 = 'Devt'
+    HEADER_TITLE2 = 'Platform'
+    WEBSITE = 'http://localhost/talkfluent/home'
+    WEBHOST = 'localhost'
+    WEB_APP = 'http://localhost:8080/#/'
+    HOST_EMAIL = null
+    break
+  case 1: BACKEND_URL = TALKFLUENTSPANISH
+    WEBSITE_TITLE = 'TALK FLUENT SPANISH'
+    HEADER_TITLE1 = 'Talk'
+    HEADER_TITLE2 = 'FluentSpanish'
+    WEBSITE = 'https://talkfluentspanish.com/'
+    HOST_EMAIL = 'support@talkfluentspanish.com'
+    WEBHOST = 'talkfluentspanish.com'
+    WEB_APP = 'https://app.talkfluentspanish.com/#/'
+    break
+  case 2: BACKEND_URL = HABLAINGLESFLUIDO
+    WEBSITE_TITLE = 'HABLA INGLES FLUIDO'
+    HEADER_TITLE1 = 'Habla'
+    HEADER_TITLE2 = 'InglesFluido'
+    WEBSITE = 'https://hablainglesfluido.com/'
+    HOST_EMAIL = 'support@hablainglesfluido.com'
+    WEBHOST = 'hablainglesfluido.com'
+    WEB_APP = 'https://app.hablainglesfluido.com/#/'
+    break
+}
+export default{
+  SITE_FLAG: siteFlag,
+  API_URL: BACKEND_URL + '/',
+  IMAGE_URL: BACKEND_URL + '/image/',
+  BACKEND_URL: BACKEND_URL,
+  WEBSITE_FLAG: siteFlag,
+  WEBSITE_TITLE: WEBSITE_TITLE,
+  HEADER_TITLE1: HEADER_TITLE1,
+  HEADER_TITLE2: HEADER_TITLE2,
+  YEAR: '2018',
+  WEBSITE: WEBSITE,
+  WEBHOST: WEBHOST,
+  HOST_EMAIL: HOST_EMAIL,
+  WEB_APP: WEB_APP
+}
