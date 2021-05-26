@@ -9,7 +9,67 @@
       <div class="col-lg-10 mx-auto" style="margin-top: 25px;">
         <new-payment-method :paymentMethod="paymentMethod" :creditCard="creditCard" :paypal="paypal"></new-payment-method>
       </div>
+      <!-- border: 1px solid #c7c7c7;  -->
+      <div class="col-lg-10 mx-auto">
+        <div style="cursor: pointer; padding: 10px; width: 66%" v-on:click="addPaymentMethod()"> 
+          Add new payment method<i class="fas fa-chevron-right chevron" style="margin-left: 50px;"></i>
+        </div>
+      </div>
+      <!-- border: 1px solid #c7c7c7;  -->
+      <div class="col-lg-10 mx-auto" v-if="otherPayments">
+        <div class="login-fields mt-3 col-lg-7">
+            <div class="radio">
+              <div>
+                <div class="row">
+                  <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
+                    <label for="address">Card Number</label>
+                    <card-number class="stripe-element card-number"
+                      ref="cardNumber"
+                      :stripe="stripeSK"
+                      @change="number = $event.complete"
+                      :options="options"
+                    />
+                  </div>
+                </div>
 
+                <div class="row">
+                  <div class="form-group login-spacer col-lg-6 col-md-6 col-sm-12">
+                    <label for="address">Expiration</label>
+                    <card-expiry class="stripe-element card-expiry"
+                      ref="cardExpiry" 
+                      :stripe="stripeSK" 
+                      @change="expiry = $event.complete"
+                      :options="options"
+                    />
+                  </div>
+
+                  <div class="form-group login-spacer col-lg-6 col-md-6 col-sm-12">
+                    <label for="address">CVC</label>
+                    <div id="signup-card-number">
+                      <card-cvc class='stripe-element card-cvc'
+                        ref='cardCvc'
+                        :stripe="stripeSK" 
+                        @change="expiry = $event.complete" 
+                        :options="options"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="radio">
+            </div>
+            <h6>
+              <input type="checkbox" v-model="billingTerms" name="terms"/>
+              I Agree to the <a v-bind:href="config.WEBSITE + '/billing_terms'" target="_BLANK">Billing Terms</a>
+            </h6>
+            <button class="btn btn-primary btn-whole mt-2" style="width: 50%; height: 50px;">
+              ADD PAYMENT METHOD
+            </button>
+          </div>
+      </div>
+      <div class="col-lg-10 mx-auto" v-if="otherPayments">
+      </div>
       <div class="col-lg-10 mx-auto" style="margin-top: 25px;" v-if="paymentMethod !== null && (paypal !== null || creditCard !== null)">
         <upgrade-plans :paymentMethod="paymentMethod" :creditCard="creditCard"></upgrade-plans>
       </div>
@@ -150,6 +210,7 @@ export default {
   },
   data(){
     return {
+      stripeSK: (OPKEYS.flag === false) ? OPKEYS.stripe.dev_pk : OPKEYS.stripe.live_pk,
       user: AUTH.user,
       config: CONFIG,
       tokenData: AUTH.tokenData,
@@ -164,14 +225,40 @@ export default {
       creditCard: null,
       paymentMethod: null,
       paypal: null,
-      notAllowedMessage: null
+      notAllowedMessage: null,
+      otherPayments: false,
+      selectedMethod: null,
+      payment: {
+        coupon: null,
+        number_of_months: 0,
+        amount_per_month: 100,
+        total_amount: 100,
+        taxes_and_fees: 0,
+        discount_total_amount: 0,
+        payment_method: null,
+        currency: AUTH.currency
+      },
+      number: false,
+      expiry: false,
+      billingTerms: null,
+      options: {
+        style: {base: {
+          fontSize: '16px'
+        }}
+      }
     }
   },
   components: {
     'new-payment-method': require('modules/billing/NewPaymentMethod.vue'),
-    'upgrade-plans': require('modules/billing/UpgradePlans.vue')
+    'upgrade-plans': require('modules/billing/UpgradePlans.vue'),
+    CardNumber,
+    CardCvc,
+    CardExpiry
   },
   methods: {
+    addPaymentMethod() {
+      this.otherPayments = !this.otherPayments
+    },
     executeAgreement(){
       if(this.user.userID === 0){
         window.location.href = window.location.href

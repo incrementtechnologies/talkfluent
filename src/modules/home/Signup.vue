@@ -230,12 +230,12 @@
             </div>
             <div class="radio">
               <label><input type="radio" name="payment_method" v-model="paymentMethod" value="paypal">PayPal</label>
-              <div class="row" v-if="paymentMethod === 'paypal'">
+              <!-- <div class="row" v-if="paymentMethod === 'paypal'">
                 <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
                   <label for="nickname">Nickname</label>
                   <input type="text" class="form-control form-control-login" id="nickname" placeholder="Enter nickname(Optional)" v-model="paypal.nickname">
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- v-b-tooltip.hover title="$1 for the first 7 days, then $149/month thereafter. You can change plans or cancel at any time" placement="topright" -->
             <h6>
@@ -741,8 +741,8 @@ export default {
       }else if(a.username.length < 6){
         this.errorMessage = 'Username must not less than to 6 digits characters.'
         return false
-      }else if(a.password.length < 6){
-        this.errorMessage = 'Password must not lest than to 6 digit characters.'
+      }else if(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(a.password) === false || a.password.length < 6){
+        this.errorMessage = 'Password must be atleast 6 alphanumeric characters. It should contain 1 number, 1 special character and 1 capital letter.'
         return false
       }else if(a.password !== a.cpassword){
         this.errorMessage = 'Please confirm your password.'
@@ -917,7 +917,7 @@ export default {
           }else if(typeof message.card !== undefined && typeof message.card !== 'undefined'){
             this.errorMessage = message.card
           }
-        }else if(response.data > 0){
+        }else if(response.data !== null){
           this.login(response.paypal_redirect)
         }
       })
