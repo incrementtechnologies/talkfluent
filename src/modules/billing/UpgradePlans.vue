@@ -36,9 +36,21 @@
               <button class="btn btn-danger pull-right" v-on:click="deleteMonthlyCoupon('monthly')" v-if="couponSuccessMessageMonthly !== null">DELETE</button>
             </div>
           </div>
-          <button class="btn btn-danger btn-whole" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed'">
+          <button class="btn btn-success btn-whole" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed'">
             YOUR CURRENT ACTIVE PLAN
           </button>
+          <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+            <div class="columns">
+              <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed'">
+                CANCEL PLAN
+              </button>
+            </div>
+            <div class="columns">
+              <button v-on:click="pausePlan()" class="btn btn-primary btn-whole" style="height: 45px; width: 72%; float: left; padding: 5px;" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed'">
+                PAUSE PLAN
+              </button>
+            </div>
+          </div>
           <button class="btn btn-primary btn-whole" v-if="user.plan !== 'monthly' && paymentMethod.method === 'stripe' && user.paymentStatus !== 'failed'" v-on:click="upgradePlanStripe('monthly', paymentMethod.source)">
             BUY THIS PLAN
           </button>
@@ -200,6 +212,10 @@
 	</div>
 </template>
 <style scoped>
+.columns {
+  float: left;
+  width: 50%;
+}
 .holder{
 	width: 100%;
 	float: left;
@@ -419,6 +435,12 @@ export default {
     'cancel-plan': require('modules/billing/CancelPlan.vue')
   },
   methods: {
+    cancelPlan() {
+      alert('cancelling plan')
+    },
+    pausePlan() {
+      alert('pausing plan')
+    },
     redirect(route){
       ROUTER.push(route)
     },
