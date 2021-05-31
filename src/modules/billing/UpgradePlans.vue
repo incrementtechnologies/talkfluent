@@ -207,7 +207,7 @@
       </div>
     </div>
 
-    <cancel-plan></cancel-plan>
+    <cancel-plan :paymentMethod="paymentMethod"></cancel-plan>
 
 	</div>
 </template>
@@ -408,6 +408,7 @@ import OPKEYS from '../../payment.js'
 import PRODUCTS from '../../products.js'
 export default {
   mounted(){
+    console.log(this.user, 'hiiii')
   },
   data(){
     return{
@@ -436,7 +437,7 @@ export default {
   },
   methods: {
     cancelPlan() {
-      alert('cancelling plan')
+      $('#requestToCancel').modal('show')
     },
     pausePlan() {
       alert('pausing plan')
