@@ -17,6 +17,14 @@ export default{
     }
   },
   {
+    path: '/redirect',
+    name: 'redirect',
+    component: resolve => require(['modules/dashboard/Empty.vue'], resolve),
+    meta: {
+      tokenRequired: false
+    }
+  },
+  {
     path: '/login',
     name: 'loginAccount',
     component: resolve => require(['modules/home/LogIn.vue'], resolve),

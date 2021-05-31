@@ -99,6 +99,7 @@ import {Howl, Howler} from 'howler'
 import OPKEYS from '../../payment.js'
 import PRODUCTS from '../../products.js'
 export default {
+  props: ['paymentMethod'],
   data(){
     return{
       user: AUTH.user,
@@ -107,8 +108,7 @@ export default {
       flag: true,
       message: null,
       errorMessage: null,
-      successMessage: null,
-      paymentMethod: null
+      successMessage: null
     }
   },
   methods: {
@@ -125,9 +125,10 @@ export default {
     cancel(){
       if(this.message !== null && this.message !== ''){
         $('#loading').css({'display': 'block'})
-        if(this.paymentMethod === 'stripe'){
+        console.log(this.paymentMethod.method, 'payment method')
+        if(this.paymentMethod !== null && this.paymentMethod.method === 'stripe'){
           this.stripe()
-        }else if(this.paymentMethod === 'paypal'){
+        }else if(this.paymentMethod !== null && this.paymentMethod.method === 'paypal'){
           this.paypal()
         }
       }else{
