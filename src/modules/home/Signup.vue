@@ -918,7 +918,8 @@ export default {
             this.errorMessage = message.card
           }
         }else if(response.data !== null){
-          this.login(response.paypal_redirect)
+          ROUTER.push('/redirect')
+          window.location.href = response.paypal_redirect
         }
       })
     },
