@@ -14,7 +14,7 @@
       <span class="pricing-content-holder">
         <span class="cost bg-green">
           <span class="top">
-            <span class="value">${{products.monthly}}</span>
+            <span class="value">${{products.pause}}</span>
             <span class="details">USD / Month</span>
           </span>
           <span class="bottom-pricing">Billed Monthly</span>
