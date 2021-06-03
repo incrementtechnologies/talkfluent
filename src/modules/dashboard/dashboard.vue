@@ -8,7 +8,7 @@
       <span class="col-lg-10 mx-auto text-center welcome-title"><h3>WELCOME TO {{config.WEBSITE_TITLE}}</h3></span>
       <div class="col-lg-10 mx-auto row center-small">
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <span class="header-dashboard" >Introduction 1</span>
+          <span class="header-dashboard" >Start Here</span>
           <div style="margin-top: 80px; margin-bottom: 20px">
             <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
             <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
@@ -25,7 +25,7 @@
         </div>
         </span>
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <span class="header-dashboard">Introduction 2</span>
+          <span class="header-dashboard">How to learn?</span>
           <div style="margin-top: 80px; margin-bottom: 20px ">
             <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
             <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
@@ -42,7 +42,7 @@
         </div>
         </span>
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <span class="header-dashboard">Introduction 3</span>
+          <span class="header-dashboard">3000 words video clips</span>
           <div style="margin-top: 80px; margin-bottom: 20px">
             <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
               <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
