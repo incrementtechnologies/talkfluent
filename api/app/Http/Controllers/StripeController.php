@@ -247,10 +247,10 @@ class StripeController extends TalkController
           'subtotal'    => $totalAmount,
           'tax'         => 0,
           'discount'    => $discount,
-          'total'       => $total_amount
+          'total'       => $totalAmount
         );
 
-        $returnUrl = app('App\Http\Controllers\EmailController')->receipt($accountId, null, $billingDetails);
+        $returnUrl = app('App\Http\Controllers\EmailController')->receipt($data['account_id'], null, $billingDetails);
 
         return response()->json(array('data' => $_stripe_subscription->id));
       }else{
