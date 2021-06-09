@@ -7,7 +7,7 @@
         </ul>
       </div>
       <div class="col-lg-10 mx-auto" style="margin-top: 25px;">
-        <new-payment-method :paymentMethod="paymentMethod" :creditCard="creditCard" :paypal="paypal"></new-payment-method>
+        <new-payment-method :paymentMethod="paymentMethod" ref='addNew' :creditCard="creditCard" :paypal="paypal"></new-payment-method>
       </div>
       <!-- border: 1px solid #c7c7c7;  -->
       <div class="col-lg-10 mx-auto">
@@ -22,6 +22,7 @@
               <div>
                 <div class="row">
                   <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
+                    <p v-if="errorMessage !== null" style="color:red;">{{errorMessage}}</p>
                     <label for="address">Card Number</label>
                     <card-number class="stripe-element card-number"
                       ref="cardNumber"
@@ -63,7 +64,7 @@
               <input type="checkbox" v-model="billingTerms" name="terms"/>
               I Agree to the <a v-bind:href="config.WEBSITE + '/billing_terms'" target="_BLANK">Billing Terms</a>
             </h6>
-            <button class="btn btn-primary btn-whole mt-2" style="width: 50%; height: 50px;">
+            <button class="btn btn-primary btn-whole mt-2" style="width: 50%; height: 50px;" v-on:click="validatePaymentStripe()">
               ADD PAYMENT METHOD
             </button>
           </div>
@@ -207,6 +208,7 @@ export default {
   created(){
     AUTH.redirectToLogin()
     this.retrieveBilling()
+    this.retrieveAccountInformation()
   },
   data(){
     return {
@@ -245,7 +247,10 @@ export default {
         style: {base: {
           fontSize: '16px'
         }}
-      }
+      },
+      errorMessage: null,
+      last_name: null,
+      first_name: null
     }
   },
   components: {
@@ -256,8 +261,61 @@ export default {
     CardExpiry
   },
   methods: {
+    retrieveAccountInformation(){
+      let parameter = {
+        condition: [{
+          value: this.user.userID,
+          column: 'account_id',
+          clause: '='
+        }]
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('account_informations/retrieve', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data.length > 0){
+          this.last_name = response.data[0].last_name
+          this.first_name = response.data[0].first_name
+        }
+      })
+    },
+    addMethod(source) {
+      let account = this.user
+      account['first_name'] = this.first_name
+      account['last_name'] = this.last_name
+      let parameter = {
+        account: account,
+        source: source,
+        payment_keys: OPKEYS
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('credit_cards/create', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        this.retrieveBilling()
+      })
+    },
+    validatePaymentStripe(){
+      if(this.number === false || this.expiry === false) {
+        this.errorMessage = 'Invalid input.'
+        return false
+      } else if(this.billingTerms === false || this.billingTerms === null){
+        this.errorMessage = 'Please agree the Billing Terms.'
+        return false
+      } else {
+        Stripe.createSource().then(data => {
+          this.errorMessage = null
+          if(data.error !== undefined){
+            this.errorMessage = data.error.message
+            return false
+          }else{
+            this.addMethod(data.source)
+            return true
+          }
+        })
+      }
+    },
     addPaymentMethod() {
-      this.otherPayments = !this.otherPayments
+      // this.otherPayments = !this.otherPayments
+      this.$refs.addNew.addPaymentMethodFlag = !this.$refs.addNew.addPaymentMethodFlag
     },
     executeAgreement(){
       if(this.user.userID === 0){
@@ -286,7 +344,9 @@ export default {
           clause: '='
         }]
       }
+      $('#loading').css({'display': 'block'})
       this.APIRequest('billings/retrieve', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
         this.billingHistory = response.billing
         this.paymentMethod = response.payment_method
         this.paypal = response.paypal
