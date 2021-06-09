@@ -18,7 +18,7 @@
     
       <span class="accounts-item" style="margin-top: 25px;">
         <button class="btn btn-primary" v-if="addPaymentMethodFlag === false && user.paymentStatus === 'failed'" v-on:click="setPaymentMethodFlag(true)">Add Payment Method</button>
-        <div class="new-payment-method" v-if="addPaymentMethodFlag === true">
+        <div class="new-payment-method mb-2" v-if="addPaymentMethodFlag === true">
           <div class="radio">
             <label><input type="radio" name="payment_method" v-model="newPaymentMethod" value="credit_card">Credit Card</label>
             <div class="text-danger" v-if="errorMessage !== null" style="padding-top: 10px; padding-bottom: 10px;">Opps! {{errorMessage}}</div>
@@ -76,7 +76,7 @@
         </div>
       </span>
     </div>
-    <create-paypal-plans v-if="newPaymentMethod === 'paypal'"></create-paypal-plans>
+    <create-paypal-plans v-if="newPaymentMethod === 'paypal' && addPaymentMethodFlag"></create-paypal-plans>
   </div>
 </template>
 <style>

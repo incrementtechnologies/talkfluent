@@ -283,7 +283,8 @@ class StripeController extends TalkController
       $source = $data['source'];
       $accountId = $data['account_id'];
       $accountInformation = AccountInformation::where('account_id', '=', $accountId)->first();
-      $name = (sizeof($accountInformation) > 0) ? $accountInformation->first_name .' '. $accountInformation->last_name : null;
+      $name = null;
+      $name = (sizeof(array($accountInformation)) > 0) ? $accountInformation->first_name .' '. $accountInformation->last_name : null;
 
       $keys = $data['payment_keys'];
       $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
