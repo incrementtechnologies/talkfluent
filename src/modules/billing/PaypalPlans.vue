@@ -21,8 +21,11 @@
         <span class="lead">
           <span class="text">SUBSCRIPTION PLANS THAT WORK FOR EVERYONE</span>
             <input type="text" class="form-control" placeholder="Enter Nickname(Optional)" v-model="nicknameMonthly" style="width: 80%; margin-right: 10%; margin-left: 10%; margin-bottom: 15px;">
-          <button class="btn btn-primary btn-whole" v-on:click="createPaypal('monthly')">
+          <button class="btn btn-primary btn-whole" v-on:click="createPaypal('monthly')" v-if="user.plan !== 'monthly'">
             BUY THIS PLAN
+          </button>
+          <button class="btn btn-danger btn-whole" v-on:click="createPaypal('monthly')" v-else>
+            YOUR ACTIVE PLAN
           </button>
           <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
             <div class="columns">
@@ -60,8 +63,11 @@
         <span class="lead">
           <span class="text">SUBSCRIPTION PLANS THAT WORK FOR EVERYONE</span>
           <input type="text" class="form-control" placeholder="Enter Nickname(Optional)" v-model="nicknameAnnually" style="width: 80%; margin-right: 10%; margin-left: 10%; margin-bottom: 15px;">
-          <button class="btn btn-primary btn-whole" v-on:click="createPaypal('annually')">
+          <button class="btn btn-primary btn-whole" v-on:click="createPaypal('annually')" v-if="user.plan !== 'annually'">
             BUY THIS PLAN
+          </button>
+          <button class="btn btn-danger btn-whole" v-on:click="createPaypal('annually')" v-else>
+            YOUR ACTIVE PLAN
           </button>
           <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
             <div class="columns">
@@ -99,8 +105,11 @@
         <span class="lead">
           <span class="text">SUBSCRIPTION PLANS THAT WORK FOR EVERYONE</span>
           <input type="text" class="form-control" placeholder="Enter Nickname(Optional)" v-model="nicknamePause" style="width: 80%; margin-right: 10%; margin-left: 10%; margin-bottom: 15px;">
-          <button class="btn btn-primary btn-whole" v-on:click="createPaypal('pause')">
+         <button class="btn btn-primary btn-whole" v-on:click="createPaypal('pause')" v-if="user.plan !== 'pause'">
             BUY THIS PLAN
+          </button>
+          <button class="btn btn-danger btn-whole" v-on:click="createPaypal('pause')" v-else>
+            YOUR ACTIVE PLAN
           </button>
           <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
             <div class="columns">
