@@ -71,7 +71,7 @@
       </div>
       <div class="col-lg-10 mx-auto" v-if="otherPayments">
       </div>
-      <div class="col-lg-10 mx-auto" style="margin-top: 25px;" v-if="paymentMethod !== null && (paypal !== null || creditCard !== null)">
+      <div class="col-lg-10 mx-auto" style="margin-top: 25px;" v-if="paymentMethod !== null && (paypal !== null || creditCard !== null) && this.$refs.addNew.newPaymentMethod !== 'paypal'">
         <upgrade-plans :paymentMethod="paymentMethod" :creditCard="creditCard"></upgrade-plans>
       </div>
       <div class="col-lg-10 mx-auto" style="margin-top: 25px;">

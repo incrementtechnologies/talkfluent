@@ -24,6 +24,18 @@
           <button class="btn btn-primary btn-whole" v-on:click="createPaypal('monthly')">
             BUY THIS PLAN
           </button>
+          <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+            <div class="columns">
+              <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'monthly' && user.canceledOn === null">
+                CANCEL PLAN
+              </button>
+            </div>
+            <div class="columns">
+              <button v-on:click="pausePlan()" class="btn btn-primary btn-whole" style="height: 45px; width: 78%; float: left; padding: 5px;" v-if="user.plan === 'monthly' && user.canceledOn === null">
+                PAUSE PLAN
+              </button>
+            </div>
+          </div>
         </span>
       </span>
     </div>
@@ -51,6 +63,18 @@
           <button class="btn btn-primary btn-whole" v-on:click="createPaypal('annually')">
             BUY THIS PLAN
           </button>
+          <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+            <div class="columns">
+              <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'annually' && user.canceledOn === null">
+                CANCEL PLAN
+              </button>
+            </div>
+            <div class="columns">
+              <button v-on:click="pausePlan()" class="btn btn-primary btn-whole" style="height: 45px; width: 78%; float: left; padding: 5px;" v-if="user.plan === 'annually' && user.canceledOn === null">
+                PAUSE PLAN
+              </button>
+            </div>
+          </div>
         </span>
       </span>
     </span>
@@ -78,9 +102,22 @@
           <button class="btn btn-primary btn-whole" v-on:click="createPaypal('pause')">
             BUY THIS PLAN
           </button>
+          <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+            <div class="columns">
+              <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'pause' && user.canceledOn === null">
+                CANCEL PLAN
+              </button>
+            </div>
+            <div class="columns">
+              <button v-on:click="pausePlan()" class="btn btn-primary btn-whole" style="height: 45px; width: 78%; float: left; padding: 5px;" v-if="user.plan === 'pause' && user.canceledOn === null">
+                PAUSE PLAN
+              </button>
+            </div>
+          </div>
         </span>
       </span>
     </span>
+    <cancel-plan :paymentMethod="paymentMethod"></cancel-plan>
 	</div>
 </template>
 <style scoped>
@@ -90,6 +127,10 @@
 	margin-bottom: 50px;
 }
 
+.columns {
+  float: left;
+  width: 50%;
+}
 .pricing-item{
   width: 32%;
   float: left;
@@ -256,12 +297,63 @@ export default {
       products: PRODUCTS,
       nicknameAnnually: null,
       nicknameMonthly: null,
-      nicknamePause: null
+      nicknamePause: null,
+      paymentMethod: null,
+      creditCard: null
     }
   },
+  components: {
+    'cancel-plan': require('modules/billing/CancelPlan.vue')
+  },
+  mounted() {
+    this.retrieveBilling()
+  },
   methods: {
+    addPlanStripe(plan){
+      let parameter = {
+        payment_keys: OPKEYS,
+        customer_id: this.creditCard[0].customer,
+        plan: plan,
+        products: PRODUCTS,
+        credit_card_id: this.creditCard[0].id,
+        account_id: this.user.userID,
+        coupon: null
+      }
+      // call api
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('stripes/new_subscription', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data !== null){
+          AUTH.checkAuthentication(null)
+          this.retrieveBilling()
+        }else{
+          this.errorMessage = response.error
+        }
+      })
+    },
+    retrieveBilling(){
+      let parameter = {
+        'condition': [{
+          column: 'account_id',
+          value: this.user.userID,
+          clause: '='
+        }]
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('billings/retrieve', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        this.paymentMethod = response.payment_method
+        this.creditCard = response.credit_card
+      })
+    },
     redirect(route){
       ROUTER.push(route)
+    },
+    cancelPlan() {
+      $('#requestToCancel').modal('show')
+    },
+    pausePlan() {
+      this.addPlanStripe('pause')
     },
     createPaypal(plan){
       let nickname = null

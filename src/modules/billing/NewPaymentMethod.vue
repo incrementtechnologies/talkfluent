@@ -20,7 +20,7 @@
         <button class="btn btn-primary" v-if="addPaymentMethodFlag === false && user.paymentStatus === 'failed'" v-on:click="setPaymentMethodFlag(true)">Add Payment Method</button>
         <div class="new-payment-method mb-2" v-if="addPaymentMethodFlag === true">
           <div class="radio">
-            <label><input type="radio" name="payment_method" v-model="newPaymentMethod" value="credit_card">Credit Card</label>
+            <label><input type="radio" name="payment_method" v-model="newPaymentMethod" value="credit_card"> Credit Card</label>
             <div class="text-danger" v-if="errorMessage !== null" style="padding-top: 10px; padding-bottom: 10px;">Opps! {{errorMessage}}</div>
             <div :class="{complete}" v-if="newPaymentMethod === 'credit_card'" >
               <div class="row">
@@ -62,7 +62,7 @@
           </div>
           
           <div class="radio">
-            <label><input type="radio" name="payment_method" v-model="newPaymentMethod" value="paypal">PayPal</label>
+            <label><input type="radio" name="payment_method" v-model="newPaymentMethod" value="paypal"> PayPal</label>
 <!--                 <div class="row" v-if="newPaymentMethod === 'paypal'">
               <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
                 <label for="nickname">Nickname</label>
