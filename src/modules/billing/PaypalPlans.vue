@@ -24,10 +24,13 @@
           <button class="btn btn-primary btn-whole" v-on:click="createPaypal('monthly')" v-if="user.plan !== 'monthly'">
             BUY THIS PLAN
           </button>
-          <button class="btn btn-danger btn-whole" v-on:click="createPaypal('monthly')" v-else>
+          <button class="btn bg-green btn-whole" style="color: white;" v-on:click="createPaypal('monthly')" v-else>
             YOUR ACTIVE PLAN
           </button>
-          <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+          <button class="btn btn-danger btn-whole" v-on:click="cancelPlan()" v-if="user.plan === 'monthly' && user.canceledOn === null">
+            CANCEL PLAN
+          </button>
+          <!-- <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
             <div class="columns">
               <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'monthly' && user.canceledOn === null">
                 CANCEL PLAN
@@ -38,7 +41,7 @@
                 PAUSE PLAN
               </button>
             </div>
-          </div>
+          </div> -->
         </span>
       </span>
     </div>
@@ -66,10 +69,13 @@
           <button class="btn btn-primary btn-whole" v-on:click="createPaypal('annually')" v-if="user.plan !== 'annually'">
             BUY THIS PLAN
           </button>
-          <button class="btn btn-danger btn-whole" v-on:click="createPaypal('annually')" v-else>
+          <button class="btn bg-green btn-whole" style="color: white;" v-on:click="createPaypal('annually')" v-else>
             YOUR ACTIVE PLAN
           </button>
-          <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+          <button class="btn btn-danger btn-whole" v-on:click="cancelPlan()" v-if="user.plan === 'annually' && user.canceledOn === null">
+            CANCEL PLAN
+          </button>
+          <!-- <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
             <div class="columns">
               <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'annually' && user.canceledOn === null">
                 CANCEL PLAN
@@ -80,12 +86,12 @@
                 PAUSE PLAN
               </button>
             </div>
-          </div>
+          </div> -->
         </span>
       </span>
     </span>
 
-    <span class="pricing-item next-pricing">
+    <!-- <span class="pricing-item next-pricing">
       <span class="header-item bg-green">
         <label>PAUSE YOUR ACCOUNT</label>
       </span>
@@ -125,7 +131,7 @@
           </div>
         </span>
       </span>
-    </span>
+    </span> -->
     <cancel-plan :paymentMethod="paymentMethod"></cancel-plan>
 	</div>
 </template>
