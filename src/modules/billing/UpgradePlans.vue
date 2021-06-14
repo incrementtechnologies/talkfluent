@@ -105,13 +105,13 @@
             <label class="text-success" v-if="couponSuccessMessageMonthly !== null"><b>{{couponSuccessMessageMonthly}}</b></label>
             <label class="text-danger" v-if="couponErrorMessageMonthly !== null"><b>{{couponErrorMessageMonthly}}</b></label>
           </span>
-          <div class="coupons" v-if="paymentMethod.method === 'stripe' && (user.plan !== 'monthly' || user.paymentStatus === 'failed')">
+<!--           <div class="coupons" v-if="paymentMethod.method === 'stripe' && (user.plan !== 'monthly' || user.paymentStatus === 'failed')">
             <input type="text" class="form-control" placeholder="Enter Coupon Code" v-model="newCouponMonthly" :disabled="couponSuccessMessageMonthly !== null">
             <div class="button-holder">
               <button class="btn btn-primary pull-right" v-on:click="retrieveCoupon('monthly')" v-if="couponSuccessMessageMonthly === null">APPLY</button>
               <button class="btn btn-danger pull-right" v-on:click="deleteMonthlyCoupon('monthly')" v-if="couponSuccessMessageMonthly !== null">DELETE</button>
             </div>
-          </div>
+          </div> -->
           <button class="btn btn-success btn-whole" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed'  && user.canceledOn === null">
             YOUR CURRENT ACTIVE PLAN
           </button>
@@ -176,13 +176,13 @@
             <label class="text-success" v-if="couponSuccessMessageAnnually !== null"><b>{{couponSuccessMessageAnnually}}</b></label>
             <label class="text-danger" v-if="couponErrorMessageAnnually !== null"><b>{{couponErrorMessageAnnually}}</b></label>
           </span>
-          <div class="coupons" v-if="paymentMethod.method === 'stripe' && (user.plan !== 'annually' || user.paymentStatus === 'failed')">
+<!--           <div class="coupons" v-if="paymentMethod.method === 'stripe' && (user.plan !== 'annually' || user.paymentStatus === 'failed')">
             <input type="text" class="form-control" placeholder="Enter Coupon Code" v-model="newCouponAnnually" :disabled="couponSuccessMessageAnnually !== null">
             <div class="button-holder">
               <button class="btn btn-primary pull-right" v-on:click="retrieveCoupon('annually')" v-if="couponSuccessMessageAnnually === null">APPLY</button>
               <button class="btn btn-danger pull-right" v-on:click="deleteAnnuallyCoupon('monthly')" v-if="couponSuccessMessageAnnually !== null">DELETE</button>
             </div>
-          </div>
+          </div> -->
           <button class="btn btn-success btn-whole" v-if="user.plan === 'annually' && user.paymentStatus !== 'failed' && user.canceledOn === null">
             YOUR CURRENT ACTIVE PLAN
           </button>
