@@ -10,49 +10,20 @@
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <span class="header-dashboard" >Start Here</span>
           <div style="margin-top: 80px; margin-bottom: 20px">
-            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
-            <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-              <div class="wistia_embed wistia_async_4fqxpgrjw1 videoFoam=true"
-                style="height:100%;position:relative;width:100%">
-                <div class="wistia_swatch"
-                  style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
-                  <img src="https://fast.wistia.com/embed/medias/4fqxpgrjw1/swatch"
-                    style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true"
-                    onload="this.parentNode.style.opacity=1;" /></div>
-              </div>
-            </div>
+            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_4fqxpgrjw1 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;position:relative;width:100%">&nbsp;</span></div></div>
           </div>
-        </div>
         </span>
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <span class="header-dashboard">How to learn?</span>
           <div style="margin-top: 80px; margin-bottom: 20px ">
-            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
-            <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-              <div class="wistia_embed wistia_async_36v1optnqo videoFoam=true" style="height:100%;position:relative;width:100%">
-                <div class="wistia_swatch"
-                  style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
-                  <img src="https://fast.wistia.com/embed/medias/36v1optnqo/swatch"
-                    style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true"
-                    onload="this.parentNode.style.opacity=1;" />
-                </div>
-              </div>
+
+           <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_36v1optnqo popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;position:relative;width:100%">&nbsp;</span></div></div>
             </div>
-          </div>
-        </div>
-        </span>
+          </span>
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <span class="header-dashboard">3000 words video clips</span>
-          <div style="margin-top: 80px; margin-bottom: 20px">
-            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_ud7le43chh" style="height:100%;position:relative;width:100%">
-                  <div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
-                    <img src="https://fast.wistia.com/embed/medias/ud7le43chh/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" />
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div style="margin-top: 80px; margin-bottom: 20px;">
+            <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_ud7le43chh popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:87%;position:relative;width:100%">&nbsp;</span></div></div>
           </div>
         </span>
 <!--         <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto account-error" v-if="user.status === 'NOT_VERIFIED'">
@@ -262,7 +233,6 @@
                     <b v-if="(selectedLesson.grammar_audio !== null && selectedLesson.grammar_audio !== 'NONE') || (selectedLesson.grammar_tip !== null && selectedLesson.grammar_tip !== 'NONE')">Grammar Tip</b>
                     <br>
                     <i class="fa fa-volume-up regular-volume-up" @click="audioHandler.playerHowler(config.BACKEND_URL + selectedLesson.grammar_audio,'grammarAudioPlayButton1')" v-if="selectedLesson.grammar_audio !== null && selectedLesson.grammar_audio !== 'NONE'" v-bind:class="{'grammar-button-active': isGrammarActive === true, 'text-danger': selectedLesson.grammar_audio === null || selectedLesson.grammar_audio === 'NONE'}" id="grammarAudioPlayButton1"></i>
-
                     <i class="fa fa-sync regular-volume-up regular-sync repeat-audio-icon-ios" @click="audioHandler.playerHowler(config.BACKEND_URL + selectedLesson.grammar_audio,'grammarRepeatAudioPlayButton')" v-if="selectedLesson.grammar_audio !== null && selectedLesson.grammar_audio !== 'NONE'" v-bind:class="{'grammar-button-active': isGrammarActive === true, 'text-danger': selectedLesson.grammar_audio === null  || selectedLesson.grammar_audio === 'NONE'}" id="grammarRepeatAudioPlayButton"></i>
                     <br>
                     <label v-if="selectedLesson.grammar_tip !== null && selectedLesson.grammar_tip !== 'NONE'" v-html="selectedLesson.grammar_tip"></label>
@@ -271,7 +241,6 @@
                     <b v-if="(selectedLesson.culture_tip !== null && selectedLesson.culture_tip !== 'NONE') || (selectedLesson.culture_audio !== null && selectedLesson.culture_audio !== 'NONE')">Culture Tip</b>
                     <br>
                     <i class="fa fa-volume-up regular-volume-up" @click="audioHandler.playerHowler(config.BACKEND_URL + selectedLesson.culture_audio,'cultureAudioPlayButton')" v-if="selectedLesson.culture_audio !== null && selectedLesson.culture_audio !== 'NONE'" v-bind:class="{'culture-button-active': isCultureActive === true, 'text-danger': selectedLesson.culture_audio === null}" id="cultureAudioPlayButton"></i>
-
                     <i class="fa fa-sync regular-volume-up repeat-audio-icon-ios" @click="audioHandler.playerHowler(config.BACKEND_URL + selectedLesson.culture_audio,'cultureRepeatAudioPlayButton')" v-if="selectedLesson.culture_audio !== null && selectedLesson.culture_audio !== 'NONE'" v-bind:class="{'culture-button-active': isCultureActive === true, 'text-danger': selectedLesson.culture_audio === null}" id="cultureRepeatAudioPlayButton"></i>
                     <br>
                     <label  v-if="selectedLesson.culture_tip !== null && selectedLesson.culture_tip !== 'NONE'" v-html="selectedLesson.culture_tip"></label>
@@ -337,7 +306,6 @@
                 <span class="audio-list-button">
                   <i class="fa fa-volume-up small-volume-icons" v-bind:class="{'text-danger': item.audio === null}" @click="audioHandler.playerHowler(config.BACKEND_URL + item.audio, 'wordPopupAudio' + index + 'PlayButton')" v-bind:id="'wordPopupAudio' + index + 'PlayButton'">
                   </i>
-
                   <i class="fa fa-sync small-volume-icons margin-audio-mobile repeat-audio-icon-ios" v-bind:class="{'text-danger': item.audio === null}" @click="audioHandler.playerHowler(config.BACKEND_URL + item.audio, 'wordPopupRepeatAudio' + index + 'PlayButton')" v-bind:id="'wordPopupRepeatAudio' + index + 'PlayButton'">
                   </i>
                 </span>
@@ -398,30 +366,26 @@
   </div>
 </template>
 <style>
-  small {
-    font-size: 100%;
-  }
   body{
     background: #fff;
   }
-  
+  small {
+    font-size: 100%;
+  }
   #video{
     margin-top: -5% !important;
     margin-bottom: -7% !important;
     /* width: 300px */
   }  
-
   #video2{
     margin-bottom: -10% !important;
     margin-top:-10% !important
   }
-
   .row::after {
   content: "";
   clear: both;
   display: block;
 }
-
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   [class*="col-"] {
@@ -451,11 +415,9 @@
   .history{
     margin-top: 25px;
   }
-
   .bg-primary{
     background: #1caceb !important; 
   }
-
   .form-control{
     height: 45px !important;
   }
@@ -467,25 +429,21 @@
   .dash-header{
     text-align: center;
   }
-
   .empty-lesson{
     height: 50px;
     width: 100%;
     font-size: 24px;
     color: #ff0000;
   }
-
   td button i{
     padding-right: 10px;
   }
   thead{
     font-weight: 700;
   }
-
   .audio_container{
     visibility: hidden;
   }
-
   .welcome-title{
     margin: 20px 0 20px 0;
   }
@@ -511,7 +469,6 @@
     height: 300px;
     width: 100%;
   }
-
   .redirect-buttons{
     height: 50px;
     width: 20%;
@@ -558,12 +515,10 @@
   color: gray;
   font-size: 75px;
 }
-
 .table{
   margin-top: 50px;
   margin-bottom: 50px;
 }
-
 .top-lesson-holder{
   width: 100%;
   min-height: 40px;
@@ -598,7 +553,6 @@
   font-size: 16px;
   border-bottom: 1px solid #ccc;
 }
-
 .lesson-holder-index{
   padding-left: 10px;
   padding-right: 10px;
@@ -630,7 +584,6 @@
   color: #fff;
   text-align: center;
 }
-
 .test-check{
   color: #fff;
   text-align: center;
@@ -643,11 +596,8 @@
   min-height: 50px !important;
   overflow: hidden;
 }
-
 /*
-
   CONTENT
-
 */
 .mobile-viewer{
   display: none;
@@ -664,12 +614,10 @@
 .mobile-viewer-button1{
   margin-left: 2%;
 }
-
 .mobile-viewer-button1 h5, .mobile-viewer-button2 h5{
   line-height: 50px;
   margin-bottom: 0px;
 }
-
 .mobile-viewer-button1:hover, .mobile-viewer-button2:hover{
   cursor: pointer;
   background: #1caceb;
@@ -681,7 +629,6 @@
   width: 55%;
   display: block;
 }
-
 .lesson-content-holder{
   width: 96%;
   min-height: 200px;
@@ -689,28 +636,23 @@
   margin: 0 2% 0 2%;
   float: left;
   }
-
 .content-translation{
   font-size: 20px;
 }
 .content-translation{
   color: #ccc;
 }
-
 .content-items{
   float: left;
   width: 90%;
   margin-left: 10%;
 }
-
 .content-items label{
   margin-bottom: 0px;
 }
-
 /*
       
     GRAMMAR AND CULTURE TIP
-
 */
 .lesson-content-tip{
   width: 100%;
@@ -744,20 +686,13 @@
   float: left;
   margin: 0 2% 0 2%;
 }
-
 .tip-content label{
   text-align: justify;
 }
-
-
-
-
 /*
     
   AUDIO MANAGER
-
 */
-
 .audio-manager{
   float: left;
   width: 45%;
@@ -771,7 +706,6 @@
 .is-word-audio, .is-sentence-audio{
   display: block;
 }
-
 .audio-holder{
   width: 96%;
   float: left;
@@ -789,7 +723,6 @@
   float: left;
   overflow-y: hidden;
 }
-
 #audio-content #word, #audio-content #translation{
   min-height: 25px;
   width: 100%;
@@ -827,7 +760,6 @@
   margin-left: 5%;
   color: #555;
 }
-
 .lesson-button-active{
   background: #fff;
   border: solid 2px #1caceb;
@@ -842,22 +774,17 @@
   padding: 10px;
   color: #fff;
 }
-
 .audio-close:hover{
   cursor: pointer;
 }
-
 .audio-content-holder{
   min-height: 60px;
   width: 100%;
   float: left;
   overflow-y: hidden;
 }
-
 /*
-
       STRESS AND ACCENT
-
 */
 .accent-holder{
   width: 96%;
@@ -867,7 +794,6 @@
   background: #fff;
   text-align: justify;
 }
-
 .accent-header-holder{
   width: 100%;
   float: left;
@@ -887,20 +813,16 @@
   text-align: justify;
   display: inline;
 }
-
 .accent-header label{
   display: initial;
   text-transform: capitalize;
 }
-
 .accent-header span{
   text-transform: none;
 }
-
 .accent-header span span{
   display: inline-block;
 }
-
 .accent-header a:hover{
   cursor: pointer !important;
   text-decoration: underline !important;
@@ -911,11 +833,9 @@
   overflow-y: scroll;
   float: left;
 }
-
 .accent-item:last-child{
   margin-bottom: 100px !important;
 }
-
 .accent-header-extra{
   width: 98%;
   float: left;
@@ -924,7 +844,6 @@
   margin: 0 1% 0 1%;
   font-size: 20px !important;
 }
-
 .accent-header-extra-info{
   width: 98%;
   float: left;
@@ -933,7 +852,6 @@
   margin: 0 1% 0 1%;
   font-size: 20px !important;
 }
-
 .accent-item{
   height: auto;
   width: 96%;
@@ -975,17 +893,14 @@
   float: left;
   text-align: justify;
 }
-
 .accent-letter-defi ul{
   float: left;
 }
-
 .accent-letter-defi-extra{
   width: 88%;
   float: left;
   text-align: justify;
 }
-
 .accent-media-holder{
   width: 100%;
   float: left;
@@ -1006,7 +921,6 @@
   cursor: pointer;
   border: 1px solid #ccc;
 }
-
 .audio-list-holder{
   height: auto;
   width: 96%;
@@ -1021,14 +935,12 @@
   margin-bottom: 25px;
   overflow-y: auto;
 }
-
 .word-images-holder .src-image-holder{
   float: left;
   width: 76px;
   height: 102px;
   margin-right: 2px;
 }
-
 .src-image-holder img{
   max-width: 100%;
   height: 102px;
@@ -1041,22 +953,16 @@
   width: 100%;
   float: left; 
 }
-
 .audio-list-item .original{
   padding-left: 10px;
 }
-
 .audio-list-item .translation{
   padding-left: 20px;
 }
-
-
 /*
-
   AUDIO VISUALIZER
     
 */
-
 .audio-visualizer{
   max-height: 64px;
   width: 100%;
@@ -1092,12 +998,9 @@
 .active-visualizer{
   visibility: visible;
 }
-
 .hide-progress-bar{
   display: none;
 }
-
-
 /* Tooltip container */
 .tooltips {
   position: relative;
@@ -1121,7 +1024,6 @@
   color: gray;
   font-size: 20px;
 }
-
 .number:hover{
   cursor: pointer;
   text-decoration: underline;
@@ -1130,7 +1032,6 @@
 .number-clicked{
   color: black;
 }
-
 .tooltips-new-line {
     position: relative;
     color: gray;
@@ -1138,13 +1039,9 @@
 .tooltips-clicked{
     color: #000 !important;
 }
-
 /* 
     Tooltip text 
-
 */
-
-
 .tooltips .tooltipTitle,  .tooltips-new-line .tooltipTitle{
     visibility: hidden;
     width: 120px;
@@ -1163,7 +1060,6 @@
     white-space: pre-line;
     font-size: 20px;
 }
-
 .tooltipsAudio .tooltipTitleAudio{
     visibility: hidden;
     width: 80px;
@@ -1182,7 +1078,6 @@
     white-space: pre-line;
     font-size: 12px;
 }
-
 /* Tooltip arrow */
 .tooltips .tooltipTitle::after, .tooltips-new-line .tooltipTitle::after{
     content: "";
@@ -1194,7 +1089,6 @@
     border-style: solid;
     border-color: #e1e1e1 transparent transparent transparent;
 }
-
 .tooltipsAudio .tooltipTitleAudio::after{
     content: "";
     position: absolute;
@@ -1205,8 +1099,6 @@
     border-style: solid;
     border-color: #e1e1e1 transparent transparent transparent;
 }
-
-
 .audio-list-button{
   width: 20%;
   float: left;
@@ -1232,11 +1124,8 @@
     opacity: 1;
 }
 /*
-
     GUIDE VIDEO
-
 */
-
 .guide-holder{
   width: 70px;
   margin-right: 10px;
@@ -1248,15 +1137,12 @@
   font-size: 10px;
   font-weight: 600;
 }
-
 .guide-holder .guide-video{
   float: left;
   height: 40px;
   width: 70px;
   margin-top: 5px;
 }
-
-
 .account-error .error-message{
   width: 100%;
   float: left;
@@ -1274,15 +1160,12 @@
 .show-on-desktop{
   display: block;
 }
-
 .show-on-mobile{
   display: none;
 }
-
 .margin-audio-mobile{
   margin-top: 0px;
 }
-
 .popover_content, .pronounce_popover_content {
   transform: translate(0,10px);
   padding: 10px;
@@ -1339,11 +1222,9 @@
 .popover_title{
   padding-right: 5px;
 }
-
 .popover_title:hover{
   cursor: pointer;
 }
-
 /*.popover_title:hover + .popover_content {
   z-index: 10;
   opacity: 1;
@@ -1359,51 +1240,40 @@
   display: block;
   transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
 }
-
-
 .column{
   width: 50%;
   float: left;
 }
-
 .video{
   width: auto;
   height: 175px;
 }
-
 .vml-footer{
   margin-left: 10%;
 }
-
 .vml-audio{
   margin-left: 2%;
 }
-
 .hide-video{
   display: block;
 }
-
 @media (max-width: 992px) {
   .column{
     width: 100%;
     float: left;
   }
-
   .video{
     width: 100%;
   }
-
   .vml-footer{
     margin-left: 0%;
     margin-top: 50px;
     margin-bottom: 50px;
   }
-
   .modal-footer{
     display: unset;
   }
 }
-
 @media screen and (max-width: 767px) {
   .second-video{
     margin-top: 10px;
@@ -1412,19 +1282,15 @@
     width: 30%;
     margin-right: 2%;
   }
-
   .show-on-desktop{
     display: none;
   }
-
   .show-on-mobile{
     display: block;
   }
-
   .hide-video{
     display: none;
   }
-
 }
 @media screen and (max-width: 400px) {
   .redirect-buttons{
@@ -1436,13 +1302,10 @@
   .show-on-desktop{
     display: none;
   }
-
   .show-on-mobile{
     display: block;
   }
-
 }
-
 @media  only screen and (max-width: 610px){
    #video2{
     width:95%;
@@ -1450,16 +1313,12 @@
     margin-bottom: -5% !important;
     margin-left:-2% !important
   } 
-
 }
-
 @media (min-width: 768px){
   .col-md-6{
     max-width: 100%;
   }
 }
-
-
 @media  only screen and (min-width: 768px)  and (max-width: 768px){
    #video2{
     width:95%;
@@ -1471,7 +1330,6 @@
     flex: none;
     max-width: -50%;
   }
-
   #video{
     min-width: 200px;
     margin-left:auto;
@@ -1479,7 +1337,6 @@
     display: block;
   }
 }
-
 @media screen and (min-width: 200px) and (max-width: 991px) {
   #video{
     width: 100%;
@@ -1489,7 +1346,6 @@
     display: block;
     margin-bottom: -5%;
   }
-
   .closeBtn{
     width: 100%;
     margin-left: auto;
@@ -1497,12 +1353,10 @@
     display: block;
     margin-top: 1px;
   }
-
   .col-md-6{
     flex: none;
     max-width: -50%;
   }
-
   #video2{
     width:95%;
     margin-top:-1% !important;
@@ -1518,11 +1372,9 @@
   .content-manager, .audio-manager{
     display: none;
   }
-
   .is-active-cm, .is-active-am-sentence, .is-active-am-word{
     display: block;
   }
-
   .page-active-content, .page-active-audio{
     background: #1caceb;
     color: #fff;
@@ -1558,7 +1410,6 @@
   .header-dashboard{
     font-size: 16px;
   }
-
   .top-lesson-holder{
     text-align: left;
   }
@@ -1576,29 +1427,24 @@
     padding-bottom: 10px;
     font-size: 14px;
   }
-
   .lesson-holder-index{
     padding-left: 5px;
     padding-right: 5px;
   }
-
   .accent-content-left{
     width: 22%;
     float: left;
   }
-
   .accent-audio{
     width: 100%;
     float: left;
     text-align: center;
   }
-
   .accent-letter{
     width: 100%;
     float: left;
     margin-top: -15px;
   }
-
   .accent-letter label{
     font-size: 50px;
   }
@@ -1614,7 +1460,6 @@
     text-align: justify;
     margin-left: 5%;
   }
-
   .accent-media-holder-extra{
     width: 90% !important;
     margin-left: 5% !important;
@@ -1622,15 +1467,12 @@
   .accent-media-holder-extra .accent-media-item{
     height: 70px;
   }
-
   .show-on-desktop{
     display: none;
   }
-
   .show-on-mobile{
     display: block;
   }
-
   .margin-audio-mobile{
     margin-top: 5px;
   }
@@ -1666,7 +1508,6 @@ export default {
         this.pageActiveAudio = false
       }
     }
-
     // window.onresize = () => {
     //   console.log(window.innerWidth)
     //   if(window.innerWidth < 400){
