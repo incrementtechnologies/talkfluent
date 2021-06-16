@@ -48,7 +48,11 @@ class IpaController extends TalkController
         $ipaResult = Ipa::where('code', '=', $key)->get();
         if(sizeof($ipaResult) > 0){
           $this->divStart($j + 1);
-          $this->desktopAudio($ipaResult[0]['audio'], $j + 1); // get url of ipa
+          if($ipaResult[0]['audio']) {
+            $this->desktopAudio($ipaResult[0]['audio'], $j + 1); // get url of ipa
+          } else {
+            $this->renderNoAudio($ipaResult[0]['audio'], $j + 1);
+          }
           $this->ipaTitle($ipaResult[0]['subtitle'], $ipaResult[0]['bottom']); // bottom silenct, consonant. add bottom on database
           $this->mobileAudio($ipaResult[0]['audio'], $j + 1); // get the url of ipa
           $this->image($ipaResult[0]['image'], $ipaResult[0]['video']); // get the image url of ipa
@@ -193,6 +197,15 @@ class IpaController extends TalkController
         <i class="fa fa-volume-up small-volume-icons" @click="playerHowler(\''.$url.'\',\''.$button.'\')" id="'.$button.'"></i>
         <br>
         <i class="fa fa-sync small-volume-icons" @click="playerHowler(\''.$url.'\',\''.$buttonRepeat.'\')" id="'.$buttonRepeat.'" style="margin-top: 5px;"></i>
+      </span>';
+    }
+
+    public function renderNoAudio($url, $id) {
+      $button = 'basicAudio'.$id.'PlayButton';
+      $buttonRepeat = 'basicAudioRepeat'.$id.'PlayButton';
+      $this->accentResponse .= '
+      <span class="accent-audio show-on-desktop">
+        <p></p>
       </span>';
     }
 

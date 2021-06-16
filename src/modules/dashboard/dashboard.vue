@@ -10,20 +10,49 @@
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <span class="header-dashboard" >Start Here</span>
           <div style="margin-top: 80px; margin-bottom: 20px">
-            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_4fqxpgrjw1 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;position:relative;width:100%">&nbsp;</span></div></div>
+            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
+            <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+              <div class="wistia_embed wistia_async_4fqxpgrjw1 videoFoam=true"
+                style="height:100%;position:relative;width:100%">
+                <div class="wistia_swatch"
+                  style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
+                  <img src="https://fast.wistia.com/embed/medias/4fqxpgrjw1/swatch"
+                    style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true"
+                    onload="this.parentNode.style.opacity=1;" /></div>
+              </div>
+            </div>
           </div>
+        </div>
         </span>
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <span class="header-dashboard">How to learn?</span>
           <div style="margin-top: 80px; margin-bottom: 20px ">
-
-           <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_36v1optnqo popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;position:relative;width:100%">&nbsp;</span></div></div>
+            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
+            <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+              <div class="wistia_embed wistia_async_36v1optnqo videoFoam=true" style="height:100%;position:relative;width:100%">
+                <div class="wistia_swatch"
+                  style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
+                  <img src="https://fast.wistia.com/embed/medias/36v1optnqo/swatch"
+                    style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true"
+                    onload="this.parentNode.style.opacity=1;" />
+                </div>
+              </div>
             </div>
-          </span>
+          </div>
+        </div>
+        </span>
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <span class="header-dashboard">3000 words video clips</span>
-          <div style="margin-top: 80px; margin-bottom: 20px;">
-            <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_ud7le43chh popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:87%;position:relative;width:100%">&nbsp;</span></div></div>
+          <div style="margin-top: 80px; margin-bottom: 20px">
+            <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_ud7le43chh" style="height:100%;position:relative;width:100%">
+                  <div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
+                    <img src="https://fast.wistia.com/embed/medias/ud7le43chh/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </span>
 <!--         <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto account-error" v-if="user.status === 'NOT_VERIFIED'">
@@ -369,7 +398,9 @@
   </div>
 </template>
 <style>
-
+  small {
+    font-size: 100%;
+  }
   body{
     background: #fff;
   }

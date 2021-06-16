@@ -5,8 +5,8 @@
         (paymentMethod.method === 'stripe' && user.paymentStatus === 'failed') ? 'Choose your plan' : 'You may upgrade your plan'
       }}</b>
     <br>
-<!-- 
-    <div class="pricing-item next-pricing" v-if="user.plan === 'pause'">
+
+    <!-- <div class="pricing-item next-pricing" v-if="user.plan === 'pause'">
       <span class="header-options option-false"></span>
       <span class="header-item bg-green">
         <label>MONTHLY</label>
@@ -78,9 +78,9 @@
           </span>
           
         </span>
-      </span> -->
-<!--     </div>
- -->
+      </span>
+    </div> -->
+
     <div class="pricing-item next-pricing">
       <span class="header-options option-false"></span>
       <span class="header-item bg-green">
@@ -111,19 +111,25 @@
               <button class="btn btn-primary pull-right" v-on:click="retrieveCoupon('monthly')" v-if="couponSuccessMessageMonthly === null">APPLY</button>
               <button class="btn btn-danger pull-right" v-on:click="deleteMonthlyCoupon('monthly')" v-if="couponSuccessMessageMonthly !== null">DELETE</button>
             </div>
-          </div> -->
-          <button class="btn btn-success btn-whole" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed'  && user.canceledOn === null">
+          </div>
+          <button class="btn bg-success btn-whole" style="color:white;" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed'  && user.canceledOn === null">
             YOUR CURRENT ACTIVE PLAN
           </button>
-          <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed' && user.canceledOn === null">
+          <button class="btn btn-danger btn-whole" v-on:click="cancelPlan()" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed' && user.canceledOn === null">
             CANCEL PLAN
           </button>
-
-
-<!--           <button v-on:click="pausePlan()" class="btn btn-primary btn-whole" style="height: 45px; width: 72%; float: left; padding: 5px;" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed' && user.canceledOn === null">
-            PAUSE PLAN
-          </button> -->
-
+          <!-- <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+            <div class="columns">
+              <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed' && user.canceledOn === null">
+                CANCEL PLAN
+              </button>
+            </div>
+            <div class="columns">
+              <button v-on:click="pausePlan()" class="btn btn-primary btn-whole" style="height: 45px; width: 72%; float: left; padding: 5px;" v-if="user.plan === 'monthly' && user.paymentStatus !== 'failed' && user.canceledOn === null">
+                PAUSE PLAN
+              </button>
+            </div>
+          </div> -->
           <button class="btn btn-primary btn-whole" v-if="user.plan !== 'monthly' && paymentMethod.method === 'stripe' && user.paymentStatus !== 'failed' && user.canceledOn === null" v-on:click="upgradePlanStripe('monthly', paymentMethod.source)">
             BUY THIS PLAN
           </button>
@@ -182,14 +188,14 @@
               <button class="btn btn-primary pull-right" v-on:click="retrieveCoupon('annually')" v-if="couponSuccessMessageAnnually === null">APPLY</button>
               <button class="btn btn-danger pull-right" v-on:click="deleteAnnuallyCoupon('monthly')" v-if="couponSuccessMessageAnnually !== null">DELETE</button>
             </div>
-          </div> -->
-          <button class="btn btn-success btn-whole" v-if="user.plan === 'annually' && user.paymentStatus !== 'failed' && user.canceledOn === null">
+          </div>
+          <button class="btn bg-success btn-whole" style="color:white;" v-if="user.plan === 'annually' && user.paymentStatus !== 'failed' && user.canceledOn === null">
             YOUR CURRENT ACTIVE PLAN
           </button>
-          <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" v-if="user.plan === 'annually' && user.paymentStatus !== 'failed' && user.canceledOn === null">
+          <button class="btn btn-danger btn-whole" v-on:click="cancelPlan()" v-if="user.plan === 'annually' && user.paymentStatus !== 'failed' && user.canceledOn === null">
             CANCEL PLAN
           </button>
-<!--           <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
+          <!-- <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
             <div class="columns">
               <button v-on:click="cancelPlan()" class="btn btn-danger btn-whole" style="height: 45px; width: 78%; float: right; margin-right: 5px; text-align: center;" v-if="user.plan === 'annually' && user.paymentStatus !== 'failed' && user.canceledOn === null">
                 CANCEL PLAN
@@ -260,8 +266,11 @@
               <button class="btn btn-danger pull-right" v-on:click="deletePauseCoupon('monthly')" v-if="couponSuccessMessagePause !== null">DELETE</button>
             </div>
           </div>
-          <button class="btn btn-danger btn-whole" v-if="user.plan === 'pause' && user.paymentStatus !== 'failed' && user.canceledOn === null">
+           <button class="btn bg-green btn-whole" style="color:white;" v-if="user.plan === 'pause' && user.paymentStatus !== 'failed' && user.canceledOn === null">
             YOUR CURRENT ACTIVE PLAN
+          </button>
+          <button class="btn btn-danger btn-whole" v-on:click="cancelPlan()" v-if="user.plan === 'pause' && user.paymentStatus !== 'failed' && user.canceledOn === null">
+            CANCEL PLAN
           </button>
           <div class="row" style="text-align: center; width: 99%; margin-left: 0px;">
             <div class="columns">
