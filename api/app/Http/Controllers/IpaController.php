@@ -48,7 +48,7 @@ class IpaController extends TalkController
         $ipaResult = Ipa::where('code', '=', $key)->get();
         if(sizeof($ipaResult) > 0){
           $this->divStart($j + 1);
-          if($ipaResult[0]['audio']) {
+          if($ipaResult[0]['audio'] && $ipaResult[0]['audio'] !== 'null') {
             $this->desktopAudio($ipaResult[0]['audio'], $j + 1); // get url of ipa
           } else {
             $this->renderNoAudio($ipaResult[0]['audio'], $j + 1);
