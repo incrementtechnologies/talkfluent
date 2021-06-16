@@ -219,7 +219,7 @@ export default{
   {
     path: '/my_plan',
     name: 'my_plan',
-    component: resolve => require(['modules/billing/Billing.vue'], resolve),
+    component: resolve => require(['modules/billing/BillingV2.vue'], resolve),
     meta: {
       tokenRequired: true
     }
