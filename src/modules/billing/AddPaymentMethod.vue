@@ -6,19 +6,31 @@
         <div class="new-payment-method">
 
           <b style="line-height: 50px;">Payment Methods</b>
-          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in paymentMethods" :key="index" @click="selectedMethod = item">
-            <span class="payment-item">
-              <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.title === item.title}"></i>
-              <b style="padding-left: 10px;">{{item.title}}</b>
+          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in data" :key="index" @click="selectedMethod = item">
+            <span class="payment-item" v-if="item.method === 'stripe' && item.details">
+              <i class="fa fa-circle" ></i>
+              <b style="padding-left: 10px;">****{{item.details.last4}}</b>
+              <span class="pull-right" style="padding-top: 9px;" v-if="item.details">
+                <i :class="'fab fa-cc-' + item.details.brand.toLowerCase()" style="padding-left: 5px;" v-if="item.method === 'stripe'"></i>
+              </span>
+
+            </span>
+
+            <span class="payment-item" v-if="item.method === 'paypal' && item.details">
+              <i class="fa fa-circle" ></i>
+              <b style="padding-left: 10px;">{{item.method}}</b>
               <span class="pull-right" style="padding-top: 9px;">
-                <i v-for="(iItem, iIndex) in item.icons" :class="iItem" :key="iIndex" style="padding-left: 5px;"></i>
+                <i :class="'fab paypal'" style="padding-left: 5px;"></i>
               </span>
             </span>
+
             <p class="description">
-              {{item.description}}
+              This is a test
             </p>
           </div>
         </div>
+
+
         <div class="new-payment-method" style="margin-top: 50px;">
           <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in paymentMethods" :key="index" @click="selectedMethod = item">
             <span class="payment-item">
@@ -32,11 +44,7 @@
               {{item.description}}
             </p>
           </div>
-
         </div>
-      
-
-
       </div>
     </div>
 

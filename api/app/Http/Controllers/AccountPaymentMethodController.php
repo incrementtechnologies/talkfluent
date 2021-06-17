@@ -22,16 +22,24 @@ class AccountPaymentMethodController extends TalkController
     $this->retrieveDB($data);
 
     $result = $this->response['data'];
+    $response = [];
     if (sizeof($result) > 0) {
       for ($i = 0; $i < sizeof($result); $i++) {
         $item = $result[$i];
+        $details = null;
         if($item['method'] == 'stripe'){
-          $this->response['data'][$i]['details'] = app($this->creditCardController)->getByParams('id', $item['source']);
+          $details = app($this->creditCardController)->getByParams('id', $item['source']);
         }else if($item['method'] == 'paypal'){
-          $this->response['data'][$i]['details'] = app($this->paypalAccountController)->getByParams('id', $item['source']);
+          $details = app($this->paypalAccountController)->getByParams('id', $item['source']);
+        }
+
+        if($details != null){
+          $item['details'] = $details;
+          $response[] = $item;
         }
       }
     }
+    $this->response['data'] = $response;
     return $this->response();
   }
 }
