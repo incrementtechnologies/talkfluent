@@ -117,6 +117,9 @@ import {Howl, Howler} from 'howler'
 import OPKEYS from '../../payment.js'
 import PRODUCTS from '../../products.js'
 export default {
+  mounted(){
+    this.retrieve()
+  },
   data(){
     return{
       user: AUTH.user,
@@ -124,6 +127,7 @@ export default {
       products: PRODUCTS,
       errorMessage: null,
       newPaymentMethod: null,
+      data: [],
       paymentMethods: [{
         title: 'Credit Cards(Stripe)',
         description: 'Authorized billing payment via visa, mastercard, discover',
@@ -163,7 +167,26 @@ export default {
   methods: {
     redirect(route){
       ROUTER.push(route)
+    },
+    retrieve(){
+      let parameter = {
+        'condition': [{
+          column: 'account_id',
+          value: this.user.userID,
+          clause: '='
+        }]
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('payment_methods/retrieve', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data.length > 0){
+          this.data = response.data
+        }else{
+          this.data = []
+        }
+      })
     }
+
   }
 }
 </script>

@@ -9,7 +9,7 @@ class AccountPaymentMethodController extends TalkController
 
   public $paypalAccountController = 'App\Http\Controllers\PayPalAccountController';
   public $creditCardController = 'App\Http\Controllers\CreditCardController';
-  
+
   function __construct(){
   	$this->model = new AccountPaymentMethod();
   }
@@ -25,9 +25,9 @@ class AccountPaymentMethodController extends TalkController
     if (sizeof($result) > 0) {
       for ($i = 0; $i < sizeof($result); $i++) {
         $item = $result[$i];
-        if($item['method'] == 'method' == 'stripe'){
+        if($item['method'] == 'stripe'){
           $this->response['data'][$i]['details'] = app($this->creditCardController)->getByParams('id', $item['source']);
-        }else if($item['method'] == 'method' == 'paypal'){
+        }else if($item['method'] == 'paypal'){
           $this->response['data'][$i]['details'] = app($this->paypalAccountController)->getByParams('id', $item['source']);
         }
       }

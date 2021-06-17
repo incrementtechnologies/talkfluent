@@ -131,7 +131,6 @@ import axios from 'axios'
 import CONFIG from '../../config.js'
 export default {
   created(){
-    this.retrieve()
   },
   data(){
     return {

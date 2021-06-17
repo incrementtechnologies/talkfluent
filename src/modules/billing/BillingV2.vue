@@ -15,7 +15,7 @@
       </div>
 
       <div class="col-lg-10 mx-auto" style="margin-top: 25px;">
-        <upgrade-plans :paymentMethod="paymentMethod" :creditCard="creditCard"></upgrade-plans>
+        <upgrade-plans :paymentMethod="null" :creditCard="null"></upgrade-plans>
       </div>
 
       <billing-history />
@@ -79,6 +79,9 @@ export default {
     'billing-history': require('modules/billing/History.vue')
   },
   methods: {
+    redirect(route){
+      ROUTER.push(route)
+    }
   }
 }
 </script>
