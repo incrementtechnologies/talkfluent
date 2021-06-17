@@ -2,7 +2,7 @@
     <div>
       <div class="payment-accounts">
         <div class="text-danger" v-if="errorMessage !== null" style="padding-top: 10px; padding-bottom: 10px;">Opps! {{errorMessage}}</div>
-        <div :class="{complete}" v-if="newPaymentMethod === 'credit_card'" >
+        <div :class="{complete}">
           <div class="row">
             <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
               <label for="address">Card Number</label>
@@ -173,30 +173,28 @@ export default {
       this.accountsItem[index].flag = !this.accountsItem[index].flag
     },
     addNewPaymentMethod(){
-      if(this.newPaymentMethod === 'credit_card'){
-        $('#loading').css({'display': 'block'})
-        Stripe.createSource().then(data => {
-          if(data.error !== undefined){
-            $('#loading').css({'display': 'none'})
-            // console.log(data.error)
-            this.errorMessage = data.error.message
-          }else{
-            let parameter = {
-              email: this.user.email,
-              source: data.source,
-              account_id: this.user.userID,
-              payment_keys: OPKEYS
-            }
-            this.APIRequest('stripes/add_payment_method', parameter).then(response => {
-              if(response.data === true){
-                $('#loading').css({'display': 'none'})
-                this.addPaymentMethodFlag = false
-                this.$parent.retrieveBilling()
-              }
-            })
+      $('#loading').css({'display': 'block'})
+      Stripe.createSource().then(data => {
+        if(data.error !== undefined){
+          $('#loading').css({'display': 'none'})
+          // console.log(data.error)
+          this.errorMessage = data.error.message
+        }else{
+          let parameter = {
+            email: this.user.email,
+            source: data.source,
+            account_id: this.user.userID,
+            payment_keys: OPKEYS
           }
-        })
-      }
+          this.APIRequest('stripes/add_payment_method', parameter).then(response => {
+            if(response.data === true){
+              $('#loading').css({'display': 'none'})
+              this.addPaymentMethodFlag = false
+              this.$parent.retrieveBilling()
+            }
+          })
+        }
+      })
     }
   }
 }

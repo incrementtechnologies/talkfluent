@@ -28,6 +28,9 @@
         </p>
       </div>
 
+      <div class="payment-methods" v-if="paymentMethod !== null && paymentMethod.type === 'stripe'">
+        <stripe-cc></stripe-cc>
+      </div>
 
       <div class="content-footer" v-if="plan !== null">
 
@@ -139,6 +142,9 @@ export default {
     }
   },
   props: ['paymentMethod', 'plan'],
+  components: {
+    'stripe-cc': require('modules/billing/Stripe.vue')
+  },
   methods: {
   }
 }

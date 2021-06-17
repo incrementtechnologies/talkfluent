@@ -39,9 +39,9 @@
             <span class="payment-item">
               <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.title === item.title}"></i>
               <b style="padding-left: 10px;">{{item.title}}</b>
-              <span class="pull-right" style="padding-top: 9px;">
-                <i v-for="(iItem, iIndex) in item.icons" :class="iItem" :key="'icon' + iIndex" style="padding-left: 5px;"></i>
-              </span>
+            </span>
+            <span style="padding-top: 9px;">
+              <i v-for="(iItem, iIndex) in item.icons" :class="iItem" :key="'icon' + iIndex" style="padding-left: 5px;"></i>
             </span>
             <p class="description">
               {{item.description}}
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div class="right-content-holder">
+    <div class="right-content-holder" v-if="selectedMethod && selectedMethod.type !== 'existing'">
       <checkout :paymentMethod="selectedMethod" :plan="plan"/>
     </div>
   </div>
@@ -96,6 +96,10 @@
   margin-right: 1%;
   cursor: pointer;
   padding:  20px;
+  border-radius: 5px;
+  border: solid 1px #eee;
+  min-height: 200px;
+  overflow-y: hidden;
 }
 
 .payment-methods:hover{
