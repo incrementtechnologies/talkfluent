@@ -24,8 +24,8 @@
               </span>
             </span>
 
-            <p class="description">
-              This is a test
+            <p class="description" v-if="item.details">
+              Expired on {{item.details.exp_month + '/' + item.details.exp_year}}
             </p>
           </div>
         </div>
