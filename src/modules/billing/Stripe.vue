@@ -192,7 +192,7 @@ export default {
             if(response.data === true){
               $('#loading').css({'display': 'none'})
               this.addPaymentMethodFlag = false
-              this.$parent.retrieveBilling()
+              this.$parent.$parent.retrieve()
             }
           })
         }

@@ -34,7 +34,9 @@
               <button class="btn btn-danger" @click="deletePaymentMethod(item)">Delete</button>
             </p>
           </div>
+        </div>
 
+        <div class="new-payment-method">
           <!-- Add new Payment Methods Here -->
           <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in paymentMethods" :key="'j' + index" @click="selectedMethod = item">
             <span class="payment-item">
@@ -48,9 +50,6 @@
               {{item.description}}
             </p>
           </div>
-
-
-
         </div>
       </div>
     </div>
@@ -101,6 +100,7 @@
   border: solid 1px #eee;
   min-height: 200px;
   overflow-y: hidden;
+  margin-bottom: 10px;
 }
 
 .payment-item{
@@ -199,7 +199,10 @@ export default {
           column: 'account_id',
           value: this.user.userID,
           clause: '='
-        }]
+        }],
+        sort: {
+          created_at: 'desc'
+        }
       }
       $('#loading').css({'display': 'block'})
       this.APIRequest('payment_methods/retrieve', parameter).then(response => {
