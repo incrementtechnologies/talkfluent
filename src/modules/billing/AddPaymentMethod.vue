@@ -9,10 +9,6 @@
             <span class="payment-item" v-if="item.method === 'stripe' && item.details">
               <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.id === item.id}" ></i>
               <b style="padding-left: 10px;">****{{item.details.last4}} - {{item.status.toUpperCase()}}</b>
-              <span class="pull-right" style="padding-top: 9px;" v-if="item.details">
-                <i :class="'fab fa-cc-' + item.details.brand.toLowerCase()" style="padding-left: 5px;" v-if="item.method === 'stripe'"></i>
-              </span>
-
             </span>
 
             <span class="payment-item" v-if="item.method === 'paypal' && item.details">
@@ -22,6 +18,11 @@
                 <i :class="'fab paypal'" style="padding-left: 5px;"></i>
               </span>
             </span>
+
+            <p style="padding-top: 9px;" v-if="item.details">
+              <i :class="'fab fa-cc-' + item.details.brand.toLowerCase()" style="padding-left: 5px;" v-if="item.method === 'stripe'"></i>
+              <i :class="'fab fa-paypal'" style="padding-left: 5px;" v-if="item.method === 'paypal'"></i>
+            </p>
 
             <p class="description" v-if="item.details">
               Expired on {{item.details.exp_month + '/' + item.details.exp_year}}
@@ -102,6 +103,10 @@
   overflow-y: hidden;
 }
 
+.payment-item{
+  display: flex;
+  align-items: center;
+}
 .payment-methods:hover{
   background-color: #eee;
 }

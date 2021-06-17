@@ -40,14 +40,16 @@
           </div>
         </div>
     </div>
-      <button class="btn btn-primary" v-on:click="addNewPaymentMethod()" v-if="newPaymentMethod === 'credit_card'">
-        Authorize
-      </button>
+    <button class="btn btn-primary btn-block" v-on:click="addNewPaymentMethod()">
+      Authorize
+    </button>
     </div>
   </div>
 </template>
 <style>
-
+.btn-block{
+  height: 50px !important;
+}
 .payment-accounts, .billing-summary{
   width: 100%;
   float: left;

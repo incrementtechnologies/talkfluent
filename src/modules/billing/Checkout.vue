@@ -16,22 +16,6 @@
         </div>
       </div>
 
-      <div class="payment-methods" v-if="paymentMethod !== null">
-        <span class="payment-item">
-          <b style="padding-left: 10px;">Pay via {{paymentMethod.title}}</b>
-          <span class="pull-right" style="padding-top: 9px;">
-            <i v-for="(iItem, iIndex) in paymentMethod.icons" :class="iItem" :key="iIndex" style="padding-left: 5px;"></i>
-          </span>
-        </span>
-        <p class="description">
-          {{paymentMethod.description}}
-        </p>
-      </div>
-
-      <div class="payment-methods" v-if="paymentMethod !== null && paymentMethod.type === 'stripe'">
-        <stripe-cc></stripe-cc>
-      </div>
-
       <div class="content-footer" v-if="plan !== null">
 
         <div class="footer-item">
@@ -53,10 +37,22 @@
           </span>
         </div>
 
-        <button class="btn btn-primary btn-block">
-          Authorize
-        </button>
+      </div>
+      
+      <div class="payment-methods" v-if="paymentMethod !== null">
+        <span class="payment-item">
+          <b style="padding-left: 10px;">Pay via {{paymentMethod.title}}</b>
+          <span class="pull-right" style="padding-top: 9px;">
+            <i v-for="(iItem, iIndex) in paymentMethod.icons" :class="iItem" :key="iIndex" style="padding-left: 5px;"></i>
+          </span>
+        </span>
+        <p class="description">
+          {{paymentMethod.description}}
+        </p>
+      </div>
 
+      <div class="payment-methods" v-if="paymentMethod !== null && paymentMethod.type === 'stripe'">
+        <stripe-cc></stripe-cc>
       </div>
     </div>
   </div>

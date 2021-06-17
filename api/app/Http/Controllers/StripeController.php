@@ -296,7 +296,7 @@ class StripeController extends TalkController
 
       if($customer->id){
         // save credit card
-        CreditCard::where('account_id', '=', $accountId)->update(array('deleted_at' => Carbon::now()));
+        CreditCard::where('account_id', '=', $accountId)->update(array('status' => 'inactive'));
         $_creditcards = new CreditCard();
         $_creditcards->account_id = $accountId;
         $_creditcards->brand = $source['card']['brand'];
