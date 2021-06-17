@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\AccountPaymentMethod;
+use App\CreditCard;
 class AccountPaymentMethodController extends TalkController
 {
 
@@ -43,4 +44,20 @@ class AccountPaymentMethodController extends TalkController
     $this->response['data'] = $response;
     return $this->response();
   }
+
+  public function update(Request $request){
+    $data = $request->all();
+    $accountId = $data['account_id'];
+
+    CreditCard::where('account_id', '=', $accountId)->update(array('status' => 'inactive'));
+    AccountPaymentMethod::where('account_id', '=', $accountId)->update(array('status' => 'inactive'));
+
+    $this->model = new AccountPaymentMethod();
+    $this->updateDB(array(
+      'id' => $data['id']
+    ));
+
+    return $this->response();
+  }
+
 }
