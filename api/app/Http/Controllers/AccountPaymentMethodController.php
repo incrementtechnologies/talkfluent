@@ -53,10 +53,7 @@ class AccountPaymentMethodController extends TalkController
     AccountPaymentMethod::where('account_id', '=', $accountId)->update(array('status' => 'inactive'));
 
     $this->model = new AccountPaymentMethod();
-    $this->updateDB(array(
-      'id' => $data['id']
-    ));
-
+    $this->updateDB($data);
     return $this->response();
   }
 

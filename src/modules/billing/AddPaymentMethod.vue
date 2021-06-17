@@ -215,9 +215,13 @@ export default {
       })
     },
     updatePaymentMethod(item, status){
+      if(this.user.userID < 0){
+        return
+      }
       let parameter = {
         id: item.id,
-        status: status
+        status: status,
+        account_id: this.user.userID
       }
       $('#loading').css({'display': 'block'})
       this.APIRequest('payment_methods/update', parameter).then(response => {
