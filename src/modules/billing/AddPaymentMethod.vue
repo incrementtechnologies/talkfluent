@@ -5,7 +5,7 @@
 
         <div class="new-payment-method">
 
-          <b style="line-height: 50px;">Payment Accounts</b>
+          <b style="line-height: 50px;">Payment Methods</b>
           <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in paymentMethods" :key="index" @click="selectedMethod = item">
             <span class="payment-item">
               <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.title === item.title}"></i>
@@ -125,7 +125,7 @@ export default {
       errorMessage: null,
       newPaymentMethod: null,
       paymentMethods: [{
-        title: 'Credit Cards via Stripe',
+        title: 'Credit Cards(Stripe)',
         description: 'Authorized billing payment via visa, mastercard, discover',
         icons: [
           'fab fa-cc-visa',
@@ -143,7 +143,7 @@ export default {
       }],
       selectedMethod: null,
       plan: {
-        amount: 49,
+        amount: 49.00,
         currency: '$',
         billed: 'month',
         subLabel: 'USD per month',

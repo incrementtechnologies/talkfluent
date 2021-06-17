@@ -29,14 +29,14 @@
       </div>
 
 
-      <div class="content-footer">
+      <div class="content-footer" v-if="plan !== null">
 
         <div class="footer-item">
           <span class="pull-left" style="padding-left: 20%;">
             Subtotal
           </span>
           <span class="pull-right">
-            <b>$99.00</b>
+            <b>{{plan.currency + ' ' + plan.amount}}</b>
           </span>
         </div>
 
@@ -46,7 +46,7 @@
             <b>Total</b>
           </span>
           <span class="pull-right">
-            <b>$99.00</b>
+            <b>{{plan.currency + ' ' + plan.amount}}</b>
           </span>
         </div>
 
