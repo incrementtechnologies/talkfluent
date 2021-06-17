@@ -14,10 +14,6 @@
         <plans :paymentMethod="null" :creditCard="null"></plans>
       </div>
 
-      <div class="col-lg-10 mx-auto" style="margin-top: 25px;">
-        <upgrade-plans :paymentMethod="null" :creditCard="null"></upgrade-plans>
-      </div>
-
       <billing-history />
     
   </div>

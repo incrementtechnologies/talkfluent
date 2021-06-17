@@ -35,6 +35,7 @@ class AccountPaymentMethodController extends TalkController
 
         if($details != null){
           $item['details'] = $details;
+          $item['type'] = 'existing';
           $response[] = $item;
         }
       }

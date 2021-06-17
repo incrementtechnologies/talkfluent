@@ -2,14 +2,13 @@
   <div class="holder">
     <div class="left-content-holder">
       <div class="accounts-item" style="margin-top: 25px;">
-
+        <b style="line-height: 50px;">Payment Methods</b>
         <div class="new-payment-method">
-
-          <b style="line-height: 50px;">Payment Methods</b>
-          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in data" :key="index" @click="selectedMethod = item">
+          
+          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.id === item.id}" v-for="(item, index) in data" :key="'i' + index" @click="selectedMethod = item">
             <span class="payment-item" v-if="item.method === 'stripe' && item.details">
-              <i class="fa fa-circle" ></i>
-              <b style="padding-left: 10px;">****{{item.details.last4}}</b>
+              <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.id === item.id}" ></i>
+              <b style="padding-left: 10px;">****{{item.details.last4}} - {{item.status.toUpperCase()}}</b>
               <span class="pull-right" style="padding-top: 9px;" v-if="item.details">
                 <i :class="'fab fa-cc-' + item.details.brand.toLowerCase()" style="padding-left: 5px;" v-if="item.method === 'stripe'"></i>
               </span>
@@ -27,23 +26,30 @@
             <p class="description" v-if="item.details">
               Expired on {{item.details.exp_month + '/' + item.details.exp_year}}
             </p>
+
+            <p>
+              <button class="btn btn-primary" v-if="item.status === 'inactive'" @click="updatePaymentMethod(item, 'active')">Make as Active</button>
+              <button class="btn btn-warning" v-if="item.status === 'active'" @click="updatePaymentMethod(item, 'inactive')">Make as Inactive</button>
+              <button class="btn btn-danger" @click="deletePaymentMethod(item)">Delete</button>
+            </p>
           </div>
-        </div>
 
-
-        <div class="new-payment-method" style="margin-top: 50px;">
-          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in paymentMethods" :key="index" @click="selectedMethod = item">
+          <!-- Add new Payment Methods Here -->
+          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in paymentMethods" :key="'j' + index" @click="selectedMethod = item">
             <span class="payment-item">
               <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.title === item.title}"></i>
               <b style="padding-left: 10px;">{{item.title}}</b>
               <span class="pull-right" style="padding-top: 9px;">
-                <i v-for="(iItem, iIndex) in item.icons" :class="iItem" :key="iIndex" style="padding-left: 5px;"></i>
+                <i v-for="(iItem, iIndex) in item.icons" :class="iItem" :key="'icon' + iIndex" style="padding-left: 5px;"></i>
               </span>
             </span>
             <p class="description">
               {{item.description}}
             </p>
           </div>
+
+
+
         </div>
       </div>
     </div>
@@ -71,9 +77,9 @@
 }
 
 .new-payment-method{
-  width: 49%;
+  width: 98%;
   float: left;
-  margin-right: 1%;
+  margin-right: 2%;
 }
 
 .fa-circle{
@@ -86,7 +92,8 @@
 
 .payment-methods{
   float: left;
-  width: 100%;
+  width: 32%;
+  margin-right: 1%;
   cursor: pointer;
   padding:  20px;
 }
@@ -138,7 +145,7 @@ export default {
       data: [],
       paymentMethods: [{
         title: 'Credit Cards(Stripe)',
-        description: 'Authorized billing payment via visa, mastercard, discover',
+        description: 'Authorized new billing payment method via visa, mastercard, discover',
         icons: [
           'fab fa-cc-visa',
           'fab fa-cc-mastercard',
@@ -147,13 +154,14 @@ export default {
         type: 'stripe'
       }, {
         title: 'PayPal',
-        description: 'Authorized billing payment via PayPal',
+        description: 'Authorized new billing payment method via PayPal',
         icons: [
           'fab fa-paypal'
         ],
         type: 'paypal'
       }],
       selectedMethod: null,
+      newSelectMethod: null,
       plan: {
         amount: 49.00,
         currency: '$',
@@ -193,8 +201,28 @@ export default {
           this.data = []
         }
       })
+    },
+    updatePaymentMethod(item, status){
+      let parameter = {
+        id: item.id,
+        status: status
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('payment_methods/update', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        this.retrieve()
+      })
+    },
+    deletePaymentMethod(item){
+      let parameter = {
+        id: item.id
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('payment_methods/delete', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        this.retrieve()
+      })
     }
-
   }
 }
 </script>

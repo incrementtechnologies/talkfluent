@@ -1,7 +1,7 @@
 <template>
   <div class="holder">
     <div class="content-holder">
-      <b style="line-height: 50px;">Cart Summary</b>
+      <b style="line-height: 50px;">Your Current Subscription</b>
 
       <div class="content-body" v-if="plan !== null">
         <div class="footer-item">
