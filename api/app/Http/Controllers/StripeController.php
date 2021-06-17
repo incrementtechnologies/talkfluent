@@ -313,6 +313,7 @@ class StripeController extends TalkController
         $accountPaymentMethod->account_id = $accountId;
         $accountPaymentMethod->source = $_creditcards->id;
         $accountPaymentMethod->method = 'stripe';
+        $accountPaymentMethod->status = 'active';
         $accountPaymentMethod->created_at = Carbon::now();
         $accountPaymentMethod->save();
         
