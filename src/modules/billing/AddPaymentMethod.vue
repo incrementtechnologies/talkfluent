@@ -40,9 +40,9 @@
               <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.title === item.title}"></i>
               <b style="padding-left: 10px;">{{item.title}}</b>
             </span>
-            <span style="padding-top: 9px;">
+            <p>
               <i v-for="(iItem, iIndex) in item.icons" :class="iItem" :key="'icon' + iIndex" style="padding-left: 5px;"></i>
-            </span>
+            </p>
             <p class="description">
               {{item.description}}
             </p>
