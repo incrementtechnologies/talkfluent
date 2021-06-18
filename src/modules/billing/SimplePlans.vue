@@ -5,7 +5,7 @@
     <div class="plan-holder" v-if="user !== null">
       <span class="plan-header">
         <p v-if="user.plan === 'monthly'">
-          <b>Monthly Plan for $99.00</b>
+          <b>Monthly Plan for $49.00</b>
         </p>
         <p v-if="user.plan === 'annually'">
           <b>Annual Plan for $228</b>
@@ -19,7 +19,8 @@
         </p>
       </span>
       <span class="plan-footer">
-        <button type="button" class="btn btn-primary btn-block" @click="showPlanModal()">Change plan</button>
+        <button type="button" class="btn btn-primary change-plan" @click="showPlanModal()">Change plan</button>
+        <button type="button" class="btn btn-danger change-plan" @click="showPlanModal()">Cancel plan</button>
       </span>
     </div>
 
@@ -80,12 +81,16 @@
   border-radius: 5px;
   border: solid 1px #eee;
   margin-top: 25px;
+  overflow-y: hidden;
+  min-height: 50px;
 }
 
 .plan-modal{
   width: 100%;
   border: 0px;
   border-radius: 0px;
+  overflow-y: hidden;
+  min-height: 50px;
 }
 
 .plan-modal:hover{
@@ -95,6 +100,12 @@
 
 .btn{
   height: 50px !important;
+}
+
+.change-plan{
+  width: 49%;
+  margin-right: 1%;
+  float: left;
 }
 
 .modal-body{

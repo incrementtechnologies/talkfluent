@@ -8,7 +8,7 @@
       <span class="col-lg-10 mx-auto text-center welcome-title"><h3>WELCOME TO {{config.WEBSITE_TITLE}}</h3></span>
       <div class="col-lg-10 mx-auto row center-small">
         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <span class="header-dashboard" >Start Here</span>
+          <span class="header-dashboard" >Start here</span>
           <div style="margin-top: 80px; margin-bottom: 20px">
             <div class="wistia_responsive_padding" style="padding:49.06% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_4fqxpgrjw1 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;position:relative;width:100%">&nbsp;</span></div></div>
           </div>
@@ -63,8 +63,8 @@
           </span>
         </span>
         <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto" style="margin-bottom: 20px;">
-          <span class="header-dashboard available-lesson" style="margin-top:10px;">
-            Words, Sentences and Lessons Known
+          <span class="header-dashboard available-lesson" style="margin-top:10px; margin-bottom: 20px;">
+            Words, sentences and lessons known
           </span>
           <span class="bg-primary redirect-buttons" v-on:click="redirect('/already_known/word')"><label>Words</label></span>
           <span class="bg-primary redirect-buttons" v-on:click="redirect('/already_known/sentence')"><label>Sentences</label></span>
@@ -73,7 +73,7 @@
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto" style="margin-bottom: 50px;" v-if="dashboardLessons !== null">
           <span class="header-dashboard available-lesson">
-            Available Lesson
+            Available lesson
           </span>
           <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto">
             <span class="top-lesson-holder" v-for="item, index in dashboardLessons">

@@ -134,7 +134,7 @@
 .payment-item{
   float: left;
   width: 100%;
-  line-height: 50px;
+  line-height: 50px;  
 }
 
 .description{
@@ -166,6 +166,7 @@
 .modal-body{
   padding: 15px !important;
 }
+
 
 </style>
 <script>
