@@ -35,7 +35,7 @@
           </div>
           <div class="modal-body">
             <span class="error text-danger" v-if="errorMessage !== null"><b>Opps!</b> {{errorMessage}}</span>
-            <label class="label">Give us feedback <b class="text-danger">*</b></label>
+            <label class="label" style="line-height: 50px;">Give us feedback <b class="text-danger">*</b></label>
             <textarea class="feedback" placeholder="Please write feedback here..." v-model="message">
               
             </textarea>
@@ -52,6 +52,9 @@
   </div>
 </template>
 <style>
+.btn{
+  height: 50px !important;
+}
 .message{
   width: 96%;
   float: left;
@@ -99,7 +102,6 @@ import {Howl, Howler} from 'howler'
 import OPKEYS from '../../payment.js'
 import PRODUCTS from '../../products.js'
 export default {
-  props: ['paymentMethod'],
   data(){
     return{
       user: AUTH.user,
@@ -124,11 +126,9 @@ export default {
     },
     cancel(){
       if(this.message !== null && this.message !== ''){
-        $('#loading').css({'display': 'block'})
-        console.log(this.paymentMethod.method, 'payment method')
-        if(this.paymentMethod !== null && this.paymentMethod.method === 'stripe'){
+        if(AUTH.user.paymentMethod !== null && AUTH.user.paymentMethod.method === 'stripe'){
           this.stripe()
-        }else if(this.paymentMethod !== null && this.paymentMethod.method === 'paypal'){
+        }else if(AUTH.user.paymentMethod !== null && AUTH.user.paymentMethod.method === 'paypal'){
           this.paypal()
         }
       }else{
@@ -145,6 +145,7 @@ export default {
         message: this.message,
         config: config
       }
+      $('#loading').css({'display': 'block'})
       this.APIRequest('paypal/cancel_plans', parameter).then(response => {
         $('#loading').css({'display': 'none'})
         if(response.data === true){
@@ -165,6 +166,7 @@ export default {
         message: this.message,
         account_id: this.user.userID
       }
+      $('#loading').css({'display': 'block'})
       this.APIRequest('stripe/cancel_plans', parameter).then(response => {
         $('#loading').css({'display': 'none'})
         if(response.data === true){

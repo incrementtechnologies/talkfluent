@@ -167,7 +167,13 @@
   padding: 15px !important;
 }
 
-
+@media screen and (max-width: 610px){
+  .payment-methods{
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+}
 </style>
 <script>
 import ROUTER from '../../router'
@@ -252,8 +258,10 @@ export default {
         $('#loading').css({'display': 'none'})
         if(response.data.length > 0){
           this.data = response.data
+          AUTH.user.paymentMethod = response.data[0]
         }else{
           this.data = []
+          AUTH.user.paymentMethod = null
         }
       })
     },

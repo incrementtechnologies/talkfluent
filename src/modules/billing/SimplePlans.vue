@@ -20,7 +20,7 @@
       </span>
       <span class="plan-footer">
         <button type="button" class="btn btn-primary change-plan" @click="showPlanModal()">Change plan</button>
-        <button type="button" class="btn btn-danger change-plan" @click="showPlanModal()">Cancel plan</button>
+        <button type="button" class="btn btn-danger change-plan" @click="cancelPlan()">Cancel plan</button>
       </span>
     </div>
 
@@ -70,7 +70,7 @@
     </div>
 
 
-
+    <cancel-plan></cancel-plan>
   </div>
 </template>
 <style scoped>
@@ -111,6 +111,14 @@
 .modal-body{
   padding: 20px !important;
 }
+
+@media screen and (max-width: 610px){
+  .plan-holder{
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+}
 </style>
 <script>
 import ROUTER from '../../router'
@@ -132,6 +140,7 @@ export default {
   },
   props: ['paymentMethod', 'creditCard'],
   components: {
+    'cancel-plan': require('modules/billing/CancelPlan.vue')
   },
   methods: {
     redirect(route){
@@ -139,6 +148,17 @@ export default {
     },
     showPlanModal(){
       $('#simplePlan').modal('show')
+    },
+    cancelPlan() {
+      $('#requestToCancel').modal('show')
+    },
+    cancellation(paymentMethod){
+      for(let i = 0; i < this.$children.length; i++){
+        if(this.$children[i].$el.id === 'cancellationPlan'){
+          this.$children[i].paymentMethod = paymentMethod
+          this.$children[i].check()
+        }
+      }
     }
   }
 }
