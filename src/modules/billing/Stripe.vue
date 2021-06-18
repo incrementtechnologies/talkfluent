@@ -1,49 +1,44 @@
 <template>
-    <div>
-      <div class="payment-accounts">
-        <div class="text-danger" v-if="errorMessage !== null" style="padding-top: 10px; padding-bottom: 10px;">Opps! {{errorMessage}}</div>
-        <div :class="{complete}">
-          <div class="row">
-            <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
-              <label for="address">Card Number</label>
-              <card-number class="stripe-element card-number"
-                ref="cardNumber"
-                :stripe="stripeSK"
-                @change="number = $event.complete"
-                :options="options"
-              />
-            </div>
+    <div class="payment-accounts">
+      <div class="text-danger" v-if="errorMessage !== null" style="padding-top: 10px; padding-bottom: 10px;">Opps! {{errorMessage}}</div>
+      <div :class="{complete}">
+        <div class="row">
+          <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
+            <label for="address">Card Number</label>
+            <card-number class="stripe-element card-number"
+              ref="cardNumber"
+              :stripe="stripeSK"
+              @change="number = $event.complete"
+              :options="options"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group login-spacer col-lg-6 col-md-6 col-sm-12">
+            <label for="address">Expiration</label>
+            <card-expiry class="stripe-element card-expiry"
+              ref="cardExpiry" 
+              :stripe="stripeSK" 
+              @change="expiry = $event.complete"
+              :options="options"
+            />
           </div>
 
-          <div class="row">
-            <div class="form-group login-spacer col-lg-6 col-md-6 col-sm-12">
-              <label for="address">Expiration</label>
-              <card-expiry class="stripe-element card-expiry"
-                ref="cardExpiry" 
+          <div class="form-group login-spacer col-lg-6 col-md-6 col-sm-12">
+            <label for="address">CVC</label>
+            <div id="signup-card-number">
+              <card-cvc class='stripe-element card-cvc'
+                ref='cardCvc'
                 :stripe="stripeSK" 
-                @change="expiry = $event.complete"
+                @change="expiry = $event.complete" 
                 :options="options"
               />
-            </div>
-
-            <div class="form-group login-spacer col-lg-6 col-md-6 col-sm-12">
-              <label for="address">CVC</label>
-              <div id="signup-card-number">
-                <card-cvc class='stripe-element card-cvc'
-                  ref='cardCvc'
-                  :stripe="stripeSK" 
-                  @change="expiry = $event.complete" 
-                  :options="options"
-                />
-              </div>
             </div>
           </div>
         </div>
-    </div>
-    <button class="btn btn-primary btn-block" v-on:click="addNewPaymentMethod()">
-      Authorize
-    </button>
-    </div>
+      </div>
+  </div>
   </div>
 </template>
 <style>
@@ -53,6 +48,7 @@
 .payment-accounts, .billing-summary{
   width: 100%;
   float: left;
+  padding: 15px;
 }
 
 .payment-accounts .accounts-item{

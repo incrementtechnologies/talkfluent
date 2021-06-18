@@ -1,13 +1,13 @@
 <template>
   <div class="holder">
     <div class="left-content-holder">
-      <div class="accounts-item" style="margin-top: 25px;">
-        <b style="line-height: 50px;">Payment Methods</b>
+      <div class="accounts-item">
+        <b style="line-height: 50px;">Current payment method</b>
         <div class="new-payment-method">
           
-          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.id === item.id}" v-for="(item, index) in data" :key="'i' + index" @click="selectedMethod = item">
+          <div class="payment-methods" v-for="(item, index) in data" :key="'i' + index">
             <span class="payment-item" v-if="item.method === 'stripe' && item.details">
-              <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.id === item.id}" ></i>
+              <i class="fa fa-circle" ></i>
               <b style="padding-left: 10px;">****{{item.details.last4}} - {{item.status.toUpperCase()}}</b>
             </span>
 
@@ -29,34 +29,48 @@
             </p>
 
             <p>
-              <button class="btn btn-primary" v-if="item.status === 'inactive'" @click="updatePaymentMethod(item, 'active')">Make as Active</button>
-              <button class="btn btn-warning" v-if="item.status === 'active'" @click="updatePaymentMethod(item, 'inactive')">Make as Inactive</button>
-              <button class="btn btn-danger" @click="deletePaymentMethod(item)">Delete</button>
+              <button class="btn btn-primary btn-block" @click="showPaymentMethodModal()">Change payment method</button>
             </p>
           </div>
         </div>
 
-        <div class="new-payment-method">
-          <!-- Add new Payment Methods Here -->
-          <div class="payment-methods" :class="{'active': selectedMethod && selectedMethod.title === item.title}" v-for="(item, index) in paymentMethods" :key="'j' + index" @click="selectedMethod = item">
-            <span class="payment-item">
-              <i class="fa fa-circle" :class="{'icon-active': selectedMethod && selectedMethod.title === item.title}"></i>
-              <b style="padding-left: 10px;">{{item.title}}</b>
-            </span>
-            <p>
-              <i v-for="(iItem, iIndex) in item.icons" :class="iItem" :key="'icon' + iIndex" style="padding-left: 5px;"></i>
-            </p>
-            <p class="description">
-              {{item.description}}
-            </p>
+      </div>
+    </div>
+
+    <div class="modal fade" id="newPaymentMethod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h5 class="modal-title" id="exampleModalLabel">New Payment Method</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" class="text-white">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li class="page-item" @click="selectedMethod = 'stripe'" :class="{'active': selectedMethod === 'stripe'}">
+                  <i :class="'fab fa-cc-visa'" style="padding-right: 5px;"></i>
+                  <i :class="'fab fa-cc-discover'" style="padding-right: 5px;"></i>
+                  <i :class="'fab fa-cc-mastercard'" style="padding-right: 5px;"></i>
+                  <b>Credit Cards</b></li>
+                <li class="page-item" @click="selectedMethod = 'paypal'"  :class="{'active': selectedMethod === 'paypal'}"><i :class="'fab fa-paypal'" style="padding-right: 5px;"></i><b>PayPal</b></li>
+              </ul>
+            </nav>
+
+            <div class="new-payment-methods" v-if="selectedMethod === 'stripe'">
+              <stripe-cc></stripe-cc>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Authorize</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="right-content-holder" v-if="selectedMethod && selectedMethod.type !== 'existing'">
-      <checkout :paymentMethod="selectedMethod" :plan="plan"/>
-    </div>
+
   </div>
 </template>
 <style scoped>
@@ -66,20 +80,13 @@
 }
 
 .left-content-holder{
-  width: 65%;
+  width: 100%;
   float: left;
-}
-
-.right-content-holder{
-  width: 30%;
-  float: left;
-  margin-left: 5%;
 }
 
 .new-payment-method{
-  width: 98%;
+  width: 100%;
   float: left;
-  margin-right: 2%;
 }
 
 .fa-circle{
@@ -130,6 +137,27 @@
   color:  #999;
 }
 
+.pagination{
+  width: 100%;
+  float: left;
+}
+
+.page-item{
+  width: 50%;
+  float: left;
+  line-height: 60px !important;
+  height: 60px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.page-item:hover{
+  background-color: #eee;
+  cursor: pointer;
+}
 
 </style>
 <script>
@@ -151,6 +179,7 @@ export default {
       products: PRODUCTS,
       errorMessage: null,
       newPaymentMethod: null,
+      selectedMethod: 'stripe',
       data: [],
       paymentMethods: [{
         title: 'Credit Cards(Stripe)',
@@ -169,7 +198,6 @@ export default {
         ],
         type: 'paypal'
       }],
-      selectedMethod: null,
       newSelectMethod: null,
       plan: {
         amount: 49.00,
@@ -187,7 +215,8 @@ export default {
   },
   components: {
     'checkout': require('modules/billing/Checkout.vue'),
-    'active-payments': require('modules/billing/ActivePayments.vue')
+    'active-payments': require('modules/billing/ActivePayments.vue'),
+    'stripe-cc': require('modules/billing/Stripe.vue')
   },
   methods: {
     redirect(route){
@@ -198,6 +227,10 @@ export default {
         'condition': [{
           column: 'account_id',
           value: this.user.userID,
+          clause: '='
+        }, {
+          column: 'status',
+          value: 'active',
           clause: '='
         }],
         sort: {
@@ -238,6 +271,9 @@ export default {
         $('#loading').css({'display': 'none'})
         this.retrieve()
       })
+    },
+    showPaymentMethodModal(){
+      $('#newPaymentMethod').modal('show')
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="holder">
-    <b>Available Plans</b>
+    <b>Current subscription plan</b>
     <br>
 
     <div class="pricing-item next-pricing">

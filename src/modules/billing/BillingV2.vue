@@ -6,7 +6,7 @@
           <li class="breadcrumb-item active">My Plan</li>
         </ul>
       </div>
-      <div class="col-lg-10 mx-auto" style="margin-top: 25px;">
+      <div class="col-lg-10 mx-auto">
         <new-payment-method></new-payment-method>
       </div>
 
@@ -71,7 +71,7 @@ export default {
   },
   components: {
     'new-payment-method': require('modules/billing/AddPaymentMethod.vue'),
-    'plans': require('modules/billing/Plans.vue'),
+    'plans': require('modules/billing/SimplePlans.vue'),
     'billing-history': require('modules/billing/History.vue')
   },
   methods: {

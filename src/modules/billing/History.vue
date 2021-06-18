@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-10 mx-auto" style="margin-top: 25px;">
-    <b>Plan and Payment History</b>
+    <b>Invoices and payment history</b>
     <br>
     <table class="table table-bordered table-stripped table-responsive">
       <thead>
