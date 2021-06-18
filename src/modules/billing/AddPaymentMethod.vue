@@ -53,7 +53,8 @@
                   <i :class="'fab fa-cc-visa'" style="padding-right: 5px;"></i>
                   <i :class="'fab fa-cc-discover'" style="padding-right: 5px;"></i>
                   <i :class="'fab fa-cc-mastercard'" style="padding-right: 5px;"></i>
-                  <b>Credit Cards</b></li>
+                  <br/>
+                  <b>CC/DC</b></li>
                 <li class="page-item" @click="selectedMethod = 'paypal'"  :class="{'active': selectedMethod === 'paypal'}"><i :class="'fab fa-paypal'" style="padding-right: 5px;"></i><b>PayPal</b></li>
               </ul>
             </nav>
@@ -61,10 +62,14 @@
             <div class="new-payment-methods" v-if="selectedMethod === 'stripe'">
               <stripe-cc></stripe-cc>
             </div>
+
+
+            <div class="new-payment-methods" v-if="selectedMethod === 'paypal'">
+              <button type="button" class="btn btn-primary btn-block" @click="addNewPaymentMethod()">Authorize</button>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Authorize</button>
           </div>
         </div>
       </div>
@@ -74,6 +79,10 @@
   </div>
 </template>
 <style scoped>
+
+.btn{
+  height: 50px !important;
+}
 .holder{
   width: 100%;
   float: left;
@@ -159,6 +168,10 @@
   cursor: pointer;
 }
 
+.modal-body{
+  padding: 15px !important;
+}
+
 </style>
 <script>
 import ROUTER from '../../router'
@@ -223,6 +236,7 @@ export default {
       ROUTER.push(route)
     },
     retrieve(){
+      $('#newPaymentMethod').modal('hide')
       let parameter = {
         'condition': [{
           column: 'account_id',

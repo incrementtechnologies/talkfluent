@@ -2,19 +2,74 @@
   <div class="holder">
     <b>Current subscription plan</b>
     <br>
-    <div class="plan-holder">
+    <div class="plan-holder" v-if="user !== null">
       <span class="plan-header">
-        <p>
+        <p v-if="user.plan === 'monthly'">
           <b>Monthly Plan for $99.00</b>
+        </p>
+        <p v-if="user.plan === 'annually'">
+          <b>Annual Plan for $228</b>
+          <br />
+          <p style="color: #999;">
+            For only $19.00 per month
+          </p>
         </p>
         <p style="color: #999;">
           Next billing is on: July 31, 2021
         </p>
       </span>
       <span class="plan-footer">
-        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" aria-label="Close">Change Plan</button>
+        <button type="button" class="btn btn-primary btn-block" @click="showPlanModal()">Change plan</button>
       </span>
     </div>
+
+    <div class="modal fade" id="simplePlan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h5 class="modal-title" id="exampleModalLabel">Available plans</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" class="text-white">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="plan-holder plan-modal" v-if="user.plan !== 'monthly'">
+              <span class="plan-header">
+                <p v-if="user.plan === 'monthly'">
+                  <b>Monthly Plan for $99.00</b>
+                </p>
+              </span>
+              <span class="plan-footer">
+                <button type="button" class="btn btn-primary" @click="showPlanModal()" >Switch to monthly</button>
+              </span>
+            </div>
+
+            <div class="plan-holder plan-modal" v-if="user.plan !== 'annually'">
+              <span class="plan-header">
+                <p>
+                  <b>Annual Plan for $228</b>
+                  <br />
+                  <p style="color: #999;">
+                    61% OFF! YOU SAVE $360/YEAR! For only $19.00 per month
+                  </p>
+                </p>
+              </span>
+              <span class="plan-footer">
+                <button type="button" class="btn btn-primary" @click="showPlanModal()" >Upgrade yearly</button>
+              </span>
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
 </template>
 <style scoped>
@@ -25,6 +80,25 @@
   border-radius: 5px;
   border: solid 1px #eee;
   margin-top: 25px;
+}
+
+.plan-modal{
+  width: 100%;
+  border: 0px;
+  border-radius: 0px;
+}
+
+.plan-modal:hover{
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.btn{
+  height: 50px !important;
+}
+
+.modal-body{
+  padding: 20px !important;
 }
 </style>
 <script>
@@ -51,6 +125,9 @@ export default {
   methods: {
     redirect(route){
       ROUTER.push(route)
+    },
+    showPlanModal(){
+      $('#simplePlan').modal('show')
     }
   }
 }

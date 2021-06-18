@@ -38,6 +38,10 @@
           </div>
         </div>
       </div>
+
+      <div>
+        <button type="button" class="btn btn-primary btn-block" @click="addNewPaymentMethod()">Authorize</button>
+      </div>
   </div>
   </div>
 </template>
@@ -48,7 +52,6 @@
 .payment-accounts, .billing-summary{
   width: 100%;
   float: left;
-  padding: 15px;
 }
 
 .payment-accounts .accounts-item{
@@ -172,6 +175,7 @@ export default {
     },
     addNewPaymentMethod(){
       $('#loading').css({'display': 'block'})
+      this.errorMessage = null
       Stripe.createSource().then(data => {
         if(data.error !== undefined){
           $('#loading').css({'display': 'none'})
@@ -188,7 +192,7 @@ export default {
             if(response.data === true){
               $('#loading').css({'display': 'none'})
               this.addPaymentMethodFlag = false
-              this.$parent.$parent.retrieve()
+              this.$parent.retrieve()
             }
           })
         }
