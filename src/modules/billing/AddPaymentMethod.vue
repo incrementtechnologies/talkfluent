@@ -110,7 +110,6 @@
   float: left;
   width: 32%;
   margin-right: 1%;
-  cursor: pointer;
   padding:  20px;
   border-radius: 5px;
   border: solid 1px #eee;
@@ -122,9 +121,6 @@
 .payment-item{
   display: flex;
   align-items: center;
-}
-.payment-methods:hover{
-  background-color: #eee;
 }
 
 .active{
@@ -139,7 +135,6 @@
   float: left;
   width: 100%;
   line-height: 50px;
-  cursor: pointer;
 }
 
 .description{
