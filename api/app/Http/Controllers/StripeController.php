@@ -23,7 +23,6 @@ class StripeController extends TalkController
 
 
     public function cancelPlan(Request $request){
-      echo "hi";
       $data = $request->all();
       $keys = $data['payment_keys'];
       $message = $data['message'];
@@ -89,6 +88,14 @@ class StripeController extends TalkController
             )
           );
         }
+      }else{
+        return response()->json(
+          array(
+            'data'  => false,
+            'error' => 'Invalid Subscription. Unable to Cancel your subsctiption. Please contact the administrator.',
+            'timestamp' => Carbon::now()
+          )
+        );
       }
     }
 
