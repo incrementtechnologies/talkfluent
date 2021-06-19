@@ -20,7 +20,7 @@
       </span>
       <span class="plan-footer">
         <button type="button" class="btn btn-primary change-plan" @click="showPlanModal()">Change plan</button>
-        <button type="button" class="btn btn-danger change-plan" @click="showPlanModal()">Cancel plan</button>
+        <button type="button" class="btn btn-danger change-plan" @click="cancelPlan()">Cancel plan</button>
       </span>
     </div>
 
@@ -70,7 +70,7 @@
     </div>
 
 
-
+    <cancel-plan></cancel-plan>
   </div>
 </template>
 <style scoped>
@@ -132,6 +132,7 @@ export default {
   },
   props: ['paymentMethod', 'creditCard'],
   components: {
+    'cancel-plan': require('modules/billing/CancelPlan.vue')
   },
   methods: {
     redirect(route){
@@ -139,6 +140,9 @@ export default {
     },
     showPlanModal(){
       $('#simplePlan').modal('show')
+    },
+    cancelPlan() {
+      $('#requestToCancel').modal('show')
     }
   }
 }

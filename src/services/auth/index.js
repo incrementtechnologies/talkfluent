@@ -15,7 +15,8 @@ export default {
     canceledOn: null,
     enabledLesson: null,
     pausedFlag: null,
-    pausedOn: null
+    pausedOn: null,
+    paymentMethod: null
   },
   tokenData: {
     token: null,

@@ -23,6 +23,7 @@ class StripeController extends TalkController
 
 
     public function cancelPlan(Request $request){
+      echo "hi";
       $data = $request->all();
       $keys = $data['payment_keys'];
       $message = $data['message'];
