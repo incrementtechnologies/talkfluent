@@ -1033,6 +1033,10 @@ class PayPalController extends TalkController
               $_agreementResult = PayPalAgreement::where('agreement', '=', $result->id)->get();
               if(sizeof($_agreementResult) <= 0){
 
+               AccountPaymentMethod::where('account_id', '=', $accountId)->update(array(
+                  'status'  => 'inactive'
+                ));
+               
                 $_paypal_account = null;
                 if($method == 'create' || $method == 'recreate'){
                   $_paypal_account = new PayPalAccount();
@@ -1058,6 +1062,7 @@ class PayPalController extends TalkController
                 $_paymentMethod = new AccountPaymentMethod();
                 $_paymentMethod->account_id = $accountId;
                 $_paymentMethod->method = 'paypal';
+                $_paymentMethod->status = 'active';
                 $_paymentMethod->source = $_paypal_account->id;
                 $_paymentMethod->created_at = Carbon::now();
                 $_paymentMethod->save();
