@@ -337,6 +337,7 @@ class AccountController extends TalkController
       $model->account_id = $accountId;
       $model->method = $method;
       $model->source = $source;
+      $model->source = 'active';
       $model->created_at = Carbon::now();
       $model->save();
     }
