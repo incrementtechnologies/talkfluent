@@ -30,7 +30,7 @@ class StripeController extends TalkController
       $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
       $sk = ($keys['flag'] == false  || $keys['flag'] == 'false') ? $keys['stripe']['dev_sk'] : $keys['stripe']['live_sk'];
       $stripe = new StripeWebhooks($pk, $sk);
-      $subscription = StripeSubscription::where('account_id', '=', $accountId)->first();
+      $subscription = StripeSubscription::where('account_id', '=', $accountId)->orderBy('created_at','desc')->first();
       if($subscription){
 
 
