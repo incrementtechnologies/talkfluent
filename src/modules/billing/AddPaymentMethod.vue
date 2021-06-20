@@ -13,7 +13,7 @@
 
             <span class="payment-item" v-if="item.method === 'paypal' && item.details">
               <i class="fa fa-circle" ></i>
-              <b style="padding-left: 10px;">{{item.method}}</b>
+              <b style="padding-left: 10px;">{{item.method.toUpperCase()}}</b>
               <span class="pull-right" style="padding-top: 9px;">
                 <i :class="'fab paypal'" style="padding-left: 5px;"></i>
               </span>

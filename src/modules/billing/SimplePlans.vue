@@ -42,6 +42,7 @@
             </button>
           </div>
           <div class="modal-body">
+            <p v-if="errorMessage !== null" class="text-danger text-center">{{errorMessage}}</p>
             <div class="plan-holder plan-modal" v-if="user.plan !== 'monthly' || user.canceledOn !== null">
               <span class="plan-header">
                 <p>
@@ -137,7 +138,8 @@ export default {
     return{
       user: AUTH.user,
       config: CONFIG,
-      products: PRODUCTS
+      products: PRODUCTS,
+      errorMessage: null
     }
   },
   props: ['paymentMethod', 'creditCard'],
@@ -160,17 +162,50 @@ export default {
           case 'stripe':
             this.upgradePlanStripe(plan)
             break
+          case 'paypal':
+            this.upgradePlanPaypal(plan)
+            break
         }
       }
     },
     addPlan(plan){
+      this.errorMessage = null
       if(AUTH.user.paymentMethod !== null){
         switch(AUTH.user.paymentMethod.method){
           case 'stripe':
             this.addPlanStripe(plan)
             break
+          case 'paypal':
+            this.upgradePlanPaypal(plan)
+            break
         }
       }
+    },
+    upgradePlanPaypal(plan){
+      if(AUTH.user.userID < 0){
+        return
+      }
+      if(AUTH.user.paymentMethod == null || (AUTH.user.paymentMethod && AUTH.user.paymentMethod.details === null)){
+        return
+      }
+      let config = {
+        'paypal': OPKEYS.paypal
+      }
+      let parameter = {
+        account_id: this.user.userID,
+        'config': config,
+        payment_status: this.user.paymentStatus,
+        plan: plan
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('paypal/upgrade', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data !== null){
+          window.location.href = response.data
+        }else{
+          this.errorMessage = response.error
+        }
+      })
     },
     upgradePlanStripe(plan){
       if(AUTH.user.userID < 0){
