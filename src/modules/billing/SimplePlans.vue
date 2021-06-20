@@ -201,27 +201,6 @@ export default {
         }
       })
     },
-    upgradePlanPaypal(plan){
-      let config = {
-        'paypal': OPKEYS.paypal
-      }
-      let parameter = {
-        account_id: this.user.userID,
-        'config': config,
-        payment_status: this.user.paymentStatus,
-        plan: plan
-      }
-      $('#loading').css({'display': 'block'})
-      this.APIRequest('paypal/upgrade', parameter).then(response => {
-        $('#loading').css({'display': 'none'})
-        if(response.data !== null){
-          window.location.href = response.data
-        }else{
-          this.$parent.notAllowedMessage = response.error
-          $('#notAllowedUpgrade').modal('show')
-        }
-      })
-    },
     addPlanStripe(plan){
       if(AUTH.user.userID < 0){
         return
