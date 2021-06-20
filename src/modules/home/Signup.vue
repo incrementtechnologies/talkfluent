@@ -240,7 +240,7 @@
             <!-- v-b-tooltip.hover title="$1 for the first 7 days, then $149/month thereafter. You can change plans or cancel at any time" placement="topright" -->
             <h6>
               <input type="checkbox" v-model="billingTerms" name="terms"/>
-              I Agree to the <a v-bind:href="config.WEBSITE + '/billing_terms'" target="_BLANK">Billing Terms</a>
+              I Agree to the <a v-bind:href="config.WEBSITE + '/terms-and-conditions'" target="_BLANK">Terms and Conditions</a>
               <!-- <i class="fa fa-info-circle pull-right"></i> -->
             </h6>
             <button class="btn btn-primary btn-block btn-login login-spacer" v-on:click="next()" v-if="paymentMethod === 'credit_card'"><label class="pull-left" style="font-size: 16px;padding-top: 3px;">PAY via Credit Card</label><label class="pull-right" style="font-size: 16px;padding-top: 3px;">$1.00</label></button>
