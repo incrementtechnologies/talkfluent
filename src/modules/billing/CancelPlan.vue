@@ -34,7 +34,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <span class="error text-danger" style="line-height: 30px;" v-if="errorMessage !== null"><b>Opps!</b> {{errorMessage}}</span>
+            <span class="error text-danger" style="margin-top: 25px;" v-if="errorMessage !== null"><b>Opps!</b> {{errorMessage}}</span>
             <label class="label" style="line-height: 30px;">Give us feedback <b class="text-danger">*</b></label>
             <textarea class="feedback" placeholder="Please write feedback here..." v-model="message">
               

@@ -3,7 +3,7 @@
     <b>Current subscription plan</b>
     <br>
     <div class="plan-holder" v-if="user !== null">
-      <span class="plan-header">
+      <span class="plan-header" v-if="user.canceledOn === null">
         <p v-if="user.plan === 'monthly'">
           <b>Monthly Plan for $49.00</b>
         </p>
@@ -18,9 +18,17 @@
           Next billing is on: July 31, 2021
         </p>
       </span>
-      <span class="plan-footer">
+      <span class="plan-footer" v-if="user.canceledOn === null">
         <button type="button" class="btn btn-primary change-plan" @click="showPlanModal()">Change plan</button>
         <button type="button" class="btn btn-danger change-plan" @click="cancelPlan()">Cancel plan</button>
+      </span>
+      <span class="plan-header" v-if="user.canceledOn !== null">
+        <p>
+          <b class="text-danger">You don't have an existing plan</b>
+        </p>
+      </span>
+      <span class="plan-footer" v-if="user.canceledOn !== null">
+        <button type="button" class="btn btn-primary btn-block" @click="showPlanModal()">Add Plan</button>
       </span>
     </div>
 
@@ -34,18 +42,19 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="plan-holder plan-modal" v-if="user.plan !== 'monthly'">
+            <div class="plan-holder plan-modal" v-if="user.plan !== 'monthly' || user.canceledOn !== null">
               <span class="plan-header">
-                <p v-if="user.plan === 'monthly'">
+                <p>
                   <b>Monthly Plan for $99.00</b>
                 </p>
               </span>
               <span class="plan-footer">
-                <button type="button" class="btn btn-primary" @click="showPlanModal()" >Switch to monthly</button>
+                <button type="button" class="btn btn-primary" @click="switchTo('monthly')" v-if="user.canceledOn === null">Switch to monthly</button>
+                <button type="button" class="btn btn-primary" @click="addPlan('monthly')" v-if="user.canceledOn !== null">Upgrade to monthly</button>
               </span>
             </div>
 
-            <div class="plan-holder plan-modal" v-if="user.plan !== 'annually'">
+            <div class="plan-holder plan-modal" v-if="user.plan !== 'annually' || user.canceledOn !== null">
               <span class="plan-header">
                 <p>
                   <b>Annual Plan for $228</b>
@@ -56,7 +65,8 @@
                 </p>
               </span>
               <span class="plan-footer">
-                <button type="button" class="btn btn-primary" @click="showPlanModal()" >Upgrade yearly</button>
+                <button type="button" class="btn btn-primary" @click="switchTo('annually')" v-if="user.canceledOn === null">Upgrade yearly</button>
+                <button type="button" class="btn btn-primary" @click="addPlan('annually')" v-if="user.canceledOn !== null">Upgrade to yearly</button>
               </span>
             </div>
 
@@ -143,6 +153,104 @@ export default {
     },
     cancelPlan() {
       $('#requestToCancel').modal('show')
+    },
+    switchTo(plan){
+      if(AUTH.user.paymentMethod !== null){
+        switch(AUTH.user.paymentMethod.method){
+          case 'stripe':
+            this.upgradePlanStripe(plan)
+            break
+        }
+      }
+    },
+    addPlan(plan){
+      if(AUTH.user.paymentMethod !== null){
+        switch(AUTH.user.paymentMethod.method){
+          case 'stripe':
+            this.addPlanStripe(plan)
+            break
+        }
+      }
+    },
+    upgradePlanStripe(plan){
+      if(AUTH.user.userID < 0){
+        return
+      }
+      if(AUTH.user.paymentMethod == null || (AUTH.user.paymentMethod && AUTH.user.paymentMethod.details === null)){
+        return
+      }
+      let paymentDetails = AUTH.user.paymentMethod.details
+      let parameter = {
+        payment_keys: OPKEYS,
+        products: PRODUCTS,
+        account_id: this.user.userID,
+        plan: plan,
+        credit_card_id: paymentDetails.id,
+        coupon: null
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('stripes/upgrade', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data !== null){
+          AUTH.checkAuthentication(null)
+          $('#simplePlan').modal('hide')
+          this.$parent.retrieveHistory()
+        }else if(response.data === null){
+          this.$parent.notAllowedMessage = response.error
+          $('#notAllowedUpgrade').modal('show')
+        }
+      })
+    },
+    upgradePlanPaypal(plan){
+      let config = {
+        'paypal': OPKEYS.paypal
+      }
+      let parameter = {
+        account_id: this.user.userID,
+        'config': config,
+        payment_status: this.user.paymentStatus,
+        plan: plan
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('paypal/upgrade', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data !== null){
+          window.location.href = response.data
+        }else{
+          this.$parent.notAllowedMessage = response.error
+          $('#notAllowedUpgrade').modal('show')
+        }
+      })
+    },
+    addPlanStripe(plan){
+      if(AUTH.user.userID < 0){
+        return
+      }
+      if(AUTH.user.paymentMethod == null || (AUTH.user.paymentMethod && AUTH.user.paymentMethod.details === null)){
+        return
+      }
+      let paymentDetails = AUTH.user.paymentMethod.details
+      let parameter = {
+        payment_keys: OPKEYS,
+        customer_id: paymentDetails.customer,
+        plan: plan,
+        products: PRODUCTS,
+        credit_card_id: paymentDetails.id,
+        account_id: this.user.userID,
+        coupon: null
+      }
+      // call api
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('stripes/new_subscription', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data !== null){
+          AUTH.checkAuthentication(null)
+          $('#simplePlan').modal('hide')
+          this.$parent.retrieveHistory()
+        }else{
+          this.errorMessage = response.error
+        }
+      })
     }
   }
 }
