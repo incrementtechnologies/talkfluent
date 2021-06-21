@@ -13,7 +13,7 @@
 
             <span class="payment-item" v-if="item.method === 'paypal' && item.details">
               <i class="fa fa-circle" ></i>
-              <b style="padding-left: 10px;">{{item.method}}</b>
+              <b style="padding-left: 10px;">{{item.method.toUpperCase()}}</b>
               <span class="pull-right" style="padding-top: 9px;">
                 <i :class="'fab paypal'" style="padding-left: 5px;"></i>
               </span>
@@ -65,7 +65,7 @@
 
 
             <div class="new-payment-methods" v-if="selectedMethod === 'paypal'">
-              <button type="button" class="btn btn-primary btn-block" @click="addNewPaymentMethod()">Authorize</button>
+              <button type="button" class="btn btn-primary btn-block" @click="authorizePayPal()">Authorize</button>
             </div>
           </div>
           <div class="modal-footer">
@@ -292,6 +292,64 @@ export default {
     },
     showPaymentMethodModal(){
       $('#newPaymentMethod').modal('show')
+    },
+    authorizePayPal(){
+      if(AUTH.user.userID <= 0){
+        return
+      }
+      if(AUTH.user.plan === null || AUTH.user.canceledOn !== null){
+        return
+      }
+      if(AUTH.user.paymentMethod === null || (AUTH.user.paymentMethod && AUTH.user.paymentMethod.details === null)){
+        return
+      }
+      if(AUTH.user.paymentMethod.method === 'stripe'){
+        // from stripe to paypal
+        this.createPaypal(AUTH.user.plan)
+      }else{
+        // update paypal payment
+        this.upgradePlanPaypal(AUTH.user.plan)
+      }
+    },
+    createPaypal(plan){
+      let nickname = null
+      let paypal = {
+        'paypal': OPKEYS.paypal
+      }
+      let parameter = {
+        account_id: this.user.userID,
+        plan: plan,
+        config: paypal,
+        nickname: null
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('paypal/create_on_billing', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.return_url !== null){
+          window.location.href = response.return_url
+        }
+      })
+    },
+    upgradePlanPaypal(plan){
+      let config = {
+        'paypal': OPKEYS.paypal
+      }
+      let parameter = {
+        account_id: this.user.userID,
+        'config': config,
+        payment_status: this.user.paymentStatus,
+        plan: plan
+      }
+      $('#loading').css({'display': 'block'})
+      this.APIRequest('paypal/upgrade', parameter).then(response => {
+        $('#loading').css({'display': 'none'})
+        if(response.data !== null){
+          window.location.href = response.data
+        }else{
+          this.$parent.notAllowedMessage = response.error
+          $('#notAllowedUpgrade').modal('show')
+        }
+      })
     }
   }
 }

@@ -30,7 +30,7 @@ class StripeController extends TalkController
       $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
       $sk = ($keys['flag'] == false  || $keys['flag'] == 'false') ? $keys['stripe']['dev_sk'] : $keys['stripe']['live_sk'];
       $stripe = new StripeWebhooks($pk, $sk);
-      $subscription = StripeSubscription::where('account_id', '=', $accountId)->first();
+      $subscription = StripeSubscription::where('account_id', '=', $accountId)->orderBy('created_at','desc')->first();
       if($subscription){
 
 
@@ -88,6 +88,14 @@ class StripeController extends TalkController
             )
           );
         }
+      }else{
+        return response()->json(
+          array(
+            'data'  => false,
+            'error' => 'Invalid Subscription. Unable to Cancel your subsctiption. Please contact the administrator.',
+            'timestamp' => Carbon::now()
+          )
+        );
       }
     }
 
@@ -333,7 +341,7 @@ class StripeController extends TalkController
       // update with prorate, note the prorate will take effect on next billing
       $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
       $sk = ($keys['flag'] == false  || $keys['flag'] == 'false') ? $keys['stripe']['dev_sk'] : $keys['stripe']['live_sk'];
-      $stripeCard = StripeSubscription::where('account_id', '=', $data['account_id'])->first();
+      $stripeCard = StripeSubscription::where('account_id', '=', $data['account_id'])->orderBy('created_at', 'desc')->first();
       $account = Account::where('id', '=', $data['account_id'])->first();
       $newPlan = $data['plan'];
       if($account && $account->paused_on != null && $newPlan == 'pause'){

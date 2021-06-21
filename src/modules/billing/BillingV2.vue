@@ -14,7 +14,7 @@
         <plans :paymentMethod="null" :creditCard="null"></plans>
       </div>
 
-      <billing-history />
+      <billing-history ref="billingHistory"/>
     
   </div>
 </template>
@@ -77,6 +77,9 @@ export default {
   methods: {
     redirect(route){
       ROUTER.push(route)
+    },
+    retrieveHistory(){
+      this.$refs.billingHistory.retrieve()
     }
   }
 }
