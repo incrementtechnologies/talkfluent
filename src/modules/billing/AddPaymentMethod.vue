@@ -33,7 +33,7 @@
             </p>
           </div>
 
-          <div class="payment-methods" v-if="data.length === 0">
+          <div class="payment-methods" style="border: none;" v-if="data.length === 0">
             <span class="payment-item">
               <p class="text-danger text-center">No existing payment method.</p>
             </span>
