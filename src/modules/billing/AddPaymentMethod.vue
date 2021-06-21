@@ -32,6 +32,18 @@
               <button class="btn btn-primary btn-block" @click="showPaymentMethodModal()">Change payment method</button>
             </p>
           </div>
+
+          <div class="payment-methods" v-if="data.length === 0">
+            <span class="payment-item">
+              <p class="text-danger text-center">No existing payment method.</p>
+            </span>
+
+            <p>
+              <button class="btn btn-primary btn-block" @click="showPaymentMethodModal()">Add payment method</button>
+            </p>
+          </div>
+
+
         </div>
 
       </div>
