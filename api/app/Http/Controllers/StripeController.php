@@ -358,6 +358,8 @@ class StripeController extends TalkController
         }
       }
 
+      echo json_encode($stripeCard);
+
       if($stripeCard) {
         if(($newPlan !== 'pause') || ($newPlan == 'pause' && $this->checkEnabledLessons($data['account_id']) == true)){
           //execute when the new plan is pause and enabled lesson is true
