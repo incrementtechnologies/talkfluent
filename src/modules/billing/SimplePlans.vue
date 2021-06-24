@@ -49,9 +49,12 @@
                   <b>Monthly Plan for $99.00</b>
                 </p>
               </span>
-              <span class="plan-footer">
+              <span class="plan-footer" v-if="auth.user.billingHistory !== null && auth.user.billingHistory.length > 0">
                 <button type="button" class="btn btn-primary" @click="switchTo('monthly')" v-if="user.canceledOn === null">Switch to monthly</button>
                 <button type="button" class="btn btn-primary" @click="addPlan('monthly')" v-if="user.canceledOn !== null">Upgrade to monthly</button>
+              </span>
+              <span class="plan-footer" v-else>
+                <button type="button" class="btn btn-primary" @click="addPlan('monthly')">Upgrade to monthly</button>
               </span>
             </div>
 
@@ -65,9 +68,12 @@
                   </p>
                 </p>
               </span>
-              <span class="plan-footer">
+              <span class="plan-footer" v-if="auth.user.billingHistory !== null && auth.user.billingHistory.length > 0">
                 <button type="button" class="btn btn-primary" @click="switchTo('annually')" v-if="user.canceledOn === null">Upgrade yearly</button>
                 <button type="button" class="btn btn-primary" @click="addPlan('annually')" v-if="user.canceledOn !== null">Upgrade to yearly</button>
+              </span>
+              <span class="plan-footer" v-else>
+                <button type="button" class="btn btn-primary" @click="addPlan('annually')">Upgrade to yearly</button>
               </span>
             </div>
 
@@ -145,6 +151,7 @@ export default {
   data(){
     return{
       user: AUTH.user,
+      auth: AUTH,
       config: CONFIG,
       products: PRODUCTS,
       errorMessage: null

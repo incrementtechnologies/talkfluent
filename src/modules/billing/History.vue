@@ -69,6 +69,7 @@ export default {
       this.APIRequest('billings/retrieve', parameter).then(response => {
         $('#loading').css({'display': 'none'})
         this.history = response.billing
+        AUTH.user.billingHistory = response.billing
       })
     }
   }
