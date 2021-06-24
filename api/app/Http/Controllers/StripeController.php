@@ -366,13 +366,17 @@ class StripeController extends TalkController
           //$customerId, $subscriptionId, $newPlanId
           $stripe = new StripeWebhooks($pk, $sk);
           $creditCards = CreditCard::where('id', '=', $data['credit_card_id'])->first();
-          $subscriptionId = $stripeCard->subscription;
+          
           $customerId = $creditCards->customer;
-          $startDate = date('Y-m-d H:i:s', $stripe->retrieveSubscriptionCurrentStartDate($subscriptionId));
-          $endDate = date('Y-m-d H:i:s', $stripe->retrieveSubscriptionCurrentEndDate($subscriptionId));
+          if($stripeCard){
+            $subscriptionId = $stripeCard->subscription;
+            $startDate = date('Y-m-d H:i:s', $stripe->retrieveSubscriptionCurrentStartDate($subscriptionId));
+            $endDate = date('Y-m-d H:i:s', $stripe->retrieveSubscriptionCurrentEndDate($subscriptionId));
+            $cancelResponse = $stripe->cancelSubscription($subscriptionId);
+          }
+          
 
           $newPlanId = $this->getPlan($newPlan, $data['products']['stripe']['plan']);
-          $cancelResponse = $stripe->cancelSubscription($subscriptionId);
           
           if($cancelResponse){
             // create new subscription
