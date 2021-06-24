@@ -358,9 +358,9 @@ class StripeController extends TalkController
         }
       }
 
-      echo json_encode($stripeCard);
+      // echo json_encode($stripeCard);
 
-      if($stripeCard) {
+      // if($stripeCard) {
         if(($newPlan !== 'pause') || ($newPlan == 'pause' && $this->checkEnabledLessons($data['account_id']) == true)){
           //execute when the new plan is pause and enabled lesson is true
           //$customerId, $subscriptionId, $newPlanId
@@ -492,19 +492,19 @@ class StripeController extends TalkController
           }
           return response()->json(array('data' => $cancelResponse, 'end_date' => $endDate, 'start_date' => $startDate, 'trial_period' => $trialPeriod));
         }
-      }else if($newPlan == 'pause' && $this->checkEnabledLessons($data['account_id']) == false){
-        return response()->json(array(
-          'data'  => null,
-          'error' => 'Unable to upgrade to pause account since you have no lessons or topics visited.',
-          'timestamps'  => Carbon::now()
-        ));
-      }else{
-        return response()->json(array(
-          'data' => null,
-          'error' => "Unable to upgrade since you don't payment method.",
-          'timestamps'  => Carbon::now()
-        ));
-      }
+      // }else if($newPlan == 'pause' && $this->checkEnabledLessons($data['account_id']) == false){
+      //   return response()->json(array(
+      //     'data'  => null,
+      //     'error' => 'Unable to upgrade to pause account since you have no lessons or topics visited.',
+      //     'timestamps'  => Carbon::now()
+      //   ));
+      // }else{
+      //   return response()->json(array(
+      //     'data' => null,
+      //     'error' => "Unable to upgrade since you don't payment method.",
+      //     'timestamps'  => Carbon::now()
+      //   ));
+      // }
     }
 
     public function getPlan($newPlan, $stripePlans){
