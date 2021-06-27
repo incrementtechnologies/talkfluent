@@ -21,6 +21,8 @@ class StripeController extends TalkController
     protected $annually = 19;
     protected $pause = 9;
 
+    public $paypalController = 'App\Http\Controllers\PayPalController';
+
 
     public function cancelPlan(Request $request){
       $data = $request->all();
@@ -497,11 +499,18 @@ class StripeController extends TalkController
           'timestamps'  => Carbon::now()
         ));
       }else{
-        return response()->json(array(
-          'data' => null,
-          'error' => "Unable to upgrade since you don't payment method.",
-          'timestamps'  => Carbon::now()
-        ));
+        // check if exist from paypal
+        $paypalAgrement = app($this->paypalController)->cancelAgreementByAccountId($accountId);
+        if($paypalAgrement){
+          // create new agreement here
+          $this->createSubscription($request);
+        }else{
+          return response()->json(array(
+            'data' => null,
+            'error' => "Unable to upgrade since you don't payment method.",
+            'timestamps'  => Carbon::now()
+          ));
+        }
       }
     }
 

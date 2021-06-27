@@ -1359,6 +1359,22 @@ class PayPalController extends TalkController
     }
   }
 
+  public function cancelAgreementByAccountId($accountId){
+    $agreement = PayPalAgreement::where('account_id', '=', $accountId)->where('state', '=', 'Active')->orderBy('created_at', 'desc')->get();
+
+    if(sizeof($agreement) > 0){
+      // get the last payment also
+      $lastPayment = Billing::where("account_id", "=", $accountId)->where('payment_method', '=', 'paypal')->orderBy('created_at', 'desc')->get();
+      if($lastPayment && sizeof($lastPayment) > 0){
+        // call cancelAgreement
+        $this->cancelOnPaypalAgreement($agreement[0]['agreement'], $lastPayment[0]['total_amount']);
+      }
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   public function cancelOnPaypalAgreement($agreementId, $amount){
     $agreement = new Agreement();
     $agreement->setId($agreementId);
