@@ -503,7 +503,7 @@ class StripeController extends TalkController
         $paypalAgrement = app($this->paypalController)->cancelAgreementByAccountId($data['account_id'], $data['config']);
         if($paypalAgrement){
           // create new agreement here
-          $this->createSubscription($request);
+          $this->newSubscription($request);
         }else{
           return response()->json(array(
             'data' => null,
