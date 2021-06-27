@@ -1368,7 +1368,8 @@ class PayPalController extends TalkController
       $lastPayment = Billing::where("account_id", "=", $accountId)->where('payment_method', '=', 'paypal')->orderBy('created_at', 'desc')->get();
       if($lastPayment && sizeof($lastPayment) > 0){
         // call cancelAgreement
-        return $this->cancelOnPaypalAgreement($agreement[0]['agreement'], $lastPayment[0]['total_amount']);
+        $totalAmount = intVal($lastPayment[0]['total_amount']);
+        return $this->cancelOnPaypalAgreement($agreement[0]['agreement'], $totalAmount / 100);
         // delete here
       }else{
         // delete here
