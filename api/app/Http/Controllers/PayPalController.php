@@ -1368,9 +1368,12 @@ class PayPalController extends TalkController
       $lastPayment = Billing::where("account_id", "=", $accountId)->where('payment_method', '=', 'paypal')->orderBy('created_at', 'desc')->get();
       if($lastPayment && sizeof($lastPayment) > 0){
         // call cancelAgreement
-        $this->cancelOnPaypalAgreement($agreement[0]['agreement'], $lastPayment[0]['total_amount']);
+        return $this->cancelOnPaypalAgreement($agreement[0]['agreement'], $lastPayment[0]['total_amount']);
+        // delete here
+      }else{
+        // delete here
+        return null;
       }
-      return true;
     }else{
       return false;
     }
@@ -1386,15 +1389,17 @@ class PayPalController extends TalkController
       'currency'  => 'USD'
     )));
     try{
-      $result = $agreement->cancel($stateDescriptor, $this->apiContext);
+      return $agreement->cancel($stateDescriptor, $this->apiContext);
     }catch(\Exception\PayPalConnectionException $ex) {
       echo $ex->getCode();
       echo $ex->getData();
       die($ex);
+      return null;
     }catch(\Exception $ex) {
       echo $ex->getCode();
       // echo $ex->getData();
       die($ex);
+      return null;
     }
   }
 
