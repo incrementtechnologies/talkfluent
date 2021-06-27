@@ -236,7 +236,8 @@ export default {
         account_id: this.user.userID,
         plan: plan,
         credit_card_id: paymentDetails.id,
-        coupon: null
+        coupon: null,
+        config: OPKEYS.paypal
       }
       $('#loading').css({'display': 'block'})
       this.APIRequest('stripes/upgrade', parameter).then(response => {

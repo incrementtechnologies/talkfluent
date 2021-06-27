@@ -500,7 +500,7 @@ class StripeController extends TalkController
         ));
       }else{
         // check if exist from paypal
-        $paypalAgrement = app($this->paypalController)->cancelAgreementByAccountId($data['account_id']);
+        $paypalAgrement = app($this->paypalController)->cancelAgreementByAccountId($data['account_id'], $data['config']);
         if($paypalAgrement){
           // create new agreement here
           $this->createSubscription($request);
