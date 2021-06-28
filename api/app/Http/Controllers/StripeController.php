@@ -20,9 +20,15 @@ class StripeController extends TalkController
     protected $monthly = 49;
     protected $annually = 19;
     protected $pause = 9;
+    public $stripe = null;
 
     public $paypalController = 'App\Http\Controllers\PayPalController';
 
+    public function init($keys){
+      $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
+      $sk = ($keys['flag'] == false  || $keys['flag'] == 'false') ? $keys['stripe']['dev_sk'] : $keys['stripe']['live_sk'];
+      $this->stripe = new StripeWebhooks($pk, $sk);
+    }
 
     public function cancelPlan(Request $request){
       $data = $request->all();
@@ -289,21 +295,128 @@ class StripeController extends TalkController
 
     public function addNewPaymentMethod(Request $request){
       $data = $request->all();
+      $this->init($data['payment_keys']);
+      $flag = $this->createCustomer($data);
+      $this->response['data'] = $flag;
+
+      return $this->response();
+    }
+
+    public function createCustomerAndSubscribe($data){
+      if($this->stripe == null){
+        return false;
+      }
+
+      $cancelResponse = $this->cancelPreviousStripeSubscription($data['account_id']);
+
+      if($cancelResponse){
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $endDate);
+        $currentDate = Carbon::now();
+        $trialPeriod = $currentDate->diffInDays($endDate);
+        $trialPeriod = ($trialPeriod > 0) ? $trialPeriod + 1 : 0;
+        $coupon = null;
+        $subscriptionResponse = null;
+        if($coupon != null){
+          $subscriptionResponse = $this->stripe->createSubscriptionWithCoupon($customerId, $newPlanId, $trialPeriod, $coupon);
+        }else{
+          $subscriptionResponse = $this->stripe->createSubscription($customerId, $newPlanId, $trialPeriod);
+        }
+        
+        if($subscriptionResponse->id){
+          $_account_stripe_card = new StripeSubscription();
+          $_account_stripe_card->account_id = $data['account_id'];
+          $_account_stripe_card->credit_card_id = $data['credit_card_id'];
+          $_account_stripe_card->subscription = $subscriptionResponse->id;
+          $_account_stripe_card->save();
+
+          $discount = 0;
+          $totalAmount = 0;
+          $monthly = $this->monthly;
+          $yearly = ($this->annually) * 12;
+          $pause = $this->pause;
+          $couponId = null;
+          if($coupon !== null){
+            $coupon = Coupon::where('code', '=', $coupon)->first();
+            if($newPlan == 'monthly'){
+              $discount = ($coupon->type == 'percentage') ? $monthly * (floatval($coupon->value) / 100) : floatval($coupon->value);
+              $totalAmount = $monthly - $discount;
+            }else if($newPlan == 'annually'){
+              $discount = ($coupon->type == 'percentage') ? $yearly * (floatval($coupon->value) / 100) : floatval($coupon->value);
+              $totalAmount = $yearly - $discount;
+            }else if($newPlan == 'pause'){
+              $discount = ($coupon->type == 'percentage') ? $pause * (floatval($coupon->value) / 100) : floatval($coupon->value);
+              $totalAmount = $pause - $discount;
+            }else{
+              //
+            }
+            $couponId = ($coupon) ? $coupon->id: null;
+          }else{
+            $discount = 0;
+            $couponId = null;
+            if($newPlan == 'monthly'){
+              $totalAmount = $monthly;
+            }else if($newPlan == 'annually'){
+              $totalAmount = $yearly;
+            }else if($newPlan == 'pause'){
+              $totalAmount = $pause;
+            }
+          }
+
+          $descriptionAmount = null;
+          $description = null;
+          $startDate = Carbon::now()->addDay($trialPeriod);
+          $endDate = null;
+
+          if($newPlan == 'monthly'){
+            $descriptionAmount = 'US$'.($subscriptionResponse->plan->amount / 100).' per month';
+            $description = 'Upgrade Monthly';
+            $endDate = Carbon::now()->addMonth();
+            // Update accounts table while set the paused_on to null
+
+          }else if($newPlan == 'annually'){
+            $descriptionAmount = 'US$'.(($subscriptionResponse->plan->amount / 100) * 12).' per year';
+            $description = 'Upgrade Annually';
+            $endDate = Carbon::now()->addYear();
+            // Update accounts table while set the paused_on to null
+            
+          }
+
+          Account::where('id', '=', $data['account_id'])->update(array(
+            'plan' => $newPlan,
+            'updated_at'  => Carbon::now(),
+            'paused_on' => null
+          ));
+
+          $this->updateBilling($data['account_id']);
+
+          // save billing
+          $_billing = new Billing();
+          $_billing->account_id = $data['account_id'];
+          $_billing->coupon_id = $couponId;
+          $_billing->status = 'created';
+          $_billing->start_date = $startDate;
+          $_billing->end_date = $endDate;
+          $_billing->payment_method = 'credit_card';
+          $_billing->currency = 'usd';
+          $_billing->description = $description;
+          $_billing->description_amount = $descriptionAmount;
+          $_billing->total_amount = $totalAmount * 100;
+          $_billing->taxes_and_fees = 0;
+          $_billing->discount_total_amount = $discount;
+          $_billing->created_at = Carbon::now();
+          $_billing->save();         
+
+          // send email here
+        }
+      }
+
       $email = $data['email'];
       $source = $data['source'];
       $accountId = $data['account_id'];
       $accountInformation = AccountInformation::where('account_id', '=', $accountId)->first();
       $name = null;
       $name = (sizeof(array($accountInformation)) > 0) ? $accountInformation->first_name .' '. $accountInformation->last_name : null;
-
-      $keys = $data['payment_keys'];
-      $pk = ($keys['flag'] == false || $keys['flag'] == 'false') ? $keys['stripe']['dev_pk'] : $keys['stripe']['live_pk'];
-      $sk = ($keys['flag'] == false  || $keys['flag'] == 'false') ? $keys['stripe']['dev_sk'] : $keys['stripe']['live_sk'];
-
-      $stripe = new StripeWebhooks($pk, $sk);
-
-      $customer = $stripe->createCustomer($email, $source['id'], $name);
-
+      $customer = $this->stripe->createCustomer($email, $source['id'], $name);
       if($customer->id){
         // save credit card
         CreditCard::where('account_id', '=', $accountId)->update(array('status' => 'inactive'));
@@ -328,11 +441,22 @@ class StripeController extends TalkController
         $accountPaymentMethod->created_at = Carbon::now();
         $accountPaymentMethod->save();
         
-        return response()->json(array('data' => true));
+        return true;
       }else{
-        return response()->json(array('data' => null));
+        return false;
       }
+    }
 
+    public function cancelPreviousStripeSubscription($accountId){
+      if($this->stripe == null){
+        return false;
+      }
+      $stripeCard = StripeSubscription::where('account_id', '=', $accountId)->orderBy('created_at', 'desc')->first();
+      if($stripeCard){
+        return $this->stripe->cancelSubscription($stripeCard->subscriptionId);
+      }else{
+        return null;
+      } 
     }
 
     public function upgrade(Request $request){

@@ -114,7 +114,7 @@ class AccountController extends TalkController
         $this->insertAccount($insertData);
         $accountId = $this->response['data'];
         if($accountId > 0){
-          app('App\Http\Controllers\EmailController')->verification($accountId, $host);
+          // app('App\Http\Controllers\EmailController')->verification($accountId, $host);
           $this->insertAccountInformation($accountId, $account);
           $this->insertBillingInformation($accountId, $billing);
           $this->insertStripeData($accountId, $source, $account, $request['payment'], $products, $charge, $customer);
@@ -140,7 +140,7 @@ class AccountController extends TalkController
       $nickname = $request['paypal']['nickname'];
 
       if($accountId > 0){
-        app('App\Http\Controllers\EmailController')->verification($accountId, $host);
+        // app('App\Http\Controllers\EmailController')->verification($accountId, $host);
         $this->insertAccountInformation($accountId, $account);
         $this->insertBillingInformation($accountId, $billing);
         // dispatch(new EmailVerification($insertData, $host));
@@ -265,7 +265,7 @@ class AccountController extends TalkController
           'total'       => floatval($payment['total_amount']) / 100
         );
 
-        $returnUrl = app('App\Http\Controllers\EmailController')->receipt($accountId, null, $billingDetails);
+        // $returnUrl = app('App\Http\Controllers\EmailController')->receipt($accountId, null, $billingDetails);
 
         $billing = new Billing();
         $billing->account_id = $accountId;
@@ -466,7 +466,7 @@ class AccountController extends TalkController
           'web' => $request['web'],
           'browser' => $request['browser']
         );
-        app('App\Http\Controllers\EmailController')->forgetPassword($accountResult[0]['id'], $host);
+        // app('App\Http\Controllers\EmailController')->forgetPassword($accountResult[0]['id'], $host);
         return response()->json(array('data' => true));
       }else{
         return response()->json(array('data' => false));
@@ -576,7 +576,7 @@ class AccountController extends TalkController
         $this->model = new Account();
         $this->updateDB($updateData);
         if($this->response['data'] === true){
-          app('App\Http\Controllers\EmailController')->changePassword($result[0]['id'], $host);
+          // app('App\Http\Controllers\EmailController')->changePassword($result[0]['id'], $host);
         }else{
           //
         }

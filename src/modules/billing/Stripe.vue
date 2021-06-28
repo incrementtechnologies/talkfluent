@@ -175,6 +175,9 @@ export default {
     },
     addNewPaymentMethod(){
       $('#loading').css({'display': 'block'})
+      if(this.user.userID <= 0){
+        return
+      }
       this.errorMessage = null
       Stripe.createSource().then(data => {
         if(data.error !== undefined){
@@ -186,7 +189,8 @@ export default {
             email: this.user.email,
             source: data.source,
             account_id: this.user.userID,
-            payment_keys: OPKEYS
+            payment_keys: OPKEYS,
+            plan: this.user.plan
           }
           this.APIRequest('stripes/add_payment_method', parameter).then(response => {
             if(response.data === true){
