@@ -190,13 +190,15 @@ export default {
             source: data.source,
             account_id: this.user.userID,
             payment_keys: OPKEYS,
-            plan: this.user.plan
+            plan: this.user.plan,
+            paypal: OPKEYS.paypal
           }
           this.APIRequest('stripes/add_payment_method', parameter).then(response => {
             if(response.data === true){
               $('#loading').css({'display': 'none'})
               this.addPaymentMethodFlag = false
               this.$parent.retrieve()
+              this.$parent.retrieveHistory()
             }
           })
         }

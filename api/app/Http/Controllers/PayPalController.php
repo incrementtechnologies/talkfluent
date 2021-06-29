@@ -1109,7 +1109,7 @@ class PayPalController extends TalkController
                     'total'       => 1.00
                   );
 
-                  $returnUrl = app('App\Http\Controllers\EmailController')->receipt($accountId, null, $billingDetails);
+                  // $returnUrl = app('App\Http\Controllers\EmailController')->receipt($accountId, null, $billingDetails);
 
                   $startDate = $this->getDateTime($result->start_date);
                   $_billing = new Billing();
@@ -1160,7 +1160,7 @@ class PayPalController extends TalkController
                     'total'       => $amount
                   );
 
-                  $returnUrl = app('App\Http\Controllers\EmailController')->receipt($accountId, null, $billingDetails);
+                  // $returnUrl = app('App\Http\Controllers\EmailController')->receipt($accountId, null, $billingDetails);
 
                   // send email here
                 }else if($method == 'upgrade'){
@@ -1378,6 +1378,7 @@ class PayPalController extends TalkController
     }else{
       return false;
     }
+    
   }
 
   public function cancelOnPaypalAgreement($agreementId, $amount){

@@ -249,6 +249,9 @@ export default {
     redirect(route){
       ROUTER.push(route)
     },
+    retrieveHistory(){
+      this.$parent.retrieveHistory()
+    },
     retrieve(){
       $('#newPaymentMethod').modal('hide')
       let parameter = {
