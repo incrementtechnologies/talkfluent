@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-bind:style="(globalVariables.showModal) ? 'overflow-y:hidden; height:'+deviceHeight+'px!important': ''">
+    <div v-bind:style="(globalVariables.showModal) ? 'overflow-y:hidden; height:'+deviceHeight+'px!important': ''" v-if="tokenData.loading == false">
       <div v-if="tokenData.token !== null && user.userID > 0">
        <system-header></system-header>
        <system-sidebar></system-sidebar>
@@ -9,6 +9,9 @@
         <login-header></login-header>
         <system-content></system-content>
       </div>
+    </div>
+    <div v-if="tokenData.loading == true" class="empty">
+      
     </div>
     <system-footer></system-footer>
     <system-loading></system-loading>
@@ -80,5 +83,10 @@ export default {
 .container {
    min-height:100%;
    position:relative;
+}
+.empty{
+  height: 100vh;
+  width: 100%;
+  float: left;
 }
 </style>

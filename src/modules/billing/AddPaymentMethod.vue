@@ -24,7 +24,7 @@
               <i :class="'fab fa-paypal'" style="padding-left: 5px;" v-if="item.method === 'paypal'"></i>
             </p>
 
-            <p class="description" v-if="item.details">
+            <p class="description" v-if="item.details && item.method === 'stripe'">
               Expired on {{item.details.exp_month + '/' + item.details.exp_year}}
             </p>
 

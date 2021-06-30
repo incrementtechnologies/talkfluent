@@ -179,7 +179,7 @@
 
           <div class="login-fields" v-if="stageIndex === 3">
             <div class="radio">
-              <label><input type="radio" name="payment_method" v-model="paymentMethod" value="credit_card">Credit Card</label>
+              <label @click="paymentMethod = 'credit_card'" class="payment-methods-label"><i :class="paymentMethod === 'credit_card' ? 'fa fa-square' : 'far fa-square'" style="padding-right: 10px;"></i>Credit Card</label>
               <div :class="{complete}" v-if="paymentMethod === 'credit_card'" >
                 <div class="row">
                   <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
@@ -229,7 +229,7 @@
               </div>
             </div>
             <div class="radio">
-              <label><input type="radio" name="payment_method" v-model="paymentMethod" value="paypal">PayPal</label>
+              <label @click="paymentMethod = 'paypal'" class="payment-methods-label"><i :class="paymentMethod === 'paypal' ? 'fa fa-square' : 'far fa-square'"  style="padding-right: 10px;"></i>PayPal</label>
               <!-- <div class="row" v-if="paymentMethod === 'paypal'">
                 <div class="form-group login-spacer col-lg-12 col-md-12 col-sm-12">
                   <label for="nickname">Nickname</label>
@@ -238,8 +238,10 @@
               </div> -->
             </div>
             <!-- v-b-tooltip.hover title="$1 for the first 7 days, then $149/month thereafter. You can change plans or cancel at any time" placement="topright" -->
-            <h6>
-              <input type="checkbox" v-model="billingTerms" name="terms"/>
+            <h6 class="payment-methods-label">
+              <!-- <label @click="paymentMethod = 'paypal'" class="payment-methods-label"><i :class="paymentMethod === 'paypal' ? 'fa fa-square' : 'far fa-square'"  style="padding-right: 10px;"></i>PayPal</label> -->
+              <!-- <input type="checkbox" v-model="billingTerms" name="terms"/> -->
+              <i :class="billingTerms === true ? 'fa fa-square' : 'far fa-square'"  style="padding-right: 10px;" @click="billingTerms = !billingTerms"></i>
               I Agree to the <a v-bind:href="config.WEBSITE + '/terms-and-conditions'" target="_BLANK">Terms and Conditions</a>
               <!-- <i class="fa fa-info-circle pull-right"></i> -->
             </h6>
@@ -540,6 +542,16 @@ body{
   line-height: 1.25;
 }
 
+.fa-square{
+  font-size: 16px;
+  color: #00bff3;
+}
+
+.payment-methods-label{
+  cursor: pointer;
+}
+
+
 /*---------------------------------------------------------
 
                   RESPONSIVE HANDLER
@@ -583,6 +595,8 @@ body{
     margin-left: 0 !important;
   }
 }
+
+
 </style>
 
 <script>
@@ -886,7 +900,9 @@ export default {
         if(url === null){
           ROUTER.push('dashboard')
         }else{
-          window.location.href = url
+          setTimeout(() => {
+            window.location.href = url
+          }, 100)
         }
       }, (response, status) => {
         this.errorMessage = (status === 401) ? 'Your Username and password didnot matched.' : 'Cannot log in? Contact us through email: support@talkfluent.com'
@@ -918,8 +934,8 @@ export default {
             this.errorMessage = message.card
           }
         }else if(response.data !== null){
-          ROUTER.push('/redirect')
-          window.location.href = response.paypal_redirect
+          AUTH.tokenData.loading = true
+          this.login(response.paypal_redirect)
         }
       })
     },

@@ -1369,7 +1369,14 @@ class PayPalController extends TalkController
       if($lastPayment && sizeof($lastPayment) > 0){
         // call cancelAgreement
         $totalAmount = intVal($lastPayment[0]['total_amount']);
-        return $this->cancelOnPaypalAgreement($agreement[0]['agreement'], $totalAmount / 100);
+        $result = $this->cancelOnPaypalAgreement($agreement[0]['agreement'], $totalAmount / 100);
+        if($result){
+          PayPalAgreement::where('account_id', '=', $accountId)->update(array(
+            'state'  => 'inactive',
+            'deleted_at' => Carbon::now()
+          ));
+        }
+        return $result;
         // delete here
       }else{
         // delete here

@@ -22,7 +22,8 @@ export default {
   tokenData: {
     token: null,
     tokenTimer: false,
-    verifyingToken: false
+    verifyingToken: false,
+    loading: false
   },
   currentPath: false,
   setUser(userID, username, email, type, status, plan, paymentStatus, profile, canceledOn, enabledLesson, pausedFlag, pausedOn){
