@@ -320,9 +320,11 @@ export default {
       }
       if(AUTH.user.paymentMethod.method === 'stripe'){
         // from stripe to paypal
+        console.log('create new paypal PLANS')
         this.createPaypal(AUTH.user.plan)
       }else{
         // update paypal payment
+        console.log('update paypal plan')
         this.upgradePlanPaypal(AUTH.user.plan)
       }
     },

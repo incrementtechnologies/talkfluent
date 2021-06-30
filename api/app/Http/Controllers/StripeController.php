@@ -364,59 +364,65 @@ class StripeController extends TalkController
           $_account_stripe_card->subscription = $subscriptionResponse->id;
           $_account_stripe_card->save();
 
-          // $discount = 0;
-          // $totalAmount = 0;
-          // $monthly = $this->monthly;
-          // $yearly = ($this->annually) * 12;
-          // $pause = $this->pause;
-          // $couponId = null;
 
-          // $discount = 0;
-          // $couponId = null;
-          // if($data['plan'] == 'monthly'){
-          //   $totalAmount = $monthly;
-          // }else if($data['plan'] == 'annually'){
-          //   $totalAmount = $yearly;
-          // }else if($data['plan'] == 'pause'){
-          //   $totalAmount = $pause;
-          // }
+          if($endDate){
+            $diff = Carbon::now()->diffInSeconds($endDate);
+            if($diff < 0){
+              $discount = 0;
+              $totalAmount = 0;
+              $monthly = $this->monthly;
+              $yearly = ($this->annually) * 12;
+              $pause = $this->pause;
+              $couponId = null;
 
-          // $descriptionAmount = null;
-          // $description = null;
-          // $startDate = Carbon::now()->addDay($trialPeriod);
+              $discount = 0;
+              $couponId = null;
+              if($data['plan'] == 'monthly'){
+                $totalAmount = $monthly;
+              }else if($data['plan'] == 'annually'){
+                $totalAmount = $yearly;
+              }else if($data['plan'] == 'pause'){
+                $totalAmount = $pause;
+              }
 
-          // if($data['plan'] == 'monthly'){
-          //   $descriptionAmount = 'US$'.($subscriptionResponse->plan->amount / 100).' per month';
-          //   $description = 'Changed payment method';
-          //   $endDate = Carbon::now()->addMonth();
-          //   // Update accounts table while set the paused_on to null
+              $descriptionAmount = null;
+              $description = null;
+              $startDate = Carbon::now()->addDay($trialPeriod);
 
-          // }else if($data['plan'] == 'annually'){
-          //   $descriptionAmount = 'US$'.(($subscriptionResponse->plan->amount / 100) * 12).' per year';
-          //   $description = 'Changed payment method';
-          //   $endDate = Carbon::now()->addYear();
-          //   // Update accounts table while set the paused_on to null
-            
-          // }
+              if($data['plan'] == 'monthly'){
+                $descriptionAmount = 'US$'.($subscriptionResponse->plan->amount / 100).' per month';
+                $description = 'Changed payment method';
+                $endDate = Carbon::now()->addMonth();
+                // Update accounts table while set the paused_on to null
+
+              }else if($data['plan'] == 'annually'){
+                $descriptionAmount = 'US$'.(($subscriptionResponse->plan->amount / 100) * 12).' per year';
+                $description = 'Changed payment method';
+                $endDate = Carbon::now()->addYear();
+                // Update accounts table while set the paused_on to null
+                
+              }
 
 
-          // // save billing
-          // $_billing = new Billing();
-          // $_billing->account_id = $data['account_id'];
-          // $_billing->coupon_id = $couponId;
-          // $_billing->status = 'created';
-          // $_billing->start_date = $startDate;
-          // $_billing->end_date = $endDate;
-          // $_billing->payment_method = 'credit_card';
-          // $_billing->currency = 'usd';
-          // $_billing->description = $description;
-          // $_billing->description_amount = $descriptionAmount;
-          // $_billing->total_amount = $totalAmount * 100;
-          // $_billing->taxes_and_fees = 0;
-          // $_billing->discount_total_amount = $discount;
-          // $_billing->created_at = Carbon::now();
-          // $_billing->save();
-
+              // save billing
+              $_billing = new Billing();
+              $_billing->account_id = $data['account_id'];
+              $_billing->coupon_id = $couponId;
+              $_billing->status = 'created';
+              $_billing->start_date = $startDate;
+              $_billing->end_date = $endDate;
+              $_billing->payment_method = 'credit_card';
+              $_billing->currency = 'usd';
+              $_billing->description = $description;
+              $_billing->description_amount = $descriptionAmount;
+              $_billing->total_amount = $totalAmount * 100;
+              $_billing->taxes_and_fees = 0;
+              $_billing->discount_total_amount = $discount;
+              $_billing->created_at = Carbon::now();
+              $_billing->save();
+            }
+          }
+          
           $this->response['data'] = true;
           return $this->response();
         }else{
