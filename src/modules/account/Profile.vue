@@ -14,11 +14,11 @@
           <input type="text" class="form-control" placeholder="Enter First Name" v-model="data.first_name">
         </div>
 
-        <div class="form-group">
+     <!--    <div class="form-group">
           <label for="address">Middle Name</label>
           <input type="text" class="form-control" placeholder="Optional" v-model="data.middle_name">
         </div>
-
+ -->
         <div class="form-group">
           <label for="address">Last Name <label class="text-danger">*</label></label>
           <input type="text" class="form-control" placeholder="Enter Last Name" v-model="data.last_name">
@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group">
-          <label for="address">Cellular Numbar</label>
+          <label for="address">Phone Number</label>
           <input type="text" class="form-control" placeholder="Optional" v-model="data.cellular_number">
         </div>
 
@@ -41,11 +41,11 @@
           <label for="address">Address</label>
           <input type="text" class="form-control" placeholder="Optional" v-model="data.address">
         </div>
-
+<!-- 
         <div class="form-group">
           <label for="address">Birthdate</label>
           <input type="date" class="form-control" v-model="data.birth_date" placeholder="Optional">
-        </div>
+        </div> -->
 
         <button class="btn btn-primary" style="margin-bottom: 25px;" @click="update()">Update</button>
       

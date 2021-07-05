@@ -16,9 +16,9 @@
         </div>
       </div>
       <div class="sidebar">
-        <span class="header">
+        <!-- <span class="header">
           Personal Settings
-        </span>
+        </span> -->
         <span class="item" v-bind:class="{'make-active': item.flag === true}" v-for="item, index in menu" v-if="menu !== null" @click="makeActive(index)">
           {{item.title}}
         </span>

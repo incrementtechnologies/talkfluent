@@ -434,6 +434,8 @@
     width: 100%;
     font-size: 24px;
     color: #ff0000;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   td button i{
     padding-right: 10px;

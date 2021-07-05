@@ -136,7 +136,7 @@
 }
 
 .active{
-  background-color: #eee;
+  color: #00bff3;
 }
 
 .icon-active{
