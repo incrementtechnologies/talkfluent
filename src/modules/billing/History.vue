@@ -10,7 +10,7 @@
         <td>Description</td>
         <td>Amount</td>
         <td>Discounts</td>
-        <td>Toal Amount</td>
+        <td>Total Amount</td>
       </thead>
       <tbody>
         <tr v-for="item, index in history">
@@ -69,6 +69,7 @@ export default {
       this.APIRequest('billings/retrieve', parameter).then(response => {
         $('#loading').css({'display': 'none'})
         this.history = response.billing
+        this.$parent.nextBilling = response.billing[0].end_date_human
         AUTH.user.billingHistory = response.billing
       })
     }
