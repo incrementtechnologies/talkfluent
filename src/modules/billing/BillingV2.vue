@@ -11,7 +11,7 @@
       </div>
 
       <div class="col-lg-10 mx-auto" style="margin-top: 25px;">
-        <plans :paymentMethod="null" :creditCard="null"></plans>
+        <plans :paymentMethod="null" :creditCard="null" :nextBilling="nextBilling"></plans>
       </div>
 
       <billing-history ref="billingHistory"/>
@@ -66,7 +66,8 @@ export default {
   data(){
     return {
       user: AUTH.user,
-      config: CONFIG
+      config: CONFIG,
+      nextBilling: null
     }
   },
   components: {

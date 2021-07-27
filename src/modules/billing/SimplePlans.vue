@@ -15,7 +15,7 @@
           </p>
         </p>
         <p style="color: #999;">
-          Next billing is on: July 31, 2021
+          Next billing is on: {{nextBilling}}
         </p>
       </span>
       <span class="plan-footer" v-if="user.canceledOn === null">
@@ -157,7 +157,7 @@ export default {
       errorMessage: null
     }
   },
-  props: ['paymentMethod', 'creditCard'],
+  props: ['paymentMethod', 'creditCard', 'nextBilling'],
   components: {
     'cancel-plan': require('modules/billing/CancelPlan.vue')
   },
