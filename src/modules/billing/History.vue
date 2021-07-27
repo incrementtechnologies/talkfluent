@@ -10,7 +10,7 @@
         <td>Description</td>
         <td>Amount</td>
         <td>Discounts</td>
-        <td>Toal Amount</td>
+        <td>Total Amount</td>
       </thead>
       <tbody>
         <tr v-for="item, index in history">
