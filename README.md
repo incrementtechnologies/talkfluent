@@ -27,3 +27,11 @@ This README would normally document whatever steps are necessary to get your app
 
 * Repo owner or admin
 * Other community or team contact
+
+
+
+crontab
+
+/home/incenotr/public_html/talkfluent/api && php artisan cart_recoveries:run >> /dev/null 2>&1
+
+* * * * * cd /var/www/pivotsms/api && php artisan cart_recoveries:run >> /dev/null 2>&1
