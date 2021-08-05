@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\BillingManager::class,
         Commands\TrialAccounts::class,
-        Commands\PauseManager::class
+        Commands\PauseManager::class,
+        Commands\BillingMonitoring::class
     ];
 
     /**
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('billing:canceled')->everyMinute();
         $schedule->command('account:trial')->everyMinute();
         $schedule->command('billing:paused')->everyMinute();
+        $schedule->command('billing_monitoring:run')->everyMinute();
         //          ->hourly();
     }
 
